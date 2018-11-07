@@ -19,33 +19,33 @@ use Airplane;
 
 CREATE TABLE customer (
   user_id int(5) auto_increment,
-  name varchar(20),
-  email varchar(20),
-  password varchar(20),
-  age int(2),
+  name varchar(20) NOT NULL,
+  email varchar(20) NOT NULL,
+  password varchar(20) NOT NULL,
+  age int(2) NOT NULL,
   customer_type enum('Guest','Frequent','Gold') NOT NULL,
-  mobile_no varchar(20),
+  mobile_no varchar(20) NOT NULL,
   PRIMARY KEY (user_id)
 );
 
 CREATE TABLE aircraft (
   craft_id int(5) auto_increment,
-  craft_type varchar(20),
-  seats int(3),
+  craft_type varchar(20) NOT NULL,
+  seats int(3) NOT NULL,
   PRIMARY KEY (craft_id)
 );
 
 CREATE TABLE admins (
   admin_id int(2) auto_increment,
-  name varchar(20),
-  email varchar(20),
-  password varchar(20),
+  name varchar(20) NOT NULL,
+  email varchar(20) NOT NULL,
+  password varchar(20) NOT NULL,
   PRIMARY KEY (admin_id)
 );
 
 CREATE TABLE location (
   location_id int(5) auto_increment,
-  location varchar(20),
+  location varchar(20) NOT NULL,
   locateTo int(5),
   PRIMARY KEY (location_id),
   FOREIGN KEY (locateTo) references location(location_id)
@@ -53,7 +53,7 @@ CREATE TABLE location (
 
 CREATE TABLE airport (
   airport_code int(5) auto_increment,
-  location_id int(5),
+  location_id int(5) NOT NULL,
   airport_name VARCHAR(50) not null,
   PRIMARY KEY (airport_code),
   FOREIGN KEY (location_id) references location(location_id)
@@ -61,8 +61,8 @@ CREATE TABLE airport (
 
 CREATE TABLE route (
   route_id int(5) auto_increment,
-  origin int(5),
-  destination int(5),
+  origin int(5) NOT NULL,
+  destination int(5) NOT NULL,
   PRIMARY KEY (route_id),
   FOREIGN KEY (origin) references airport(airport_code),
   FOREIGN KEY (destination) references airport(airport_code)
@@ -70,19 +70,19 @@ CREATE TABLE route (
 /*
 CREATE TABLE flight (
   flight_id int(5) auto_increment,
-  route_id int(5),
+  route_id int(5) NOT NULL,
   PRIMARY KEY (flight_id),
   FOREIGN KEY (route_id) references route(route_id)
 );*/
 
 CREATE TABLE predefined_schedule (
   schedule_id int(5) auto_increment,
-  craft_id int(5),
+  craft_id int(5) NOT NULL,
   /*flight_id int(5),*/
-  route_id int(5),
-  day varchar(20),
-  departure_time varchar(20),
-  arrival_time varchar(20),
+  route_id int(5) NOT NULL,
+  day varchar(20) NOT NULL,
+  departure_time varchar(20) NOT NULL,
+  arrival_time varchar(20) NOT NULL,
   PRIMARY KEY (schedule_id),
   FOREIGN KEY (craft_id) references aircraft(craft_id),
   FOREIGN KEY (route_id) references route(route_id)
@@ -91,17 +91,17 @@ CREATE TABLE predefined_schedule (
 
 CREATE TABLE class (
   class_id int(5) auto_increment,
-  route_id int(5),
-  price varchar(20),
-  class varchar(20),
+  route_id int(5) NOT NULL,
+  price varchar(20) NOT NULL,
+  class varchar(20) NOT NULL,
   PRIMARY KEY (class_id),
   FOREIGN KEY (route_id) references route(route_id)
 );
 
 CREATE TABLE seat (
   seat_id int(5) auto_increment,
-  craft_id int(5),
-  seat_no varchar(20),
+  craft_id int(5) NOT NULL,
+  seat_no varchar(20) NOT NULL,
   PRIMARY KEY (seat_id),
   FOREIGN KEY (craft_id) references aircraft(craft_id)
 );
@@ -126,11 +126,11 @@ CREATE TABLE booking  (
 CREATE TABLE real_schedule (
   real_schedule_id int(5) auto_increment,
   /*flight_id int(5),*/
-  route_id int(5),
-  schedule_id int(5),
-  starting_time varchar(20),
-  arrival_time varchar(20),
-  craft_id int(5),
+  route_id int(5) NOT NULL,
+  schedule_id int(5) NOT NULL,
+  starting_time varchar(20) NOT NULL,
+  arrival_time varchar(20) NOT NULL,
+  craft_id int(5) NOT NULL,
   PRIMARY KEY (real_schedule_id),
   /*FOREIGN KEY (flight_id) references flight(flight_id),*/
   FOREIGN KEY (route_id) references route(route_id),
