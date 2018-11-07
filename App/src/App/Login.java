@@ -28,6 +28,7 @@ public class Login extends javax.swing.JFrame {
         pwField_password = new javax.swing.JPasswordField();
         btn_sign_in = new javax.swing.JButton();
         btn_register = new javax.swing.JButton();
+        lbl_notifier = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -61,6 +62,8 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        lbl_notifier.setForeground(new java.awt.Color(204, 0, 0));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -70,7 +73,7 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(btn_register)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 85, Short.MAX_VALUE)
                         .addComponent(btn_sign_in))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -78,8 +81,9 @@ public class Login extends javax.swing.JFrame {
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(lbl_notifier, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txt_username)
-                            .addComponent(pwField_password, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pwField_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 156, Short.MAX_VALUE))))
                 .addContainerGap(196, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -93,11 +97,13 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(pwField_password, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(56, 56, 56)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btn_sign_in)
-                    .addComponent(btn_register))
-                .addContainerGap(65, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_notifier, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_register)
+                    .addComponent(btn_sign_in))
+                .addContainerGap(59, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -126,23 +132,20 @@ public class Login extends javax.swing.JFrame {
         
         Connection con = Database.getConnection();
         
-        //String query = "SELECT * FROM customer where email='"+username+"' and password='"+password+"';";
-        String query = "SELECT * FROM customer";
+        String query = "SELECT * FROM customer where email='"+username+"' and password='"+password+"';";
+        //String query = "SELECT * FROM customer where";
         ResultSet rs;
 
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
         
-            while (rs.next())
-            {
-              //int id = rs.getInt("id");
-              String name = rs.getString("name");
-              //Date dateCreated = rs.getDate("date_created");
-              //boolean isAdmin = rs.getBoolean("is_admin");
-              //int numPoints = rs.getInt("num_points");
-
-              System.out.format(name);
+            if(rs.last()){
+                UserHome um = new UserHome();
+                this.setVisible(false);
+                um.setVisible(true);
+            }else{
+                lbl_notifier.setText("Wrong login detail");
             }
             st.close();
         } catch (SQLException ex) {
@@ -175,6 +178,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_notifier;
     private javax.swing.JPasswordField pwField_password;
     private javax.swing.JTextField txt_username;
     // End of variables declaration//GEN-END:variables
