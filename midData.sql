@@ -76,7 +76,16 @@ INSERT INTO `predefined_schedule` (`craft_id`, `route_id`, `day`, `departure_tim
 INSERT INTO `predefined_schedule` (`craft_id`, `route_id`, `day`, `departure_time`, `arrival_time`) VALUES ('1', '10', 'Friday', '2200', '0000');
 INSERT INTO `predefined_schedule` (`craft_id`, `route_id`, `day`, `departure_time`, `arrival_time`) VALUES ('1', '11', 'Friday', '0800', '1500');
 
-INSERT INTO `class` (`class_id`, `route_id`, `price`, `class`) VALUES ('1', '1', '200', 'Buisness');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '200', 'Economy');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '300', 'Buisness');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '400', 'Platinum');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '500', 'Economy');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '650', 'Buisness');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '780', 'Platinum');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '100', 'Economy');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '200', 'Buisness');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '250', 'Platinum');
+INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('5', '700', 'Economy');
 
 INSERT INTO `seat` (`seat_id`, `craft_id`, `seat_no`) VALUES ('1', '1', '1');
 

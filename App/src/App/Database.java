@@ -15,7 +15,8 @@ import java.util.logging.Logger;
  */
 public class Database {
     
-    private static Connection conn;
+    public static Connection conn;
+    public static PreparedStatement preparedStmt;
     
     public static Connection getConnection(){
         try{
@@ -38,7 +39,6 @@ public class Database {
     public static ResultSet getData(String sql){
         conn = getConnection();
         
-        PreparedStatement preparedStmt;
         try {
             preparedStmt = conn.prepareStatement(sql);
             ResultSet rs = preparedStmt.executeQuery(sql);
