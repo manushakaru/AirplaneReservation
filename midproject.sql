@@ -67,24 +67,26 @@ CREATE TABLE route (
   FOREIGN KEY (origin) references airport(airport_code),
   FOREIGN KEY (destination) references airport(airport_code)
 );
-
+/*
 CREATE TABLE flight (
   flight_id int(5) auto_increment,
   route_id int(5),
   PRIMARY KEY (flight_id),
   FOREIGN KEY (route_id) references route(route_id)
-);
+);*/
 
 CREATE TABLE predefined_schedule (
   schedule_id int(5) auto_increment,
   craft_id int(5),
-  flight_id int(5),
+  /*flight_id int(5),*/
+  route_id int(5),
   day varchar(20),
   departure_time varchar(20),
   arrival_time varchar(20),
   PRIMARY KEY (schedule_id),
   FOREIGN KEY (craft_id) references aircraft(craft_id),
-  FOREIGN KEY (flight_id) references flight(flight_id)
+  FOREIGN KEY (route_id) references route(route_id)
+  /*FOREIGN KEY (flight_id) references flight(flight_id)*/
 );
 
 CREATE TABLE class (
@@ -123,13 +125,15 @@ CREATE TABLE booking  (
 
 CREATE TABLE real_schedule (
   real_schedule_id int(5) auto_increment,
-  flight_id int(5),
+  /*flight_id int(5),*/
+  route_id int(5),
   schedule_id int(5),
   starting_time varchar(20),
   arrival_time varchar(20),
   craft_id int(5),
   PRIMARY KEY (real_schedule_id),
-  FOREIGN KEY (flight_id) references flight(flight_id),
+  /*FOREIGN KEY (flight_id) references flight(flight_id),*/
+  FOREIGN KEY (route_id) references route(route_id),
   FOREIGN KEY (schedule_id) references predefined_schedule(schedule_id),
   FOREIGN KEY (craft_id) references aircraft(craft_id)
 );
