@@ -89,7 +89,11 @@ INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('5', '700', 'Economy'
 
 INSERT INTO `seat` (`seat_id`, `craft_id`, `seat_no`) VALUES ('1', '1', '1');
 
-INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`) VALUES ('1', '1', '1', '1', '1', '5/6/2018', '1/6/2018');
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`, `price`) VALUES ('1', '1', '1', '1', '1', '5/6/2018', '1/6/2018',"400");
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`, `price`) VALUES ('2', '1', '2', '2', '1', '4/3/2018', '2/1/2018',"150");
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`, `price`) VALUES ('3', '1', '1', '3', '1', '25/6/2018', '11/6/2018',"300");
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`, `price`) VALUES ('4', '1', '1', '4', '1', '31/10/2018', '11/9/2018',"100");
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booking_date`, `booked_date`, `price`) VALUES ('5', '1', '1', '5', '1', '5/7/2018', '1/5/2018',"200");
 
 INSERT INTO `real_schedule` (`real_schedule_id`, `route_id`, `schedule_id`, `starting_time`, `arrival_time`, `craft_id`) VALUES ('1', '1', '1', '0805', '1210', '1');
 

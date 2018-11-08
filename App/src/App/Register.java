@@ -7,6 +7,9 @@ package App;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -127,26 +130,42 @@ public class Register extends javax.swing.JFrame {
         String age = txt_age.getText();
         String mobileNum = txt_mobile_num.getText();
         
+        Connection conn = Database.getConnection();;
+        
         try{
-            Connection conn = Database.getConnection();
 
             String query = "insert into customer (name, email, password, age, mobile_no)"
               + " values (?, ?, ?, ?, ?)";
             
+            conn.setAutoCommit(false);
+            
             PreparedStatement preparedStmt = conn.prepareStatement(query);
-            preparedStmt.setString (1, name);
-            preparedStmt.setString (2, email);
-            preparedStmt.setString   (3, password);
+            preparedStmt.setString(1, name);
+            preparedStmt.setString(2, email);
+            preparedStmt.setString(3, password);
             preparedStmt.setString(4, age);
-            preparedStmt.setString    (5, mobileNum);
+            preparedStmt.setString(5, mobileNum);
 
             preparedStmt.execute();
+            
+            conn.commit();
 
             conn.close();
+            
+            Login lg = new Login();
+            this.setVisible(false);
+            lg.setVisible(true);
+            
           }
           catch (Exception e){
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
           }
     }//GEN-LAST:event_btn_registerActionPerformed
 

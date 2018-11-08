@@ -21,7 +21,7 @@ CREATE TABLE customer (
   email varchar(20) not null,
   password varchar(20) not null,
   age int(2) not null,
-  customer_type enum('Guest','Frequent','Gold') NOT NULL,
+  customer_type enum('Guest','Frequent','Gold') DEFAULT 'Frequent' NOT NULL,
   mobile_no varchar(20) not null,
   PRIMARY KEY (user_id)
 );

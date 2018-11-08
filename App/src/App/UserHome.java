@@ -71,6 +71,7 @@ public class UserHome extends javax.swing.JFrame {
         cmbbx_from = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         cmbbx_to = new javax.swing.JComboBox<>();
+        btn_previous_bookings = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -97,6 +98,13 @@ public class UserHome extends javax.swing.JFrame {
             }
         });
 
+        btn_previous_bookings.setText("View My Bookings");
+        btn_previous_bookings.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_previous_bookingsActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,8 +120,10 @@ public class UserHome extends javax.swing.JFrame {
                         .addComponent(cmbbx_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(46, 46, 46)
-                        .addComponent(btn_view_flights)))
-                .addContainerGap(456, Short.MAX_VALUE))
+                        .addComponent(btn_view_flights)
+                        .addGap(139, 139, 139)
+                        .addComponent(btn_previous_bookings)))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -124,7 +134,9 @@ public class UserHome extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(cmbbx_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(btn_view_flights)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btn_view_flights)
+                    .addComponent(btn_previous_bookings))
                 .addContainerGap(294, Short.MAX_VALUE))
         );
 
@@ -162,9 +174,16 @@ public class UserHome extends javax.swing.JFrame {
         airport_to = cmbbx_to.getSelectedItem().toString();
     }//GEN-LAST:event_cmbbx_toActionPerformed
 
+    private void btn_previous_bookingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_previous_bookingsActionPerformed
+        PreviousBooking pb = new PreviousBooking();
+        this.setVisible(false);
+        pb.setVisible(true);
+    }//GEN-LAST:event_btn_previous_bookingsActionPerformed
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_previous_bookings;
     private javax.swing.JButton btn_view_flights;
     private javax.swing.JComboBox<String> cmbbx_from;
     private javax.swing.JComboBox<String> cmbbx_to;

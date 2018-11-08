@@ -12,6 +12,8 @@ import java.util.logging.Logger;
  * @author Dilan Sachintha
  */
 public class Login extends javax.swing.JFrame {
+    
+    public static int userId;
 
     public Login() {
         initComponents();
@@ -170,6 +172,9 @@ public class Login extends javax.swing.JFrame {
             rs = st.executeQuery(query);
         
             if(rs.last()){
+                
+                userId = rs.getInt("user_id");
+                System.out.println(userId);
                 UserHome um = new UserHome();
                 this.setVisible(false);
                 um.setVisible(true);
