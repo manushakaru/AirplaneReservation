@@ -56,8 +56,8 @@
 			while($row_port_des = mysqli_fetch_array($result_port_des)){
 			   $destination_airport_id=$row_port_des[0];}
 			   
-			  echo $origin_airport_id;
-			  echo $destination_airport_id;
+			 // echo $origin_airport_id;
+			 // echo $destination_airport_id;
 			  
 			  
 			 $route_sql= "select route_id from route where origin=$origin_airport_id  and destination=$destination_airport_id ";
@@ -66,31 +66,75 @@
 				 $route_id;
 				 while($row_details = mysqli_fetch_array($result_route)){
 			   $route_id=$row_details[0];}
-			   echo $route_id;
+			   //echo $route_id;
 			   
-			   $schedule_day="select day from predefined_schedule where route_id=$route_id ";
-			   $schedule_deprturetime="select departure_time from predefined_schedule where route_id=$route_id ";
-			   $schedule_arrivaltime="select arrival_time from predefined_schedule where route_id=$route_id ";
-			   $result_schedule_day = mysqli_query($connect,$schedule_day);
-			   $result_schedule_dep = mysqli_query($connect,$schedule_deprturetime);
-			   $result_schedule_arr = mysqli_query($connect,$schedule_arrivaltime);
 			   
-			   if((mysqli_num_rows($result_schedule_day) > 0)  && (mysqli_num_rows($result_schedule_dep) > 0) && (mysqli_num_rows($result_schedule_arr) > 0)){
-				   
-				   $day;
-				   $dep_time;
-				   $arr_time;
-			      
-				   
-				   
-			   }
+			
+			   $schedule = "SELECT day,departure_time,arrival_time FROM predefined_schedule where route_id=$route_id ";
+			   $result_schedule = mysqli_query($connect,$schedule);
+					if((mysqli_num_rows($result_schedule) > 0)){
+						$schedule_list = array();
+						while ($row = mysqli_fetch_assoc($result_schedule)) {
+						$schedule_list[] = $row;
+						}
+						if (count($schedule_list) > 0){
+							   foreach ($schedule_list as $m) {
+								   
+								   
+								   
+								   
+				?>				   
+								   
+								   
+	 <table class="table">
+        <tr>
+
+
+            <form action="" method="post">
+
+                <td> <?= $m['day'] ?></td>
+                <td> <?= $m['departure_time'] ?></td>
+				<td> <?= $m['arrival_time'] ?></td>
+                <td><input type="submit" value="view" name="view"></td>
+                 <input type="hidden" name="destination" value="<?php echo $_SERVER["REQUEST_URI"]; ?>"/>
+
+            </form>
+        </tr>
+    
+
+    </table>
+								   
+								   
+								   
+								   
+								   
+								   
+								   
 			   
+								   
+								   
+								   
+				   
+								   
+								   
+								   
+								   
+							<?php	   
+								   
+								   
+							   }
+							   
+							
+							
+						}
+				   
+					}
 				 
-			 }
+				}
 			 
 			}
 			   
-		   } 
+		} 
 		  
 		  
 		  
