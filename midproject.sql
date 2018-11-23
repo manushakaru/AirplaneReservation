@@ -85,10 +85,17 @@ CREATE TABLE predefined_schedule (
 
 CREATE TABLE class (
   class_id int(5) auto_increment,
+  class varchar(20) not null,
+  PRIMARY KEY (class_id)
+);
+
+CREATE TABLE price(
+  price_id int(5) auto_increment,
+  class_id int(5) not null,
   route_id int(5) not null,
   price FLOAT(7,2) not null,
-  class varchar(20) not null,
-  PRIMARY KEY (class_id),
+  PRIMARY KEY (price_id),
+  FOREIGN KEY (class_id) references class(class_id) on delete cascade on update cascade,
   FOREIGN KEY (route_id) references route(route_id) on delete cascade on update cascade
 );
 
@@ -96,7 +103,9 @@ CREATE TABLE seat (
   seat_id int(5) auto_increment,
   craft_id int(5) not null,
   seat_no int(3) not null,
+  class_id int(5) not null,
   PRIMARY KEY (seat_id),
+  FOREIGN KEY (class_id) references class(class_id) on delete cascade on update cascade,
   FOREIGN KEY (craft_id) references aircraft(craft_id) on delete cascade on update cascade
 );
 
@@ -126,15 +135,13 @@ CREATE TABLE booking  (
   booking_id int(5) auto_increment,
   user_id int(5) not null,
   schedule_id int(5) not null,
-  class_id int(5) not null,
   seat_id int(5) not null,
   booked_date DATE not null,
   price float(7,2) not null,
   PRIMARY KEY (booking_id),
   FOREIGN KEY (schedule_id) references flight_schedule(schedule_id) on delete cascade on update cascade,
   FOREIGN KEY (seat_id) references seat(seat_id) on delete cascade on update cascade,
-  FOREIGN KEY (user_id) references customer(user_id) on delete cascade on update cascade,
-  FOREIGN KEY (class_id) references class(class_id) on delete cascade on update cascade
+  FOREIGN KEY (user_id) references customer(user_id) on delete cascade on update cascade
 );
 
 

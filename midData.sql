@@ -3,9 +3,9 @@ use airplane;
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '123456');
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '123456');
 
-INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Frequent', '5000.00', '5');
-INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Gold', '10000.00', '10');
-INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Guest', '0.00', '0');
+INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Frequent', '5', '5');
+INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Gold', '10', '10');
+INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Guest', '0', '0');
 
 INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '123456', '22', 'Gold', '0711234567');
 INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '123456', '22', 'Frequent', '0711256567');
@@ -103,18 +103,7 @@ INSERT INTO `route` (`route_id`, `origin`, `destination`) VALUES ('8', '2', '5')
 INSERT INTO `route` (`route_id`, `origin`, `destination`) VALUES ('9', '3', '1');
 INSERT INTO `route` (`route_id`, `origin`, `destination`) VALUES ('10', '3', '2');
 INSERT INTO `route` (`route_id`, `origin`, `destination`) VALUES ('11', '3', '4');
-/*
-INSERT INTO `flight` (`flight_id`, `route_id`) VALUES ('1', '1');
-INSERT INTO `flight` (`route_id`) VALUES ('2');
-INSERT INTO `flight` (`route_id`) VALUES ('3');
-INSERT INTO `flight` (`route_id`) VALUES ('4');
-INSERT INTO `flight` (`route_id`) VALUES ('5');
-INSERT INTO `flight` (`route_id`) VALUES ('6');
-INSERT INTO `flight` (`route_id`) VALUES ('7');
-INSERT INTO `flight` (`route_id`) VALUES ('8');
-INSERT INTO `flight` (`route_id`) VALUES ('9');
-INSERT INTO `flight` (`route_id`) VALUES ('10');
-INSERT INTO `flight` (`route_id`) VALUES ('11');*/
+
 
 INSERT INTO `predefined_schedule` (`schedule_id`, `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ('1', '1', 'Monday', '07:00:00', '10:00:00');
 INSERT INTO `predefined_schedule` (`schedule_id`, `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ('2', '2', 'Monday', '08:00:00', '12:00:00');
@@ -132,62 +121,70 @@ INSERT INTO `predefined_schedule` (`schedule_id`, `route_id`, `day`, `arrival_ti
 INSERT INTO `predefined_schedule` (`schedule_id`, `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ('14', '10', 'Thursday', '22:00:00', '00:00:00');
 INSERT INTO `predefined_schedule` (`schedule_id`, `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ('15', '11', 'Saturday', '08:00:00', '15:00:00');
 
+INSERT INTO `class` (`class_id`, `class`) VALUES ('1', 'Economy');
+INSERT INTO `class` (`class`) VALUES ('Buisness');
+INSERT INTO `class` (`class`) VALUES ('Platinum');
 
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '20000', 'Economy');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '30000', 'Buisness');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('1', '40000', 'Platinum');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '50000', 'Economy');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '65000', 'Buisness');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('2', '78000', 'Platinum');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '10000', 'Economy');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '20000', 'Buisness');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('4', '25000', 'Platinum');
-INSERT INTO `class` (`route_id`, `price`, `class`) VALUES ('5', '70000', 'Economy');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','1','10000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','1','20000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','1','30000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','2','40000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','2','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','2','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','3','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','3','80000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','3','90000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','4','10000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','4','25000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','4','34000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','5','45000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','5','55000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','5','65000');
 
-INSERT INTO `seat` (`seat_id`, `craft_id`, `seat_no`) VALUES ('1', '1', '1');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '2');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '3');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '4');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '5');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '6');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '7');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '8');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '9');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('1', '10');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '1');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '2');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '3');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '4');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '5');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '6');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '7');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '8');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '9');
-INSERT INTO `seat` (`craft_id`, `seat_no`) VALUES ('2', '10');
+INSERT INTO `seat` (`seat_id`, `craft_id`, `seat_no`, `class_id`) VALUES ('1', '1', '1', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '2', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '3', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '4', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '5', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '6', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '7', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '8', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '9', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '10', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '1', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '2', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '3', '1');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '4', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '5', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '6', '2');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '7', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '8', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '9', '3');
+INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '10', '1');
 
-INSERT INTO `delay` (`delay_id`, `departure_delay`, `arrival_delay`) VALUES ('1', '10:13:00', '07:11:00');
-INSERT INTO `delay` (`delay_id`, `departure_delay`, `arrival_delay`) VALUES ('2', '08:15:00', NULL);
-INSERT INTO `delay` (`delay_id`, `departure_delay`, `arrival_delay`) VALUES ('3', '08:20:00', '11:30:00');
-INSERT INTO `delay` (`delay_id`, `departure_delay`, `arrival_delay`) VALUES ('4', NULL, '12:12:00');
-INSERT INTO `delay` (`delay_id`, `departure_delay`, `arrival_delay`) VALUES ('5', '01:05:00', NULL);
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('1', '10:13:00', '07:11:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('2', '08:15:00', NULL);
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('3', '08:20:00', '11:30:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('4', NULL, '12:12:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('5', '01:05:00', NULL);
 
-INSERT INTO `flight_schedule` (`flight_schedule_id`, `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ('1', NULL, '6', '2', '2018-11-22');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( '3', '5', '4', '2018-11-23');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( '2', '15', '3', '2018-11-24');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( NULL, '13', '2', '2018-11-25');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( '1', '1', '1', '2018-11-26');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( NULL, '3', '1', '2018-11-27');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( '4', '4', '2', '2018-11-28');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( NULL, '14', '3', '2018-11-29');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`) VALUES ( '5', '9', '4', '2018-11-30');
+INSERT INTO `flight_schedule` (`flight_schedule_id`, `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ('1', NULL, '6', '2', '2018-11-24', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '3', '5', '4', '2018-11-23', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '2', '15', '3', '2018-11-24', '11');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '13', '2', '2018-11-25', '9');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '1', '1', '1', '2018-11-26', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '3', '1', '2018-11-24', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '4', '4', '2', '2018-11-24', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '14', '3', '2018-11-29', '10');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '5', '9', '4', '2018-11-30', '5');
 
 
-INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `class_id`, `seat_id`, `booked_date`, `price`) VALUES ('1', '1', '1', '1', '1', '2018-11-22', '20000');
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `class_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '2', '1', '1', '2', '2018-11-22',"19500");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `class_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '3', '3', '3', '3',  '2018-11-23',"40000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `class_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '4', '4', '4', '4', '2018-11-24',"50000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `class_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '5', '5', '5', '5',  '2018-11-25',"65000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `class_id`, `seat_id`, `booked_date`, `price`) VALUES ( '6', '14', '7', '6',  '2018-11-26',"10000");
+INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('1', '1', '1', '1', '2018-11-22', '20000');
+INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '2', '1', '2', '2018-11-22',"19500");
+INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '3', '3', '3',  '2018-11-23',"40000");
+INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '4', '4', '4', '2018-11-24',"50000");
+INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '5', '5', '5',  '2018-11-25',"65000");
+INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ( '6', '14', '6',  '2018-11-26',"10000");
 
 
 

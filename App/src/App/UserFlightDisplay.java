@@ -5,6 +5,7 @@
  */
 package App;
 
+import javax.swing.JButton;
 import java.sql.ResultSet;
 import java.sql.Date;
 import java.util.ArrayList;
@@ -18,6 +19,10 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
     /**
      * Creates new form UserFlightDisplay
      */
+    
+    private String selected_schedule;
+    private String selected_class;
+    
     public UserFlightDisplay(Date picked_date) {
         initComponents();
         
@@ -28,23 +33,19 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
 
     public void getSchedule(Date picked_date){
         
-        String sql = "select * from predefined_schedule where "
-                + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
-                + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
+        String sql = "select * from (select * from flight_schedule where "
+                +"route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
+                +"and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"')) and date= '"+picked_date.toString()+"') as A natural "+
+                "left join delay as B natural left join predefined_schedule;";
         
-        ArrayList<ResultSet> schedule_list = new ArrayList<ResultSet>();
-        
-        String sql2 = "select * from flight_schedule where "
-                + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
-                + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
-        
-        String sql3 = "select * from class where "
-                + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
-                + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
+        String sql2 = "select * from (select * from price where route_id=(select route_id from route where "
+                + "origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') and "
+                + "destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'))) "
+                + "as A natural left join class;";
         
         ResultSet rs = Database.getData(sql);
         
-        ResultSet rs2 = Database.getData(sql);
+        ResultSet rs2 = Database.getData(sql2);
         
         try{
             int i = 0;
@@ -54,32 +55,39 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             //System.out.println(i);
 
             Object[][] scheduleData = new Object[i][6];
+            String[] schedules = new String[i];
 
             i = 0;
             
-            rs2.beforeFirst();
+            rs.beforeFirst();
+            
+            //cmbbx_from.setModel(new javax.swing.DefaultComboBoxModel<>(airports));
+        //airport_to = cmbbx_to.getItemAt(0);            
 
-            while(rs2.next()){
+            while(rs.next()){
                 
-                String sql4 = "select departure_time,arrival_time from predefined_schedule where schedule_id='"+rs2.getString("schedule_id")+"'";
+                JButton btn_book = new JButton();
+                btn_book.setText("Book");
+
+                scheduleData[i][0] = rs.getString("flight_schedule_id");
+                scheduleData[i][1] = rs.getString("craft_id");
+                scheduleData[i][2] = rs.getString("departure_time");
+                scheduleData[i][3] = rs.getString("arrival_time");
+                scheduleData[i][4] = rs.getString("departure_delay");
+                scheduleData[i][5] = rs.getString("arrival_delay");
                 
-                ResultSet rs4 = Database.getData(sql4);
-                
-                scheduleData[i][0] = rs2.getString("flight_schedule_id");
-                scheduleData[i][1] = rs2.getString("craft_id");
-                scheduleData[i][2] = rs2.getString("delay_id");
-                //scheduleData[i][3] = rs2.getDate("day");
-                scheduleData[i][4] = rs4.getString("departure_time");
-                scheduleData[i][5] = rs4.getString("arrival_time");
+                schedules[i] = rs.getString("flight_schedule_id");
+
                 i++;
                 
-                rs4.close();
             }
+            
+            combo_schedule_id.setModel(new javax.swing.DefaultComboBoxModel<>(schedules));
 
             tbl_schedule.setModel(new javax.swing.table.DefaultTableModel(
                 scheduleData,
                 new String [] {
-                    "Flight Schedule ID", "Craft ID", "", "Day", "Departure Time", "Arrival Time"
+                    "Flight Schedule ID", "Craft ID", "Departure Time", "Arrival Time", "Departure Delay", "Arrival Delay"
                 }){
                     boolean[] canEdit = new boolean [] {
                         false, false, false, false, false, false
@@ -97,7 +105,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         }
         
         
-        ResultSet rs3 = Database.getData(sql3);
+        ResultSet rs3 = Database.getData(sql2);
         
         try{
             int i = 0;
@@ -105,6 +113,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             i = rs3.getRow();
             
             Object[][] classData = new Object[i][2];
+            String[] classes = new String[i];
 
             i = 0;
             
@@ -113,8 +122,12 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             while(rs3.next()){
                 classData[i][0] = rs3.getString("class");
                 classData[i][1] = rs3.getString("price");
+                
+                classes[i] = rs3.getString("class");
                 i++;
             }
+            
+            combo_class.setModel(new javax.swing.DefaultComboBoxModel<>(classes));
 
             tbl_class.setModel(new javax.swing.table.DefaultTableModel(
                 classData,
@@ -134,6 +147,8 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             System.out.println(e);
         }
     }
+        
+            
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,6 +163,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         jTable2 = new javax.swing.JTable();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable3 = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -157,6 +173,12 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         lbl_from = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         lbl_to = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        btn_booking = new javax.swing.JButton();
+        combo_class = new javax.swing.JComboBox<>();
+        combo_schedule_id = new javax.swing.JComboBox<>();
         btn_back = new javax.swing.JButton();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
@@ -185,11 +207,13 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         ));
         jScrollPane3.setViewportView(jTable3);
 
+        jLabel3.setText("jLabel3");
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         tbl_schedule.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {"ii", "jj", null, null, null, null}
+
             },
             new String [] {
                 "Schedule ID", "Craft ID", "Route ID", "Day", "Departure Time", "Arrival Time"
@@ -204,6 +228,11 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             }
         });
         tbl_schedule.getTableHeader().setReorderingAllowed(false);
+        tbl_schedule.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tbl_scheduleMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(tbl_schedule);
 
         tbl_class.setModel(new javax.swing.table.DefaultTableModel(
@@ -232,26 +261,72 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
 
         lbl_to.setText("jLabel2");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel2.setText("Book");
+
+        jLabel4.setText("Schedule ID : ");
+
+        jLabel5.setText("Class : ");
+
+        btn_booking.setText("Go To Booking");
+        btn_booking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bookingActionPerformed(evt);
+            }
+        });
+
+        combo_class.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_class.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_classActionPerformed(evt);
+            }
+        });
+
+        combo_schedule_id.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        combo_schedule_id.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                combo_schedule_idActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 648, Short.MAX_VALUE)
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(108, 108, 108))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
-                .addComponent(lbl_from)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(250, 250, 250)
-                .addComponent(lbl_to)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(51, 51, 51)
+                        .addComponent(lbl_from)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addGap(250, 250, 250)
+                        .addComponent(lbl_to)))
                 .addContainerGap())
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(119, 119, 119))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(combo_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(combo_schedule_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(70, 70, 70))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                        .addComponent(btn_booking)
+                        .addGap(59, 59, 59))))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -262,9 +337,22 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                     .addComponent(lbl_from))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(24, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(combo_schedule_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(combo_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
 
         btn_back.setText("Go Back");
@@ -279,20 +367,20 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(btn_back)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(btn_back)
-                .addGap(0, 0, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(btn_back)
                 .addGap(22, 22, 22)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -320,10 +408,34 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         uh.setVisible(true);
     }//GEN-LAST:event_btn_backActionPerformed
 
+    private void tbl_scheduleMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbl_scheduleMouseClicked
+    }//GEN-LAST:event_tbl_scheduleMouseClicked
+
+    private void combo_schedule_idActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_schedule_idActionPerformed
+        selected_schedule = combo_schedule_id.getSelectedItem().toString();
+    }//GEN-LAST:event_combo_schedule_idActionPerformed
+
+    private void combo_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_classActionPerformed
+        selected_class = combo_class.getSelectedItem().toString();
+    }//GEN-LAST:event_combo_classActionPerformed
+
+    private void btn_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookingActionPerformed
+        UserBooking ub = new UserBooking(selected_schedule, selected_class);
+        this.setVisible(false);
+        ub.setVisible(true);
+    }//GEN-LAST:event_btn_bookingActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
+    private javax.swing.JButton btn_booking;
+    private javax.swing.JComboBox<String> combo_class;
+    private javax.swing.JComboBox<String> combo_schedule_id;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
