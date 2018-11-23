@@ -15,7 +15,7 @@ use Airplane;
 
 CREATE TABLE customer_state (
   customer_state enum('Guest','Frequent','Gold') not null,
-  discount float(7,2) not null,
+  discount int(2) not null,
   bookings_needed int(2) not null,
   PRIMARY KEY (customer_state)
 );
@@ -113,9 +113,11 @@ CREATE TABLE flight_schedule (
   delay_id varchar(5),
   schedule_id int(5) not null,
   craft_id int(5) not null,
+  route_id int(5) not null,
   date Date not null,
   PRIMARY KEY (flight_schedule_id),
   FOREIGN KEY (delay_id) references delay(delay_id) on delete cascade on update cascade,
+  FOREIGN KEY (route_id) references route(route_id) on delete cascade on update cascade,
   FOREIGN KEY (schedule_id) references predefined_schedule(schedule_id) on delete cascade on update cascade,
   FOREIGN KEY (craft_id) references aircraft(craft_id) on delete cascade on update cascade
 );

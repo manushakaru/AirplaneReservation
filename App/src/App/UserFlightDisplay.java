@@ -6,6 +6,8 @@
 package App;
 
 import java.sql.ResultSet;
+import java.sql.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -16,30 +18,38 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
     /**
      * Creates new form UserFlightDisplay
      */
-    public UserFlightDisplay() {
+    public UserFlightDisplay(Date picked_date) {
         initComponents();
         
         lbl_from.setText(UserHome.airport_from);
         lbl_to.setText(UserHome.airport_to);
-        getSchedule();
+        getSchedule(picked_date);
     }
 
-    public void getSchedule(){
+    public void getSchedule(Date picked_date){
         
         String sql = "select * from predefined_schedule where "
                 + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
                 + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
         
-        String sql2 = "select * from class where "
+        ArrayList<ResultSet> schedule_list = new ArrayList<ResultSet>();
+        
+        String sql2 = "select * from flight_schedule where "
+                + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
+                + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
+        
+        String sql3 = "select * from class where "
                 + "route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
                 + "and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'));";
         
         ResultSet rs = Database.getData(sql);
         
+        ResultSet rs2 = Database.getData(sql);
+        
         try{
             int i = 0;
-            rs.last();
-            i = rs.getRow();
+            rs2.last();
+            i = rs2.getRow();
             
             //System.out.println(i);
 
@@ -47,22 +57,29 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
 
             i = 0;
             
-            rs.beforeFirst();
+            rs2.beforeFirst();
 
-            while(rs.next()){
-                scheduleData[i][0] = rs.getString("schedule_id");
-                scheduleData[i][1] = rs.getString("craft_id");
-                scheduleData[i][2] = rs.getString("route_id");
-                scheduleData[i][3] = rs.getString("day");
-                scheduleData[i][4] = rs.getString("departure_time");
-                scheduleData[i][5] = rs.getString("arrival_time");
+            while(rs2.next()){
+                
+                String sql4 = "select departure_time,arrival_time from predefined_schedule where schedule_id='"+rs2.getString("schedule_id")+"'";
+                
+                ResultSet rs4 = Database.getData(sql4);
+                
+                scheduleData[i][0] = rs2.getString("flight_schedule_id");
+                scheduleData[i][1] = rs2.getString("craft_id");
+                scheduleData[i][2] = rs2.getString("delay_id");
+                //scheduleData[i][3] = rs2.getDate("day");
+                scheduleData[i][4] = rs4.getString("departure_time");
+                scheduleData[i][5] = rs4.getString("arrival_time");
                 i++;
+                
+                rs4.close();
             }
 
             tbl_schedule.setModel(new javax.swing.table.DefaultTableModel(
                 scheduleData,
                 new String [] {
-                    "Schedule ID", "Craft ID", "Route ID", "Day", "Departure Time", "Arrival Time"
+                    "Flight Schedule ID", "Craft ID", "", "Day", "Departure Time", "Arrival Time"
                 }){
                     boolean[] canEdit = new boolean [] {
                         false, false, false, false, false, false
@@ -80,22 +97,22 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         }
         
         
-        ResultSet rs2 = Database.getData(sql2);
+        ResultSet rs3 = Database.getData(sql3);
         
         try{
             int i = 0;
-            rs2.last();
-            i = rs2.getRow();
+            rs3.last();
+            i = rs3.getRow();
             
             Object[][] classData = new Object[i][2];
 
             i = 0;
             
-            rs2.beforeFirst();
+            rs3.beforeFirst();
 
-            while(rs2.next()){
-                classData[i][0] = rs2.getString("class");
-                classData[i][1] = rs2.getString("price");
+            while(rs3.next()){
+                classData[i][0] = rs3.getString("class");
+                classData[i][1] = rs3.getString("price");
                 i++;
             }
 
