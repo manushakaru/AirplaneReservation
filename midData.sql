@@ -179,12 +179,18 @@ INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '5', '9', '4', '2018-11-30', '5');
 
 
-INSERT INTO `booking` (`booking_id`, `user_id`, `schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('1', '1', '1', '1', '2018-11-22', '20000');
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '2', '1', '2', '2018-11-22',"19500");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '3', '3', '3',  '2018-11-23',"40000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '4', '4', '4', '2018-11-24',"50000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`,  `booked_date`, `price`) VALUES ( '5', '5', '5',  '2018-11-25',"65000");
-INSERT INTO `booking` ( `user_id`, `schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ( '6', '14', '6',  '2018-11-26',"10000");
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('1', '1', '1', '11', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('2', '1', '1', '13', '2018-11-22', '22000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('3', '1', '1', '15', '2018-11-22', '19000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('4', '1', '1', '16', '2018-11-22', '13000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('5', '1', '1', '17', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('6', '1', '2', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('7', '1', '2', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('8', '1', '2', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('9', '1', '2', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('10', '1', '3', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('11', '1', '3', '1', '2018-11-22', '20000');
+INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('12', '1', '3', '1', '2018-11-22', '20000');
 
 
 

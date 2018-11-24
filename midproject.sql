@@ -91,7 +91,7 @@ CREATE TABLE class (
 
 CREATE TABLE price(
   price_id int(5) auto_increment,
-  class_id int(5) not null,
+  class_id int(5),
   route_id int(5) not null,
   price FLOAT(7,2) not null,
   PRIMARY KEY (price_id),
@@ -134,12 +134,12 @@ CREATE TABLE flight_schedule (
 CREATE TABLE booking  (
   booking_id int(5) auto_increment,
   user_id int(5) not null,
-  schedule_id int(5) not null,
+  flight_schedule_id int(5) not null,
   seat_id int(5) not null,
   booked_date DATE not null,
   price float(7,2) not null,
   PRIMARY KEY (booking_id),
-  FOREIGN KEY (schedule_id) references flight_schedule(schedule_id) on delete cascade on update cascade,
+  FOREIGN KEY (flight_schedule_id) references flight_schedule(flight_schedule_id) on delete cascade on update cascade,
   FOREIGN KEY (seat_id) references seat(seat_id) on delete cascade on update cascade,
   FOREIGN KEY (user_id) references customer(user_id) on delete cascade on update cascade
 );
