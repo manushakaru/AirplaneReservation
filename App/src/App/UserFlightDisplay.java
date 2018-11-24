@@ -83,6 +83,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             }
             
             combo_schedule_id.setModel(new javax.swing.DefaultComboBoxModel<>(schedules));
+            selected_schedule = combo_schedule_id.getItemAt(0);
 
             tbl_schedule.setModel(new javax.swing.table.DefaultTableModel(
                 scheduleData,
@@ -128,6 +129,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             }
             
             combo_class.setModel(new javax.swing.DefaultComboBoxModel<>(classes));
+            selected_class = combo_class.getItemAt(0);
 
             tbl_class.setModel(new javax.swing.table.DefaultTableModel(
                 classData,
@@ -420,6 +422,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
     }//GEN-LAST:event_combo_classActionPerformed
 
     private void btn_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookingActionPerformed
+        System.out.println(selected_schedule + " " + selected_class);
         UserBooking ub = new UserBooking(selected_schedule, selected_class);
         this.setVisible(false);
         ub.setVisible(true);

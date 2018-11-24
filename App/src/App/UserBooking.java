@@ -5,19 +5,61 @@
  */
 package App;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import javax.swing.JCheckBox;
+
 /**
  *
  * @author Dilan Sachintha
  */
 public class UserBooking extends javax.swing.JFrame {
+    
+    private ArrayList<String> selected_seats;
 
     /**
      * Creates new form UserBooking
      */
     public UserBooking(String schedule_id, String selected_class) {
         initComponents();
+        selected_seats = new ArrayList<>();
+        getSeats(schedule_id, selected_class);
+    }
+    
+    public void getSeats(String schedule_id, String selected_class){
+        String sql = "select * from (select * from (select * from (select * from flight_schedule"
+                + " where flight_schedule_id='"+schedule_id+"') as A natural left join aircraft "
+                + "natural left join seat) as B natural left join class where "
+                + "class_id=(select class_id from class where class='"+selected_class+"')) "
+                + "as D left join booking using(flight_schedule_id,seat_id) "
+                + "where booking_id is null;";
         
-        System.out.println(selected_class);
+        try{
+            ResultSet rs = Database.getData(sql);
+            int bounds = 0;
+            
+            while(rs.next()){                
+                JCheckBox checkBox_seat = new javax.swing.JCheckBox();
+                checkBox_seat.setText("Seat No " + rs.getString("seat_no"));
+                checkBox_seat.setName(rs.getString("seat_id"));
+                checkBox_seat.addActionListener(new java.awt.event.ActionListener() {
+                    public void actionPerformed(java.awt.event.ActionEvent evt) {
+                        System.out.println(checkBox_seat.getName());
+                        selected_seats.add(checkBox_seat.getName());
+                    }
+                });
+                checkBox_seat.setBounds(140,95+bounds,100,30);
+                this.add(checkBox_seat);
+                bounds+=35;
+            }
+            
+        }catch(SQLException e){
+            System.out.println(e);
+        }
+        
+        
+        
     }
 
     /**
@@ -31,6 +73,7 @@ public class UserBooking extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        btn_book = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -39,6 +82,8 @@ public class UserBooking extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Confirm Booking");
 
+        btn_book.setText("Book");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -46,11 +91,13 @@ public class UserBooking extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(240, 240, 240)
-                        .addComponent(jLabel2)))
+                        .addComponent(jLabel2))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jLabel1)
+                        .addGap(160, 160, 160)
+                        .addComponent(btn_book)))
                 .addContainerGap(312, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -58,15 +105,18 @@ public class UserBooking extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jLabel2)
-                .addGap(47, 47, 47)
-                .addComponent(jLabel1)
-                .addContainerGap(375, Short.MAX_VALUE))
+                .addGap(43, 43, 43)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(btn_book))
+                .addContainerGap(370, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_book;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     // End of variables declaration//GEN-END:variables
