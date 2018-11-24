@@ -32,7 +32,7 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="160" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                       <Component id="btn_book" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -73,6 +73,9 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="Book"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bookActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

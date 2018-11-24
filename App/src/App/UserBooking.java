@@ -17,6 +17,7 @@ import javax.swing.JCheckBox;
 public class UserBooking extends javax.swing.JFrame {
     
     private ArrayList<String> selected_seats;
+    private String schedule_id;
 
     /**
      * Creates new form UserBooking
@@ -24,6 +25,7 @@ public class UserBooking extends javax.swing.JFrame {
     public UserBooking(String schedule_id, String selected_class) {
         initComponents();
         selected_seats = new ArrayList<>();
+        this.schedule_id = schedule_id;
         getSeats(schedule_id, selected_class);
     }
     
@@ -57,9 +59,6 @@ public class UserBooking extends javax.swing.JFrame {
         }catch(SQLException e){
             System.out.println(e);
         }
-        
-        
-        
     }
 
     /**
@@ -83,6 +82,11 @@ public class UserBooking extends javax.swing.JFrame {
         jLabel2.setText("Confirm Booking");
 
         btn_book.setText("Book");
+        btn_book.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bookActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -96,7 +100,7 @@ public class UserBooking extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addComponent(jLabel1)
-                        .addGap(160, 160, 160)
+                        .addGap(141, 141, 141)
                         .addComponent(btn_book)))
                 .addContainerGap(312, Short.MAX_VALUE))
         );
@@ -114,6 +118,18 @@ public class UserBooking extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookActionPerformed
+        if(Login.userId > 0){
+            RegisteredUserPay rup = new RegisteredUserPay(selected_seats, schedule_id);
+            this.setVisible(false);
+            rup.setVisible(true);
+        }else{
+            GuestUserPay gup = new GuestUserPay(selected_seats, schedule_id);
+            this.setVisible(false);
+            gup.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_bookActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_book;
