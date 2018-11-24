@@ -21,7 +21,6 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
      */
     
     private String selected_schedule;
-    private String selected_class;
     
     public UserFlightDisplay(Date picked_date) {
         initComponents();
@@ -127,9 +126,6 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                 classes[i] = rs3.getString("class");
                 i++;
             }
-            
-            combo_class.setModel(new javax.swing.DefaultComboBoxModel<>(classes));
-            selected_class = combo_class.getItemAt(0);
 
             tbl_class.setModel(new javax.swing.table.DefaultTableModel(
                 classData,
@@ -177,9 +173,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         lbl_to = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
         btn_booking = new javax.swing.JButton();
-        combo_class = new javax.swing.JComboBox<>();
         combo_schedule_id = new javax.swing.JComboBox<>();
         btn_back = new javax.swing.JButton();
 
@@ -218,7 +212,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Schedule ID", "Craft ID", "Route ID", "Day", "Departure Time", "Arrival Time"
+                "Flight Schedule ID", "Craft ID", "Route ID", "Day", "Departure Time", "Arrival Time"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -266,21 +260,12 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Book");
 
-        jLabel4.setText("Schedule ID : ");
-
-        jLabel5.setText("Class : ");
+        jLabel4.setText("Flight Schedule ID : ");
 
         btn_booking.setText("Go To Booking");
         btn_booking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_bookingActionPerformed(evt);
-            }
-        });
-
-        combo_class.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        combo_class.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                combo_classActionPerformed(evt);
             }
         });
 
@@ -309,26 +294,18 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                         .addComponent(lbl_to)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel2)
-                .addGap(119, 119, 119))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 100, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btn_booking, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(combo_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(combo_schedule_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(70, 70, 70))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btn_booking)
-                        .addGap(59, 59, 59))))
+                        .addComponent(combo_schedule_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(70, 70, 70))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,22 +316,18 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                     .addComponent(lbl_from))
                 .addGap(19, 19, 19)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 207, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(2, 2, 2)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(combo_schedule_id, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addComponent(combo_class, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addComponent(btn_booking, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         btn_back.setText("Go Back");
@@ -417,13 +390,8 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
         selected_schedule = combo_schedule_id.getSelectedItem().toString();
     }//GEN-LAST:event_combo_schedule_idActionPerformed
 
-    private void combo_classActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_combo_classActionPerformed
-        selected_class = combo_class.getSelectedItem().toString();
-    }//GEN-LAST:event_combo_classActionPerformed
-
     private void btn_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookingActionPerformed
-        System.out.println(selected_schedule + " " + selected_class);
-        UserBooking ub = new UserBooking(selected_schedule, selected_class);
+        UserBooking ub = new UserBooking(selected_schedule);
         this.setVisible(false);
         ub.setVisible(true);
     }//GEN-LAST:event_btn_bookingActionPerformed
@@ -432,13 +400,11 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_booking;
-    private javax.swing.JComboBox<String> combo_class;
     private javax.swing.JComboBox<String> combo_schedule_id;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
