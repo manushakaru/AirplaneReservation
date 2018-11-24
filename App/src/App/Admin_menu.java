@@ -14,6 +14,9 @@ public class Admin_menu extends javax.swing.JFrame {
     /**
      * Creates new form Admin_menu
      */
+    
+    private datataking dt = null;
+    
     public Admin_menu() {
         initComponents();
     }
@@ -27,25 +30,25 @@ public class Admin_menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jButton1 = new javax.swing.JButton();
+        btn_passenger_count = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        btn_booking_count = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton1.setText("Passenger Count");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_passenger_count.setText("Passenger Count");
+        btn_passenger_count.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_passenger_countActionPerformed(evt);
             }
         });
 
         jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 18)); // NOI18N
         jLabel1.setText("Admin Menu");
 
-        jButton2.setText("Booking Count");
+        btn_booking_count.setText("Booking Count");
 
         jButton3.setText("flight passengers");
 
@@ -58,8 +61,8 @@ public class Admin_menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_passenger_count, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btn_booking_count, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                             .addGap(170, 170, 170)
@@ -77,9 +80,9 @@ public class Admin_menu extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addComponent(jButton3)
                 .addGap(18, 18, 18)
-                .addComponent(jButton2)
+                .addComponent(btn_booking_count)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btn_passenger_count)
                 .addGap(18, 18, 18)
                 .addComponent(jButton4)
                 .addContainerGap(66, Short.MAX_VALUE))
@@ -88,11 +91,13 @@ public class Admin_menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        datataking dt = new datataking();
+    private void btn_passenger_countActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_passenger_countActionPerformed
+        dt = new datataking();
         this.setVisible(false);
         dt.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        
+        
+    }//GEN-LAST:event_btn_passenger_countActionPerformed
 
     /**
      * @param args the command line arguments
@@ -130,8 +135,8 @@ public class Admin_menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton btn_booking_count;
+    private javax.swing.JButton btn_passenger_count;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
