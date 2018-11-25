@@ -59,35 +59,47 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             System.out.println(date);
             
             String seat_id = "";
-            String price = "";
+            float price = 0;
             
             book_queries = new ArrayList<String>();
             
             int econ_seats = 0;
             int busi_seats = 0;
             int plati_seats = 0;
+            float og_econ_price = 0;
+            float og_busi_price = 0;
+            float og_plati_price = 0;
             float econ_price = 0;
             float busi_price = 0;
             float plati_price = 0;
             
             float total_price = 0;
             
+            rs2.next();
+            
             while(rs.next()){
                 if(rs.getString("class").equals("Economy")){
                     seat_id = rs.getString("seat_id");
                     econ_seats += 1;
-                    price = Float.toString(rs.getFloat("price"));
-                    econ_price += Float.parseFloat(price);
+                    price = rs.getFloat("price");
+                    og_econ_price += price;
+                    price = price - (price* (rs2.getFloat("discount")/100));
+                    econ_price += price;
+                    
                 }else if(rs.getString("class").equals("Buisness")){
                     seat_id = rs.getString("seat_id");
                     busi_seats += 1;
-                    price = Float.toString(rs.getFloat("price"));
-                    busi_price += Float.parseFloat(price);
+                    price = rs.getFloat("price");
+                    og_busi_price += price;
+                    price = price - (price* (rs2.getFloat("discount")/100));
+                    busi_price += price;
                 }else if(rs.getString("class").equals("Platinum")){
                     seat_id = rs.getString("seat_id");
                     plati_seats += 1;
-                    price = Float.toString(rs.getFloat("price"));
-                    plati_price += Float.parseFloat(price);
+                    price = rs.getFloat("price");
+                    og_plati_price += price;
+                    price = price - (price* (rs2.getFloat("discount")/100));
+                    plati_price += price;
                 }
                 String insertBooking = "insert into booking(user_id,flight_schedule_id,"
                     + "seat_id,price,booked_date) values ('"+Login.userId+"','"+schedule_id+"'"
@@ -97,21 +109,18 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             }
             
             System.out.println(total_price);
-            
-            rs2.next();
-            
+
             lbl_econ_seat.setText(Integer.toString(econ_seats));
             lbl_busi_seat.setText(Integer.toString(busi_seats));
             lbl_plati_seat.setText(Integer.toString(plati_seats));
-            lbl_econ_price.setText(Float.toString(econ_price));
-            lbl_busi_price.setText(Float.toString(busi_price));
-            lbl_plati_price.setText(Float.toString(plati_price));
+            lbl_econ_price.setText(Float.toString(og_econ_price));
+            lbl_busi_price.setText(Float.toString(og_busi_price));
+            lbl_plati_price.setText(Float.toString(og_plati_price));
             lbl_discount.setText(Integer.toString(rs2.getInt("discount"))+"%");
             
             lbl_seat_total.setText(Integer.toString(econ_seats+busi_seats+plati_seats));
             
             total_price = (econ_price + busi_price + plati_price);
-            total_price = total_price - (total_price* (rs2.getFloat("discount")/100));
                         
             lbl_price_total.setText(Float.toString(total_price));
             
@@ -121,6 +130,9 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
     }
     
     public void bookSeat(){
+        
+        
+        
         Connection conn = Database.getConnection();;
         
         try{
@@ -131,6 +143,13 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                 PreparedStatement preparedStmt = conn.prepareStatement(book_queries.get(i));
                 preparedStmt.execute();
                 i++;
+            }
+            
+            String sql3 = (String)setState();
+            System.out.println("yay"+sql3);
+            if(!sql3.isEmpty()){
+                PreparedStatement preparedStmt = conn.prepareStatement(sql3);
+                preparedStmt.execute();
             }
             
             conn.commit();
@@ -147,6 +166,31 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
           }
+    }
+    
+    public Object setState(){
+        String sql = "select * from customer_state where bookings_needed>(select"
+                + " count(booking_id) from booking where user_id='"+Login.userId+"');";
+        
+        ResultSet rs = Database.getData(sql);
+        
+        try {
+            if(rs.next()){
+                String sql2 = "select count(booking_id) from booking where user_id='"+Login.userId+"';";
+                ResultSet rs2 = Database.getData(sql2);
+                rs2.next();
+                if(rs.getInt("bookings_needed") == (rs2.getInt("count(booking_id)")+1)){
+                    String sql3 = "UPDATE customer SET customer_type='"+rs.getString("customer_state")+"' where user_id='"+Login.userId+"';";
+                    
+                    System.out.println("yya");
+                    return sql3;
+                }
+            }
+        } catch (SQLException ex) {
+            return ex;
+            //Logger.getLogger(RegisteredCustomerPay.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "";
     }
     
     /**
