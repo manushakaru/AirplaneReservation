@@ -92,7 +92,6 @@ public class datataking extends javax.swing.JFrame {
         starting_date = new org.jdesktop.swingx.JXDatePicker();
         ending_date = new org.jdesktop.swingx.JXDatePicker();
         btn_view_count = new javax.swing.JToggleButton();
-        btn_view_booking = new javax.swing.JButton();
         passenger_count = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -145,15 +144,8 @@ public class datataking extends javax.swing.JFrame {
             }
         });
 
-        btn_view_booking.setText("View Booking");
-        btn_view_booking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_view_bookingActionPerformed(evt);
-            }
-        });
-
         passenger_count.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        passenger_count.setForeground(new java.awt.Color(102, 102, 255));
+        passenger_count.setForeground(new java.awt.Color(0, 51, 255));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -191,9 +183,7 @@ public class datataking extends javax.swing.JFrame {
                                             .addComponent(ending_date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(layout.createSequentialGroup()
                                         .addGap(35, 35, 35)
-                                        .addComponent(btn_view_count, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(20, 20, 20)
-                                        .addComponent(btn_view_booking)))))
+                                        .addComponent(btn_view_count, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addContainerGap(60, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
@@ -219,8 +209,7 @@ public class datataking extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 42, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1)
-                    .addComponent(btn_view_count)
-                    .addComponent(btn_view_booking))
+                    .addComponent(btn_view_count))
                 .addGap(32, 32, 32))
         );
 
@@ -279,8 +268,6 @@ public class datataking extends javax.swing.JFrame {
     
     
     
-    
-    
     private void btn_view_countActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_view_countActionPerformed
         // TODO add your handling code here:
         picked_start_date = starting_date.getDate();
@@ -314,124 +301,6 @@ public class datataking extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btn_view_countActionPerformed
-
-    private void btn_view_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_view_bookingActionPerformed
-        // TODO add your handling code here:
-        picked_start_date = starting_date.getDate();
-        picked_sql_start_date = new Date(picked_start_date.getTime());
-        
-        picked_end_date = ending_date.getDate();
-        picked_sql_end_date = new Date(picked_end_date.getTime());
-        
-        String col_val = null;
-        String gold_cust = null;
-        String freq_cust = null;
-        String guest_cust = null;
-               
-        Connection con = Database.getConnection();
-        String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
-        System.out.println(query);
-        ResultSet rs = Database.getData(query);       
-        try {
-            Statement st = con.createStatement();
-            rs = st.executeQuery(query);
-            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    col_val = columnValue;
-                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
- 
-        String query_1 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Gold' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
-        System.out.println(query_1);
-        rs = Database.getData(query_1);       
-        try {
-            Statement st = con.createStatement();
-            rs = st.executeQuery(query_1);
-            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    gold_cust = columnValue;
-                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-
-        String query_2 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Frequent' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
-        System.out.println(query);
-        rs = Database.getData(query_2);       
-        try {
-            Statement st = con.createStatement();
-            rs = st.executeQuery(query_2);
-            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    freq_cust = columnValue;
-                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        String query_3 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Guest' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
-        System.out.println(query_3);
-        rs = Database.getData(query_3);       
-        try {
-            Statement st = con.createStatement();
-            rs = st.executeQuery(query_3);
-            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
-            int columnsNumber = rsmd.getColumnCount();
-            while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
-                    String columnValue = rs.getString(i);
-                    guest_cust = columnValue;
-                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
-                }
-                System.out.println("");
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-        }
-                
-        System.out.println(col_val);
-        
-        ViewDetails vd = new ViewDetails();
-        this.setVisible(false);
-        vd.setVisible(true);
-        vd.viewLblDetail(col_val,gold_cust, freq_cust, guest_cust);
-    
-    }//GEN-LAST:event_btn_view_bookingActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,7 +338,6 @@ public class datataking extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_view_booking;
     private javax.swing.JToggleButton btn_view_count;
     private javax.swing.JComboBox<String> cmb_from;
     private javax.swing.JComboBox<String> cmb_to;

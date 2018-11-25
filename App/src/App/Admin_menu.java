@@ -49,6 +49,11 @@ public class Admin_menu extends javax.swing.JFrame {
         jLabel1.setText("Admin Menu");
 
         btn_booking_count.setText("Booking Count");
+        btn_booking_count.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_booking_countActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("flight passengers");
 
@@ -98,6 +103,13 @@ public class Admin_menu extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btn_passenger_countActionPerformed
+
+    private void btn_booking_countActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_booking_countActionPerformed
+        // TODO add your handling code here:
+        ViewDetails vd = new ViewDetails();
+        this.setVisible(false);
+        vd.setVisible(true);
+    }//GEN-LAST:event_btn_booking_countActionPerformed
 
     /**
      * @param args the command line arguments
