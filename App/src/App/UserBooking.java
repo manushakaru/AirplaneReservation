@@ -8,6 +8,8 @@ package App;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JCheckBox;
 
 /**
@@ -17,23 +19,25 @@ import javax.swing.JCheckBox;
 public class UserBooking extends javax.swing.JFrame {
     
     private ArrayList<String> selected_seats;
+    private String schedule_id;
 
     /**
      * Creates new form UserBooking
      */
-    public UserBooking(String schedule_id, String selected_class) {
+    public UserBooking(String schedule_id) {
         initComponents();
         selected_seats = new ArrayList<>();
-        getSeats(schedule_id, selected_class);
+        this.schedule_id = schedule_id;
+        getSeats(schedule_id);
     }
     
-    public void getSeats(String schedule_id, String selected_class){
-        String sql = "select * from (select * from (select * from (select * from flight_schedule"
-                + " where flight_schedule_id='"+schedule_id+"') as A natural left join aircraft "
-                + "natural left join seat) as B natural left join class where "
-                + "class_id=(select class_id from class where class='"+selected_class+"')) "
-                + "as D left join booking using(flight_schedule_id,seat_id) "
-                + "where booking_id is null;";
+    public void getSeats(String schedule_id){
+                
+        String sql = "select * from (select * from (select * from (select * from flight_"
+                        + "schedule where flight_schedule_id='"+schedule_id+"') as A natural left "
+                        + "join aircraft natural left join seat) as B natural left join class) "
+                        + "as D left join booking using(flight_schedule_id,seat_id) "
+                        + "where booking_id is null;";
         
         try{
             ResultSet rs = Database.getData(sql);
@@ -41,15 +45,16 @@ public class UserBooking extends javax.swing.JFrame {
             
             while(rs.next()){                
                 JCheckBox checkBox_seat = new javax.swing.JCheckBox();
-                checkBox_seat.setText("Seat No " + rs.getString("seat_no"));
+                checkBox_seat.setText("Seat " + rs.getString("seat_no") + " - " + rs.getString("class"));
                 checkBox_seat.setName(rs.getString("seat_id"));
                 checkBox_seat.addActionListener(new java.awt.event.ActionListener() {
                     public void actionPerformed(java.awt.event.ActionEvent evt) {
-                        System.out.println(checkBox_seat.getName());
-                        selected_seats.add(checkBox_seat.getName());
+                        if(!selected_seats.remove(checkBox_seat.getName())){
+                            selected_seats.add(checkBox_seat.getName());
+                        }
                     }
                 });
-                checkBox_seat.setBounds(140,95+bounds,100,30);
+                checkBox_seat.setBounds(150,80+bounds,150,30);
                 this.add(checkBox_seat);
                 bounds+=35;
             }
@@ -57,9 +62,6 @@ public class UserBooking extends javax.swing.JFrame {
         }catch(SQLException e){
             System.out.println(e);
         }
-        
-        
-        
     }
 
     /**
@@ -82,39 +84,55 @@ public class UserBooking extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         jLabel2.setText("Confirm Booking");
 
-        btn_book.setText("Book");
+        btn_book.setText("Pay & Book Seat");
+        btn_book.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bookActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(240, 240, 240)
-                        .addComponent(jLabel2))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(20, 20, 20)
-                        .addComponent(jLabel1)
-                        .addGap(160, 160, 160)
-                        .addComponent(btn_book)))
-                .addContainerGap(312, Short.MAX_VALUE))
+                .addGap(139, 139, 139)
+                .addComponent(jLabel2)
+                .addContainerGap(165, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btn_book)
+                .addGap(55, 55, 55))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+                .addContainerGap()
                 .addComponent(jLabel2)
-                .addGap(43, 43, 43)
+                .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(btn_book))
-                .addContainerGap(370, Short.MAX_VALUE))
+                .addContainerGap(365, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookActionPerformed
+        if(Login.userId > 0){
+            RegisteredCustomerPay gup = new RegisteredCustomerPay(selected_seats, schedule_id);
+            this.setVisible(false);
+            gup.setVisible(true);
+        }else{
+            GuestUserPay gup = new GuestUserPay(selected_seats, schedule_id);
+            this.setVisible(false);
+            gup.setVisible(true);
+        }
+    }//GEN-LAST:event_btn_bookActionPerformed
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_book;
     private javax.swing.JLabel jLabel1;

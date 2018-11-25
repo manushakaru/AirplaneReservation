@@ -31,7 +31,7 @@ public class Login extends javax.swing.JFrame {
         btn_sign_in = new javax.swing.JButton();
         btn_register = new javax.swing.JButton();
         lbl_notifier = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btn_guest_login = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -68,10 +68,10 @@ public class Login extends javax.swing.JFrame {
 
         lbl_notifier.setForeground(new java.awt.Color(204, 0, 0));
 
-        jButton1.setText("Guest Login");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_guest_login.setText("Guest Login");
+        btn_guest_login.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_guest_loginActionPerformed(evt);
             }
         });
 
@@ -103,7 +103,7 @@ public class Login extends javax.swing.JFrame {
                                         .addComponent(pwField_password, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addComponent(jButton1)
+                                .addComponent(btn_guest_login)
                                 .addGap(65, 65, 65))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(56, 56, 56)
@@ -130,7 +130,7 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(btn_register)
                     .addComponent(btn_sign_in))
                 .addGap(31, 31, 31)
-                .addComponent(jButton1)
+                .addComponent(btn_guest_login)
                 .addContainerGap(67, Short.MAX_VALUE))
         );
 
@@ -197,11 +197,12 @@ public class Login extends javax.swing.JFrame {
         reg.setVisible(true);
     }//GEN-LAST:event_btn_registerActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_guest_loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_guest_loginActionPerformed
         UserHome um = new UserHome();
+        userId = 0;
         this.setVisible(false);
         um.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_guest_loginActionPerformed
 
     public static void main(String args[]) {
 
@@ -213,9 +214,9 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_guest_login;
     private javax.swing.JButton btn_register;
     private javax.swing.JButton btn_sign_in;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
