@@ -322,7 +322,9 @@ public class datataking extends javax.swing.JFrame {
         
         
         ResultSet rs = Database.getData(query);
-        /*
+        
+        String col_val = null;
+        
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
@@ -332,7 +334,8 @@ public class datataking extends javax.swing.JFrame {
             for (int i = 1; i <= columnsNumber; i++) {
                 if (i > 1) System.out.print(",  ");
                     String columnValue = rs.getString(i);
-                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                    col_val = columnValue;
+                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
                 System.out.println("");
             }
@@ -340,7 +343,14 @@ public class datataking extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+                
+        System.out.println(col_val);
+        
+        ViewDetails vd = new ViewDetails();
+        this.setVisible(false);
+        vd.setVisible(true);
+        vd.viewLblDetail(col_val);
+    
     }//GEN-LAST:event_btn_view_bookingActionPerformed
 
     /**

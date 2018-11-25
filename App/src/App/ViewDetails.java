@@ -29,13 +29,10 @@ public class ViewDetails extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_detail = new javax.swing.JLabel();
-        lbl_quantity = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lbl_detail.setText("Number is");
-
-        lbl_quantity.setText("Answer");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -44,17 +41,13 @@ public class ViewDetails extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(lbl_detail)
-                .addGap(88, 88, 88)
-                .addComponent(lbl_quantity)
-                .addContainerGap(124, Short.MAX_VALUE))
+                .addContainerGap(255, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(95, 95, 95)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_detail)
-                    .addComponent(lbl_quantity))
+                .addComponent(lbl_detail)
                 .addContainerGap(189, Short.MAX_VALUE))
         );
 
@@ -106,10 +99,15 @@ public class ViewDetails extends javax.swing.JFrame {
             }
         });
     }
+    
+    public void viewLblDetail(String val){
+    
+        this.lbl_detail.setText("No of customers " + val);
+    
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel lbl_detail;
-    private javax.swing.JLabel lbl_quantity;
     // End of variables declaration//GEN-END:variables
 }
