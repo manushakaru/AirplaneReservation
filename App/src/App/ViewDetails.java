@@ -29,26 +29,69 @@ public class ViewDetails extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lbl_detail = new javax.swing.JLabel();
+        lbl_1 = new javax.swing.JLabel();
+        lbl_2 = new javax.swing.JLabel();
+        lbl_3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        lbl_detail.setText("Number is");
+        lbl_detail.setText("Total no of customers : ");
+
+        lbl_1.setText("gold customers");
+
+        lbl_2.setText("freq customers");
+
+        lbl_3.setText("guest customers");
+
+        jLabel4.setText("Number of booking by customer type");
+
+        btn_back.setText("Back");
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(87, 87, 87)
-                .addComponent(lbl_detail)
-                .addContainerGap(255, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(74, 74, 74)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_3)
+                            .addComponent(lbl_2)
+                            .addComponent(lbl_1)
+                            .addComponent(lbl_detail)))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(87, 87, 87)
+                        .addComponent(jLabel4))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_back)
+                        .addGap(182, 182, 182)))
+                .addContainerGap(103, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addContainerGap()
+                .addComponent(jLabel4)
+                .addGap(35, 35, 35)
                 .addComponent(lbl_detail)
-                .addContainerGap(189, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(lbl_1)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_2)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 58, Short.MAX_VALUE)
+                .addComponent(btn_back)
+                .addGap(35, 35, 35))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -64,6 +107,13 @@ public class ViewDetails extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        // TODO add your handling code here:
+        Admin_menu admin = new Admin_menu();
+        this.setVisible(false);
+        admin.setVisible(true);
+    }//GEN-LAST:event_btn_backActionPerformed
 
     /**
      * @param args the command line arguments
@@ -100,14 +150,24 @@ public class ViewDetails extends javax.swing.JFrame {
         });
     }
     
-    public void viewLblDetail(String val){
+    public void viewLblDetail(String val_1,String val_2, String val_3, String val_4){
     
-        this.lbl_detail.setText("No of customers " + val);
+        this.lbl_detail.setText("No of customers " + val_1);
+        this.lbl_1.setText("No of Gold customers " + val_2);
+        this.lbl_2.setText("No of Frequent customers " + val_3);
+        this.lbl_3.setText("No of Guest customers " + val_4);
+        
+        
     
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_back;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_1;
+    private javax.swing.JLabel lbl_2;
+    private javax.swing.JLabel lbl_3;
     private javax.swing.JLabel lbl_detail;
     // End of variables declaration//GEN-END:variables
 }
