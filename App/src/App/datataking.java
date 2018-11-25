@@ -25,6 +25,13 @@ public class datataking extends javax.swing.JFrame {
     public static String airport_from;
     public static String airport_to;
     
+    
+    private java.util.Date picked_start_date = null;
+    private Date picked_sql_start_date = null;
+    
+    private java.util.Date picked_end_date = null;
+    private Date picked_sql_end_date = null;
+    
     public datataking() {
         setComboBox();
         initComponents();
@@ -33,6 +40,18 @@ public class datataking extends javax.swing.JFrame {
         cmb_to.setModel(new javax.swing.DefaultComboBoxModel<>(airports));
         airport_from = cmb_from.getItemAt(0);
         airport_to = cmb_to.getItemAt(0);
+    }
+    
+    public String getFromAirport(){
+    
+        return airport_from;
+    
+    }
+    
+    public String getToAirport(){
+    
+        return airport_from;
+    
     }
     
     public void setComboBox(){
@@ -64,14 +83,16 @@ public class datataking extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        starting_date = new org.jdesktop.swingx.JXDatePicker();
-        ending_date = new org.jdesktop.swingx.JXDatePicker();
         jLabel3 = new javax.swing.JLabel();
         cmb_from = new javax.swing.JComboBox<>();
         cmb_to = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
+        starting_date = new org.jdesktop.swingx.JXDatePicker();
+        ending_date = new org.jdesktop.swingx.JXDatePicker();
+        btn_view_count = new javax.swing.JToggleButton();
+        btn_view_booking = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -116,20 +137,30 @@ public class datataking extends javax.swing.JFrame {
             }
         });
 
+        btn_view_count.setText("View");
+        btn_view_count.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_view_countActionPerformed(evt);
+            }
+        });
+
+        btn_view_booking.setText("View Booking");
+        btn_view_booking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_view_bookingActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(137, 137, 137))
             .addGroup(layout.createSequentialGroup()
                 .addGap(24, 24, 24)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel4)
                         .addGap(123, 123, 123))
                     .addGroup(layout.createSequentialGroup()
@@ -137,16 +168,30 @@ public class datataking extends javax.swing.JFrame {
                             .addComponent(jLabel1)
                             .addComponent(jLabel2))
                         .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmb_from, 0, 104, Short.MAX_VALUE)
-                            .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmb_to, 0, 104, Short.MAX_VALUE)
-                            .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, 1, Short.MAX_VALUE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(cmb_from, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(24, 24, 24)
+                                        .addComponent(cmb_to, javax.swing.GroupLayout.PREFERRED_SIZE, 104, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 14, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(35, 35, 35)
+                                .addComponent(btn_view_count, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(20, 20, 20)
+                                .addComponent(btn_view_booking)))
+                        .addContainerGap(46, Short.MAX_VALUE))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,25 +203,24 @@ public class datataking extends javax.swing.JFrame {
                 .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
+                    .addComponent(jLabel3)
                     .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3))
-                .addGap(37, 37, 37)
+                    .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmb_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cmb_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2))
-                .addGap(34, 34, 34)
-                .addComponent(jButton1)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 93, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1)
+                    .addComponent(btn_view_count)
+                    .addComponent(btn_view_booking))
+                .addGap(32, 32, 32))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void cmb_fromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_fromActionPerformed
-        airport_from = cmb_from.getSelectedItem().toString();
-    }//GEN-LAST:event_cmb_fromActionPerformed
 
     private void cmb_toActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_toActionPerformed
         airport_to = cmb_to.getSelectedItem().toString();
@@ -221,6 +265,84 @@ public class datataking extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cmb_fromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_fromActionPerformed
+        airport_from = cmb_from.getSelectedItem().toString();
+    }//GEN-LAST:event_cmb_fromActionPerformed
+    
+    
+    
+    
+    
+    private void btn_view_countActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_view_countActionPerformed
+        // TODO add your handling code here:
+        picked_start_date = starting_date.getDate();
+        picked_sql_start_date = new Date(picked_start_date.getTime());
+        
+        picked_end_date = ending_date.getDate();
+        picked_sql_end_date = new Date(picked_end_date.getTime());
+        
+        
+        Connection con = Database.getConnection();
+        String query = "SELECT  f.id FROM flight_schedule f, route r, where r.orgin ="+ this.getFromAirport()+" and r.destination ="+this.getToAirport()+
+                "and f.date between "+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        ResultSet rs = Database.getData(query);
+
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btn_view_countActionPerformed
+
+    private void btn_view_bookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_view_bookingActionPerformed
+        // TODO add your handling code here:
+        picked_start_date = starting_date.getDate();
+        picked_sql_start_date = new Date(picked_start_date.getTime());
+        
+        picked_end_date = ending_date.getDate();
+        picked_sql_end_date = new Date(picked_end_date.getTime());
+               
+        Connection con = Database.getConnection();
+        String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        System.out.println(query);
+        
+        
+        ResultSet rs = Database.getData(query);
+        /*
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    System.out.print(columnValue + " " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        */
+    }//GEN-LAST:event_btn_view_bookingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -257,6 +379,8 @@ public class datataking extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_view_booking;
+    private javax.swing.JToggleButton btn_view_count;
     private javax.swing.JComboBox<String> cmb_from;
     private javax.swing.JComboBox<String> cmb_to;
     private org.jdesktop.swingx.JXDatePicker ending_date;
@@ -268,4 +392,10 @@ public class datataking extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private org.jdesktop.swingx.JXDatePicker starting_date;
     // End of variables declaration//GEN-END:variables
+
+
+
+
+
+
 }
