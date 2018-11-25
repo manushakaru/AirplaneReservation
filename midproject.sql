@@ -141,7 +141,8 @@ CREATE TABLE booking  (
   PRIMARY KEY (booking_id),
   FOREIGN KEY (flight_schedule_id) references flight_schedule(flight_schedule_id) on delete cascade on update cascade,
   FOREIGN KEY (seat_id) references seat(seat_id) on delete cascade on update cascade,
-  FOREIGN KEY (user_id) references customer(user_id) on delete cascade on update cascade
+  FOREIGN KEY (user_id) references customer(user_id) on delete cascade on update cascade,
+  UNIQUE (flight_schedule_id,seat_id)
 );
 
 

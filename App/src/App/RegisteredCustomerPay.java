@@ -5,7 +5,15 @@
  */
 package App;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.time.LocalDate;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -14,6 +22,8 @@ import java.util.ArrayList;
 public class RegisteredCustomerPay extends javax.swing.JFrame {
     
 
+    private ArrayList<String> book_queries;
+    
     /**
      * Creates new form RegisteredCustomerPay
      */
@@ -24,23 +34,119 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
 
     public void setLabels(ArrayList<String> selected_seats, String schedule_id){
         
-        String sql = "select * from (select * from seat where seat_id=\"14\")"
-                + " as A natural left join class natural left join"
-                + " (select * from price where route_id=(select route_id "
-                + "from flight_schedule where"
-                + " flight_schedule_id=\"2\")) as B;";
-        
         String insert = "";
         
         for(int i = 0; i < selected_seats.size() ; i++){
             insert = insert + "seat_id='"+selected_seats.get(i)+"' or ";
         }
         
-        System.out.println(insert.substring(0, insert.length()-5));
+        String sql = "select * from (select * from seat where "+insert.substring(0, insert.length()-4)+")"
+                + " as A natural left join class natural left join"
+                + " (select * from price where route_id=(select route_id "
+                + "from flight_schedule where"
+                + " flight_schedule_id='"+schedule_id+"')) as B;";
         
-        int econ_seats;
-        int busi_seats;
-        int plati_seats;
+        String sql2 = "select * from customer_state where customer_state=(select customer_type from customer where user_id='"+Login.userId+"')";
+        
+        ResultSet rs = Database.getData(sql);
+        
+        ResultSet rs2 = Database.getData(sql2);
+        
+        try{
+            
+            LocalDate date = LocalDate.now();
+            
+            System.out.println(date);
+            
+            String seat_id = "";
+            String price = "";
+            
+            book_queries = new ArrayList<String>();
+            
+            int econ_seats = 0;
+            int busi_seats = 0;
+            int plati_seats = 0;
+            float econ_price = 0;
+            float busi_price = 0;
+            float plati_price = 0;
+            
+            float total_price = 0;
+            
+            while(rs.next()){
+                if(rs.getString("class").equals("Economy")){
+                    seat_id = rs.getString("seat_id");
+                    econ_seats += 1;
+                    price = Float.toString(rs.getFloat("price"));
+                    econ_price += Float.parseFloat(price);
+                }else if(rs.getString("class").equals("Buisness")){
+                    seat_id = rs.getString("seat_id");
+                    busi_seats += 1;
+                    price = Float.toString(rs.getFloat("price"));
+                    busi_price += Float.parseFloat(price);
+                }else if(rs.getString("class").equals("Platinum")){
+                    seat_id = rs.getString("seat_id");
+                    plati_seats += 1;
+                    price = Float.toString(rs.getFloat("price"));
+                    plati_price += Float.parseFloat(price);
+                }
+                String insertBooking = "insert into booking(user_id,flight_schedule_id,"
+                    + "seat_id,price,booked_date) values ('"+Login.userId+"','"+schedule_id+"'"
+                    + ",'"+seat_id+"','"+price+"','"+date+"');";
+
+                book_queries.add(insertBooking);
+            }
+            
+            System.out.println(total_price);
+            
+            rs2.next();
+            
+            lbl_econ_seat.setText(Integer.toString(econ_seats));
+            lbl_busi_seat.setText(Integer.toString(busi_seats));
+            lbl_plati_seat.setText(Integer.toString(plati_seats));
+            lbl_econ_price.setText(Float.toString(econ_price));
+            lbl_busi_price.setText(Float.toString(busi_price));
+            lbl_plati_price.setText(Float.toString(plati_price));
+            lbl_discount.setText(Integer.toString(rs2.getInt("discount"))+"%");
+            
+            lbl_seat_total.setText(Integer.toString(econ_seats+busi_seats+plati_seats));
+            
+            total_price = (econ_price + busi_price + plati_price);
+            total_price = total_price - (total_price* (rs2.getFloat("discount")/100));
+                        
+            lbl_price_total.setText(Float.toString(total_price));
+            
+        }catch(SQLException e){
+            
+        }
+    }
+    
+    public void bookSeat(){
+        Connection conn = Database.getConnection();;
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            int i = 0;
+            while(i < book_queries.size()){
+                PreparedStatement preparedStmt = conn.prepareStatement(book_queries.get(i));
+                preparedStmt.execute();
+                i++;
+            }
+            
+            conn.commit();
+
+            conn.close();
+          }
+          catch (Exception e){
+            System.err.println("Got an exception!");
+            System.err.println(e.getMessage());
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+          }
     }
     
     /**
@@ -65,6 +171,8 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
         lbl_seat_total = new javax.swing.JLabel();
         lbl_price_total = new javax.swing.JLabel();
         btn_book = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        lbl_discount = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -100,6 +208,10 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             }
         });
 
+        jLabel5.setText("Discount : ");
+
+        lbl_discount.setText("jLabel6");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -127,13 +239,16 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                         .addComponent(lbl_seat_total)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jLabel4)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel5)
+                                                .addComponent(jLabel4))
                                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                             .addComponent(lbl_plati_seat)))
                                     .addGap(18, 18, 18)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(lbl_plati_price)
-                                        .addComponent(lbl_price_total))))))
+                                        .addComponent(lbl_price_total)
+                                        .addComponent(lbl_discount))))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(98, 98, 98)
                         .addComponent(jLabel1)))
@@ -159,20 +274,24 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                     .addComponent(jLabel4)
                     .addComponent(lbl_plati_seat)
                     .addComponent(lbl_plati_price))
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lbl_seat_total)
-                    .addComponent(lbl_price_total))
-                .addGap(43, 43, 43)
+                    .addComponent(jLabel5)
+                    .addComponent(lbl_discount))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lbl_price_total)
+                    .addComponent(lbl_seat_total))
+                .addGap(18, 18, 18)
                 .addComponent(btn_book)
-                .addContainerGap(108, Short.MAX_VALUE))
+                .addContainerGap(117, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookActionPerformed
-        // TODO add your handling code here:
+        bookSeat();
     }//GEN-LAST:event_btn_bookActionPerformed
 
 
@@ -182,8 +301,10 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lbl_busi_price;
     private javax.swing.JLabel lbl_busi_seat;
+    private javax.swing.JLabel lbl_discount;
     private javax.swing.JLabel lbl_econ_price;
     private javax.swing.JLabel lbl_econ_seat;
     private javax.swing.JLabel lbl_plati_price;

@@ -48,7 +48,10 @@
                                   <Group type="103" groupAlignment="1" attributes="0">
                                       <Component id="lbl_seat_total" min="-2" max="-2" attributes="0"/>
                                       <Group type="102" alignment="1" attributes="0">
-                                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
+                                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                          </Group>
                                           <EmptySpace max="-2" attributes="0"/>
                                           <Component id="lbl_plati_seat" min="-2" max="-2" attributes="0"/>
                                       </Group>
@@ -57,6 +60,7 @@
                                   <Group type="103" groupAlignment="0" attributes="0">
                                       <Component id="lbl_plati_price" min="-2" max="-2" attributes="0"/>
                                       <Component id="lbl_price_total" min="-2" max="-2" attributes="0"/>
+                                      <Component id="lbl_discount" min="-2" max="-2" attributes="0"/>
                                   </Group>
                               </Group>
                           </Group>
@@ -94,14 +98,19 @@
                   <Component id="lbl_plati_seat" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="lbl_plati_price" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
-                  <Component id="lbl_seat_total" alignment="3" min="-2" max="-2" attributes="0"/>
-                  <Component id="lbl_price_total" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_discount" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Component id="lbl_price_total" min="-2" max="-2" attributes="0"/>
+                  <Component id="lbl_seat_total" alignment="0" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="btn_book" min="-2" max="-2" attributes="0"/>
-              <EmptySpace pref="108" max="32767" attributes="0"/>
+              <EmptySpace pref="117" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -177,6 +186,16 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_bookActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel5">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Discount : "/>
+      </Properties>
+    </Component>
+    <Component class="javax.swing.JLabel" name="lbl_discount">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="jLabel6"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>
