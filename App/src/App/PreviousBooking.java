@@ -24,7 +24,14 @@ public class PreviousBooking extends javax.swing.JFrame {
     }
     
     public void fillTable(){
-        String sql = "select * from booking where user_id='"+Login.userId+"';";
+        
+        String sql = "";
+        
+        if(Login.userId == 0 ){
+            sql = "select * from booking where user_id='"+UserHome.temp_guest_id+"';";
+        }else{
+            sql = "select * from booking where user_id='"+Login.userId+"';";
+        }
         
         ResultSet rs = Database.getData(sql);
         
@@ -35,7 +42,7 @@ public class PreviousBooking extends javax.swing.JFrame {
             
             //System.out.println(i);
 
-            Object[][] scheduleData = new Object[i][8];
+            Object[][] scheduleData = new Object[i][6];
 
             i = 0;
             
@@ -44,22 +51,20 @@ public class PreviousBooking extends javax.swing.JFrame {
             while(rs.next()){
                 scheduleData[i][0] = rs.getString("booking_id");
                 scheduleData[i][1] = rs.getString("user_id");
-                scheduleData[i][2] = rs.getString("schedule_id");
-                scheduleData[i][3] = rs.getString("class_id");
-                scheduleData[i][4] = rs.getString("seat_id");
-                scheduleData[i][5] = rs.getString("booking_date");
-                scheduleData[i][6] = rs.getString("booked_date");
-                scheduleData[i][7] = rs.getString("price");
+                scheduleData[i][2] = rs.getString("flight_schedule_id");
+                scheduleData[i][3] = rs.getString("seat_id");
+                scheduleData[i][4] = rs.getString("booked_date");
+                scheduleData[i][5] = rs.getString("price");
                 i++;
             }
 
             tbl_previous_bookings.setModel(new javax.swing.table.DefaultTableModel(
                 scheduleData,
                 new String [] {
-                    "Booking ID", "User ID", "Schedule ID", "Class ID", "Seat ID", "Booking Date", "Booked Date", "Price"
+                    "Booking ID", "User ID", "Schedule ID", "Seat ID", "Booked Date", "Price"
                 }){
                     boolean[] canEdit = new boolean [] {
-                        false, false, false, false, false, false, false, false
+                        false, false, false, false, false, false
                     };
 
                     public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -95,11 +100,11 @@ public class PreviousBooking extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Booking ID", "User ID", "Schedule ID", "Class ID", "Seat ID", "Booking Date", "Booked Date", "Price"
+                "Booking ID", "User ID", "Schedule ID", "Seat ID", "Booked Date", "Price"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, true, true, true, true
+                false, false, false, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -157,6 +162,7 @@ public class PreviousBooking extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        UserHome.temp_guest_id = 0;
         UserHome uh = new UserHome();
         this.setVisible(false);
         uh.setVisible(true);// TODO add your handling code here:

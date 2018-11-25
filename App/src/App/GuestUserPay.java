@@ -5,7 +5,15 @@
  */
 package App;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,11 +21,15 @@ import java.util.ArrayList;
  */
 public class GuestUserPay extends javax.swing.JFrame {
 
+    
+    private ArrayList<String> book_queries;
+    private int tempUserId = 0;
     /**
      * Creates new form GuestUserPay
      */
     public GuestUserPay(ArrayList<String> selected_seats, String schedule_id) {
         initComponents();
+        calcData(selected_seats, schedule_id);
     }
 
     /**
@@ -29,23 +41,391 @@ public class GuestUserPay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel1 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        txt_first_name = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txt_last_name = new javax.swing.JTextField();
+        txt_email = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        txt_mobile_num = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        lbl_discount = new javax.swing.JLabel();
+        lbl_econ_seat = new javax.swing.JLabel();
+        lbl_busi_seat = new javax.swing.JLabel();
+        lbl_plati_seat = new javax.swing.JLabel();
+        lbl_econ_price = new javax.swing.JLabel();
+        lbl_busi_price = new javax.swing.JLabel();
+        lbl_plati_price = new javax.swing.JLabel();
+        lbl_seat_total = new javax.swing.JLabel();
+        lbl_price_total = new javax.swing.JLabel();
+        btn_book = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
+        lbl_user_id = new javax.swing.JLabel();
+        btn_back = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel1.setText("Confirm Payment and Details");
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel6.setText("First Name:");
+
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel2.setText("Last Name :");
+
+        jLabel3.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel3.setText("Email :");
+
+        jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel5.setText("Mobile No. :");
+
+        jLabel4.setText("Business Seats : ");
+
+        jLabel7.setText("Discount : ");
+
+        jLabel8.setText("Platinum Seats : ");
+
+        lbl_discount.setText("jLabel6");
+
+        lbl_econ_seat.setText("jLabel5");
+
+        lbl_busi_seat.setText("jLabel6");
+
+        lbl_plati_seat.setText("jLabel7");
+
+        lbl_econ_price.setText("jLabel8");
+
+        lbl_busi_price.setText("jLabel9");
+
+        lbl_plati_price.setText("jLabel10");
+
+        lbl_seat_total.setText("jLabel11");
+
+        lbl_price_total.setText("jLabel12");
+
+        btn_book.setText("Confirm Payment");
+        btn_book.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_bookActionPerformed(evt);
+            }
+        });
+
+        jLabel9.setText("Economy Seats : ");
+
+        lbl_user_id.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+
+        btn_back.setText("Go Back");
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_back)
+                        .addGap(95, 95, 95)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel3)
+                                    .addComponent(jLabel6))
+                                .addGap(35, 35, 35)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(txt_email)
+                                    .addComponent(txt_last_name)
+                                    .addComponent(txt_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_busi_seat)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_busi_price))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel9)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lbl_econ_seat)
+                                .addGap(18, 18, 18)
+                                .addComponent(lbl_econ_price))
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(btn_book)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lbl_seat_total)
+                                        .addGroup(layout.createSequentialGroup()
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(jLabel7)
+                                                .addComponent(jLabel8))
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(lbl_plati_seat)))
+                                    .addGap(18, 18, 18)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(lbl_plati_price)
+                                        .addComponent(lbl_price_total)
+                                        .addComponent(lbl_discount))))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addComponent(lbl_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_back)))
+                .addGap(47, 47, 47)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel9)
+                            .addComponent(lbl_econ_seat)
+                            .addComponent(lbl_econ_price))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel4)
+                            .addComponent(lbl_busi_seat)
+                            .addComponent(lbl_busi_price))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(lbl_plati_seat)
+                            .addComponent(lbl_plati_price))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(lbl_discount))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_price_total)
+                            .addComponent(lbl_seat_total))
+                        .addGap(18, 18, 18)
+                        .addComponent(btn_book))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel6)
+                            .addComponent(txt_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txt_last_name, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel3)
+                            .addComponent(txt_email, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addGap(65, 65, 65)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addComponent(lbl_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void btn_bookActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_bookActionPerformed
+        bookSeat();
+    }//GEN-LAST:event_btn_bookActionPerformed
+
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        UserHome um = new UserHome();
+        this.setVisible(false);
+        um.setVisible(true);
+    }//GEN-LAST:event_btn_backActionPerformed
+
+    public void calcData(ArrayList<String> selected_seats, String schedule_id){
+        
+        String insert = "";
+        
+        for(int i = 0; i < selected_seats.size() ; i++){
+            insert = insert + "seat_id='"+selected_seats.get(i)+"' or ";
+        }
+        
+        String sql = "select * from (select * from seat where "+insert.substring(0, insert.length()-4)+")"
+                + " as A natural left join class natural left join"
+                + " (select * from price where route_id=(select route_id "
+                + "from flight_schedule where"
+                + " flight_schedule_id='"+schedule_id+"')) as B;";
+                
+        ResultSet rs = Database.getData(sql);
+                
+        try{
+            
+            LocalDate date = LocalDate.now();
+            
+            System.out.println(date);
+            
+            String seat_id = "";
+            float price = 0;
+            
+            book_queries = new ArrayList<String>();
+            
+            int econ_seats = 0;
+            int busi_seats = 0;
+            int plati_seats = 0;
+            float econ_price = 0;
+            float busi_price = 0;
+            float plati_price = 0;
+            
+            float total_price = 0;
+                        
+            while(rs.next()){
+                if(rs.getString("class").equals("Economy")){
+                    seat_id = rs.getString("seat_id");
+                    econ_seats += 1;
+                    price = rs.getFloat("price");
+                    econ_price += price;
+                    
+                }else if(rs.getString("class").equals("Buisness")){
+                    seat_id = rs.getString("seat_id");
+                    busi_seats += 1;
+                    price = rs.getFloat("price");
+                    busi_price += price;
+                }else if(rs.getString("class").equals("Platinum")){
+                    seat_id = rs.getString("seat_id");
+                    plati_seats += 1;
+                    price = rs.getFloat("price");
+                    plati_price += price;
+                }
+                String insertBooking = "insert into booking(flight_schedule_id,"
+                    + "seat_id,price,booked_date,user_id) values ('"+schedule_id+"'"
+                    + ",'"+seat_id+"','"+price+"','"+date+"'";
+
+                book_queries.add(insertBooking);
+            }
+            
+            System.out.println(total_price);
+
+            lbl_econ_seat.setText(Integer.toString(econ_seats));
+            lbl_busi_seat.setText(Integer.toString(busi_seats));
+            lbl_plati_seat.setText(Integer.toString(plati_seats));
+            lbl_econ_price.setText(Float.toString(econ_price));
+            lbl_busi_price.setText(Float.toString(busi_price));
+            lbl_plati_price.setText(Float.toString(plati_price));
+            lbl_discount.setText("0%");
+            
+            lbl_seat_total.setText(Integer.toString(econ_seats+busi_seats+plati_seats));
+            
+            total_price = (econ_price + busi_price + plati_price);
+                        
+            lbl_price_total.setText(Float.toString(total_price));
+            lbl_user_id.setVisible(true);
+            
+        }catch(SQLException e){
+            
+        }
+    }
+    
+    public void bookSeat(){
+
+        Connection conn = Database.getConnection();;
+        
+        try{
+            conn.setAutoCommit(false);
+            
+            String sql = registerUser();
+            
+            conn.prepareStatement(sql).executeUpdate();
+            
+            String sql2 = "select user_id from customer where email='"+txt_email.getText()+"';";
+            ResultSet rs = conn.prepareStatement(sql2).executeQuery();
+            rs.next();
+            tempUserId = rs.getInt("user_id");
+            
+            int i = 0;
+            while(i < book_queries.size()){
+                String tempQuery = book_queries.get(i) + ",'"+tempUserId+"');";
+                PreparedStatement preparedStmt = conn.prepareStatement(tempQuery);
+                preparedStmt.execute();
+                i++;
+            }
+            conn.commit();
+
+            conn.close();
+            lbl_user_id.setText("Save this id for later use in your booking : "+Integer.toString(tempUserId));
+            JOptionPane.showMessageDialog(null, "Booking Successfull!!!");
+          }
+          catch (Exception e){
+            System.err.println("Got an exception!");
+            JOptionPane.showMessageDialog(null, "Seats you selected may not be available, Try again!!!");
+            System.err.println(e.getMessage());
+            try {
+                conn.rollback();
+                conn.setAutoCommit(true);
+            } catch (SQLException ex) {
+                Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            UserHome um = new UserHome();
+            this.setVisible(false);
+            um.setVisible(true);
+          }
+    }
+    
+    public String registerUser(){
+        String lname = txt_last_name.getText();
+        String fname = txt_first_name.getText();
+        String email = txt_email.getText();
+        String mobileNum = txt_mobile_num.getText();
+
+        String query = "insert into customer (first_name, email, mobile_no,last_name,customer_type)"
+          + " values ('"+fname+"', '"+email+"', '"+mobileNum+"', '"+lname+"','Guest')";
+        return query;
+
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_back;
+    private javax.swing.JButton btn_book;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel lbl_busi_price;
+    private javax.swing.JLabel lbl_busi_seat;
+    private javax.swing.JLabel lbl_discount;
+    private javax.swing.JLabel lbl_econ_price;
+    private javax.swing.JLabel lbl_econ_seat;
+    private javax.swing.JLabel lbl_plati_price;
+    private javax.swing.JLabel lbl_plati_seat;
+    private javax.swing.JLabel lbl_price_total;
+    private javax.swing.JLabel lbl_seat_total;
+    private javax.swing.JLabel lbl_user_id;
+    private javax.swing.JTextField txt_email;
+    private javax.swing.JTextField txt_first_name;
+    private javax.swing.JTextField txt_last_name;
+    private javax.swing.JTextField txt_mobile_num;
     // End of variables declaration//GEN-END:variables
 }

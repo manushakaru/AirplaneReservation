@@ -14,7 +14,7 @@ use Airplane;
 
 
 CREATE TABLE customer_state (
-  customer_state enum('Guest','Frequent','Gold') not null,
+  customer_state enum('Guest','Beginner','Frequent','Gold') not null,
   discount int(2) not null,
   bookings_needed int(2) not null,
   PRIMARY KEY (customer_state)
@@ -27,7 +27,7 @@ CREATE TABLE customer (
   email varchar(250) not null,
   password varchar(20) not null,
   age int(2) not null,
-  customer_type enum('Guest','Frequent','Gold') DEFAULT 'Frequent' NOT NULL,
+  customer_type enum('Guest','Frequent','Gold','Beginner') DEFAULT 'Beginner' NOT NULL,
   mobile_no int(10) not null,
   PRIMARY KEY (user_id),
   FOREIGN KEY (customer_type) references customer_state(customer_state) on delete cascade on update cascade

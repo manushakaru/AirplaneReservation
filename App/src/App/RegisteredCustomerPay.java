@@ -14,6 +14,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,10 +30,10 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
      */
     public RegisteredCustomerPay(ArrayList<String> selected_seats, String schedule_id) {
         initComponents();
-        setLabels(selected_seats, schedule_id);
+        calcData(selected_seats, schedule_id);
     }
 
-    public void setLabels(ArrayList<String> selected_seats, String schedule_id){
+    public void calcData(ArrayList<String> selected_seats, String schedule_id){
         
         String insert = "";
         
@@ -155,16 +156,21 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             conn.commit();
 
             conn.close();
+            JOptionPane.showMessageDialog(null, "Booking Successfull!!!");
           }
           catch (Exception e){
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Seats you selected may not be available, Try again!!!");
             try {
                 conn.rollback();
                 conn.setAutoCommit(true);
             } catch (SQLException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
+            UserHome um = new UserHome();
+            this.setVisible(false);
+            um.setVisible(true);
           }
     }
     
@@ -217,6 +223,7 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
         btn_book = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
         lbl_discount = new javax.swing.JLabel();
+        btn_back = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -256,6 +263,13 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
 
         lbl_discount.setText("jLabel6");
 
+        btn_back.setText("Go Back");
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -263,40 +277,46 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(74, 74, 74)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_busi_seat)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_busi_price))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(lbl_econ_seat)
-                                .addGap(18, 18, 18)
-                                .addComponent(lbl_econ_price))
-                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addComponent(btn_book)
-                                .addGroup(layout.createSequentialGroup()
+                                .addGap(74, 74, 74)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel3)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbl_busi_seat)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbl_busi_price))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jLabel2)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lbl_econ_seat)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(lbl_econ_price))
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lbl_seat_total)
+                                        .addComponent(btn_book)
                                         .addGroup(layout.createSequentialGroup()
                                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                .addComponent(jLabel5)
-                                                .addComponent(jLabel4))
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(lbl_plati_seat)))
-                                    .addGap(18, 18, 18)
-                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(lbl_plati_price)
-                                        .addComponent(lbl_price_total)
-                                        .addComponent(lbl_discount))))))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addComponent(jLabel1)))
-                .addContainerGap(92, Short.MAX_VALUE))
+                                                .addComponent(lbl_seat_total)
+                                                .addGroup(layout.createSequentialGroup()
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(jLabel5)
+                                                        .addComponent(jLabel4))
+                                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                    .addComponent(lbl_plati_seat)))
+                                            .addGap(18, 18, 18)
+                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                .addComponent(lbl_plati_price)
+                                                .addComponent(lbl_price_total)
+                                                .addComponent(lbl_discount))))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(98, 98, 98)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 80, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btn_back)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -328,7 +348,9 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                     .addComponent(lbl_seat_total))
                 .addGap(18, 18, 18)
                 .addComponent(btn_book)
-                .addContainerGap(117, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addComponent(btn_back)
+                .addContainerGap())
         );
 
         pack();
@@ -338,8 +360,15 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
         bookSeat();
     }//GEN-LAST:event_btn_bookActionPerformed
 
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        UserHome um = new UserHome();
+        this.setVisible(false);
+        um.setVisible(true);
+    }//GEN-LAST:event_btn_backActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_book;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

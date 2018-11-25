@@ -32,13 +32,13 @@ public class Register extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         txt_last_name = new javax.swing.JTextField();
         txt_email = new javax.swing.JTextField();
-        txt_age = new javax.swing.JTextField();
         txt_mobile_num = new javax.swing.JTextField();
         btn_register = new javax.swing.JButton();
         pwField_password = new javax.swing.JPasswordField();
         btn_back = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
         txt_first_name = new javax.swing.JTextField();
+        dte_pckr_birthday = new org.jdesktop.swingx.JXDatePicker();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +52,7 @@ public class Register extends javax.swing.JFrame {
         jLabel3.setText("Password :");
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
-        jLabel4.setText("Age :");
+        jLabel4.setText("Birth Date : ");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
         jLabel5.setText("Mobile No. :");
@@ -95,9 +95,9 @@ public class Register extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel4))
                                 .addGap(45, 45, 45)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(pwField_password, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(txt_age, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(dte_pckr_birthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addComponent(btn_register)
                             .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -109,7 +109,7 @@ public class Register extends javax.swing.JFrame {
                                     .addComponent(txt_email, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                                     .addComponent(txt_last_name, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                                     .addComponent(txt_first_name))))))
-                .addContainerGap(185, Short.MAX_VALUE))
+                .addContainerGap(176, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -135,14 +135,14 @@ public class Register extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txt_age, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(dte_pckr_birthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5))
                 .addGap(26, 26, 26)
                 .addComponent(btn_register)
-                .addContainerGap(25, Short.MAX_VALUE))
+                .addContainerGap(23, Short.MAX_VALUE))
         );
 
         pack();
@@ -153,14 +153,17 @@ public class Register extends javax.swing.JFrame {
         String fname = txt_first_name.getText();
         String email = txt_email.getText();
         String password = pwField_password.getText();
-        String age = txt_age.getText();
+        
+        java.util.Date tempDate = dte_pckr_birthday.getDate();
+        java.sql.Date birthday = new java.sql.Date(tempDate.getTime());
+        
         String mobileNum = txt_mobile_num.getText();
         
         Connection conn = Database.getConnection();;
         
         try{
 
-            String query = "insert into customer (first_name, email, password, age, mobile_no,last_name)"
+            String query = "insert into customer (first_name, email, password, birthday, mobile_no,last_name)"
               + " values (?, ?, ?, ?, ?,?)";
             
             conn.setAutoCommit(false);
@@ -169,7 +172,7 @@ public class Register extends javax.swing.JFrame {
             preparedStmt.setString(1, lname);
             preparedStmt.setString(2, email);
             preparedStmt.setString(3, password);
-            preparedStmt.setString(4, age);
+            preparedStmt.setString(4, birthday.toString());
             preparedStmt.setString(5, mobileNum);
             preparedStmt.setString(6, fname);
 
@@ -205,6 +208,7 @@ public class Register extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_register;
+    private org.jdesktop.swingx.JXDatePicker dte_pckr_birthday;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -212,7 +216,6 @@ public class Register extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPasswordField pwField_password;
-    private javax.swing.JTextField txt_age;
     private javax.swing.JTextField txt_email;
     private javax.swing.JTextField txt_first_name;
     private javax.swing.JTextField txt_last_name;

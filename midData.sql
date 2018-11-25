@@ -4,13 +4,14 @@ INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '123456');
 
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Frequent', '5', '5');
+INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Beginner', '0', '0');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Gold', '10', '10');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Guest', '0', '0');
 
 INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '123456', '22', 'Gold', '0711234567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '123456', '22', 'Frequent', '0711256567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '123456', '22', '0711256567');
 INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('3', 'erandana', 'kumara', 'erandana@123.com', '123456', '21', 'Frequent', '0751234567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('4', 'dasun', 'madushan', 'dasun@123.com', '123456', '21', 'Gold', '0771234567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `mobile_no`) VALUES ('4', 'dasun', 'madushan', 'dasun@123.com', '123456', '21', '0771234567');
 INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('5', 'sanka', 'dineth', 'sanka@123.com', '123456', '21', 'Frequent', '0771034567');
 INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('6', 'irosh', 'mayantha', 'irosh@123.com', '123456', '18', 'Guest', '0751231167');
 INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `age`, `customer_type`, `mobile_no`) VALUES ('7', 'kasun', 'heshan', 'kasun@123.com', '123456', '19', 'Guest', '0751255167');

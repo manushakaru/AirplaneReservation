@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -20,6 +21,7 @@ public class UserHome extends javax.swing.JFrame {
     private String[] airports;
     public static String airport_from;
     public static String airport_to;
+    public static int temp_guest_id = 0;
 
     /**
      * Creates new form UserHome
@@ -75,6 +77,7 @@ public class UserHome extends javax.swing.JFrame {
         btn_previous_bookings = new javax.swing.JButton();
         date_picker_schedule = new org.jdesktop.swingx.JXDatePicker();
         jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -101,7 +104,7 @@ public class UserHome extends javax.swing.JFrame {
             }
         });
 
-        btn_previous_bookings.setText("View My Bookings");
+        btn_previous_bookings.setText("View My Previous Bookings");
         btn_previous_bookings.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btn_previous_bookingsActionPerformed(evt);
@@ -110,33 +113,43 @@ public class UserHome extends javax.swing.JFrame {
 
         jLabel2.setText("Select Date : ");
 
+        jLabel3.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel3.setText("Welcome To B Airways");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(btn_previous_bookings))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btn_view_flights)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cmbbx_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addComponent(cmbbx_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(149, 149, 149)
+                        .addComponent(jLabel3))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(date_picker_schedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(414, Short.MAX_VALUE))
+                        .addGap(140, 140, 140)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btn_view_flights)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(18, 18, 18)
+                                .addComponent(date_picker_schedule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(btn_previous_bookings))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(cmbbx_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(cmbbx_to, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                .addContainerGap(174, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(23, 23, 23)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel3)
+                .addGap(54, 54, 54)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbbx_from, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1)
@@ -147,9 +160,9 @@ public class UserHome extends javax.swing.JFrame {
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addComponent(btn_view_flights)
-                .addGap(61, 61, 61)
+                .addGap(34, 34, 34)
                 .addComponent(btn_previous_bookings)
-                .addContainerGap(166, Short.MAX_VALUE))
+                .addContainerGap(99, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -189,6 +202,10 @@ public class UserHome extends javax.swing.JFrame {
     }//GEN-LAST:event_cmbbx_toActionPerformed
 
     private void btn_previous_bookingsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_previous_bookingsActionPerformed
+        if(Login.userId == 0){
+            temp_guest_id = Integer.parseInt(JOptionPane.showInputDialog("Please enter your id given at booking: "));
+        }
+        
         PreviousBooking pb = new PreviousBooking();
         this.setVisible(false);
         pb.setVisible(true);
@@ -204,6 +221,7 @@ public class UserHome extends javax.swing.JFrame {
     private org.jdesktop.swingx.JXDatePicker date_picker_schedule;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
