@@ -314,17 +314,17 @@ public class datataking extends javax.swing.JFrame {
         
         picked_end_date = ending_date.getDate();
         picked_sql_end_date = new Date(picked_end_date.getTime());
+        
+        String col_val = null;
+        String gold_cust = null;
+        String freq_cust = null;
+        String guest_cust = null;
                
         Connection con = Database.getConnection();
         String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
         
         System.out.println(query);
-        
-        
-        ResultSet rs = Database.getData(query);
-        
-        String col_val = null;
-        
+        ResultSet rs = Database.getData(query);       
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
@@ -343,13 +343,85 @@ public class datataking extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+ 
+        String query_1 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Gold' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        System.out.println(query_1);
+        rs = Database.getData(query_1);       
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query_1);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    gold_cust = columnValue;
+                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+
+        String query_2 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Frequent' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        System.out.println(query);
+        rs = Database.getData(query_2);       
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query_2);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    freq_cust = columnValue;
+                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        
+        String query_3 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Guest' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        System.out.println(query_3);
+        rs = Database.getData(query_3);       
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query_3);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+            for (int i = 1; i <= columnsNumber; i++) {
+                if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    guest_cust = columnValue;
+                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
                 
         System.out.println(col_val);
         
         ViewDetails vd = new ViewDetails();
         this.setVisible(false);
         vd.setVisible(true);
-        vd.viewLblDetail(col_val);
+        vd.viewLblDetail(col_val,gold_cust, freq_cust, guest_cust);
     
     }//GEN-LAST:event_btn_view_bookingActionPerformed
 

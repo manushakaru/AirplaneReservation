@@ -38,19 +38,47 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
-                  <Component id="lbl_detail" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="255" max="32767" attributes="0"/>
+              <Group type="102" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
+                      <Group type="102" attributes="0">
+                          <EmptySpace min="-2" pref="74" max="-2" attributes="0"/>
+                          <Group type="103" groupAlignment="0" attributes="0">
+                              <Component id="lbl_3" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_2" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_1" min="-2" max="-2" attributes="0"/>
+                              <Component id="lbl_detail" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                      </Group>
+                      <Group type="102" alignment="0" attributes="0">
+                          <EmptySpace min="-2" pref="87" max="-2" attributes="0"/>
+                          <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btn_back" min="-2" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="182" max="-2" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <EmptySpace pref="103" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
         <DimensionLayout dim="1">
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
-                  <EmptySpace min="-2" pref="95" max="-2" attributes="0"/>
+                  <EmptySpace max="-2" attributes="0"/>
+                  <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
                   <Component id="lbl_detail" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="189" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lbl_1" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lbl_2" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="lbl_3" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="58" max="32767" attributes="0"/>
+                  <Component id="btn_back" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="35" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -58,8 +86,36 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="lbl_detail">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Number is"/>
+            <Property name="text" type="java.lang.String" value="Total no of customers : "/>
           </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="gold customers"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_2">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="freq customers"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="lbl_3">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="guest customers"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel4">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Number of booking by customer type"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="btn_back">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Back"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_backActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
