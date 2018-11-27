@@ -237,7 +237,7 @@ public class datataking extends javax.swing.JFrame {
         
         Connection con = Database.getConnection();
         
-        String query ="select count(distinct user_id) from booking where schedule_id in (select schedule_id from route join flight_schedule using(route_id) where date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"' and origin = (select airport_code from airport where airport_name = '"+cmb_from.getSelectedItem().toString()+"') and destination = (select airport_code from airport where airport_name = '"+cmb_to.getSelectedItem().toString()+"'));";
+        String query ="select count(booking_id) from booking where flight_schedule_id in (select flight_schedule_id from route join flight_schedule using(route_id) where date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"' and origin = (select airport_code from airport where airport_name = '"+cmb_from.getSelectedItem().toString()+"') and destination = (select airport_code from airport where airport_name = '"+cmb_to.getSelectedItem().toString()+"'));";
        
         ResultSet rs;
         
