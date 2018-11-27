@@ -25,10 +25,11 @@ CREATE TABLE customer (
   first_name varchar(250) not null,
   last_name varchar(250) not null,
   email varchar(250) not null,
-  password varchar(20) not null,
-  age int(2) not null,
+  password varchar(20),
+  birthday Date,
   customer_type enum('Guest','Frequent','Gold','Beginner') DEFAULT 'Beginner' NOT NULL,
   mobile_no int(10) not null,
+  unique (email),
   PRIMARY KEY (user_id),
   FOREIGN KEY (customer_type) references customer_state(customer_state) on delete cascade on update cascade
 );
