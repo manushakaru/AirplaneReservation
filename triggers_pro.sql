@@ -6,9 +6,9 @@ begin
 			SIGNAL SQLSTATE VALUE '45000'
 			SET MESSAGE_TEXT = "Email is not valid";
 			
-	elseif (NEW.age > 100) THEN
+	elseif DATEDIFF(new.birthday, CURDATE())<0 THEN
 			SIGNAL SQLSTATE VALUE '45001'
-			SET MESSAGE_TEXT = "Age is not valid";
+			SET MESSAGE_TEXT = "birthdate is not valid";
 
 	elseif (LENGTH(NEW.first_name )<3) THEN
 			SIGNAL SQLSTATE VALUE '45002'
@@ -22,7 +22,7 @@ begin
 			SIGNAL SQLSTATE VALUE '45004'
 			SET MESSAGE_TEXT = "Password is not valid";
 
-	elseif not new.mobile_no not like '^[0-9]{10}$' then
+	elseif not new.mobile_no not like '^[0-9]{9}$' then
 			SIGNAL SQLSTATE VALUE '45005'
 			SET MESSAGE_TEXT = "mobile no is not valid";	 
 	end if;
@@ -162,6 +162,12 @@ begin
 end//
 DELIMITER ;
 
+
+
+
+CREATE INDEX by_user_id_and_birthday ON customer (user_id, birthday);
+CREATE INDEX flight_id_index ON flight_schedule (flight_schedule_id);
+create index user_id_flight_sch_id on booking (user_id,flight_schedule_id);
 
 
 
