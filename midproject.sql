@@ -146,20 +146,22 @@ CREATE TABLE booking  (
   UNIQUE (flight_schedule_id,seat_id)
 );
 
-create role 'customer', 'admin';
+
+create user 'customer'@'localhost' identified by 'customer123';
+create user 'admin'@'localhost' identified by 'admin123';
 
 GRANT ALL ON airplane.* TO 'admin';
 
-GRANT SELECT ON airplane.aircraft TO 'customer';
-GRANT SELECT ON airplane.airport TO 'customer';
-GRANT SELECT,INSERT ON airplane.booking TO 'customer';
-GRANT SELECT ON airplane.class TO 'customer';
-GRANT SELECT,INSERT,UPDATE ON airplane.customer TO 'customer';
-GRANT SELECT ON airplane.customer_state TO 'customer';
-GRANT SELECT ON airplane.delay TO 'customer';
-GRANT SELECT ON airplane.flight_schedule TO 'customer';
-GRANT SELECT ON airplane.location TO 'customer';
-GRANT SELECT ON airplane.predefined_schedule TO 'customer';
-GRANT SELECT ON airplane.price TO 'customer';
-GRANT SELECT ON airplane.route TO 'customer';
-GRANT SELECT ON airplane.seat TO 'customer';
+GRANT SELECT ON airplane.aircraft TO 'customer'@'localhost';
+GRANT SELECT ON airplane.airport TO 'customer'@'localhost';
+GRANT SELECT,INSERT ON airplane.booking TO 'customer'@'localhost';
+GRANT SELECT ON airplane.class TO 'customer'@'localhost';
+GRANT SELECT,INSERT,UPDATE ON airplane.customer TO 'customer'@'localhost';
+GRANT SELECT ON airplane.customer_state TO 'customer'@'localhost';
+GRANT SELECT ON airplane.delay TO 'customer'@'localhost';
+GRANT SELECT ON airplane.flight_schedule TO 'customer'@'localhost';
+GRANT SELECT ON airplane.location TO 'customer'@'localhost';
+GRANT SELECT ON airplane.predefined_schedule TO 'customer'@'localhost';
+GRANT SELECT ON airplane.price TO 'customer'@'localhost';
+GRANT SELECT ON airplane.route TO 'customer'@'localhost';
+GRANT SELECT ON airplane.seat TO 'customer'@'localhost';
