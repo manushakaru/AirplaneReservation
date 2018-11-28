@@ -6,6 +6,7 @@
 package App;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -128,15 +129,27 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         // TODO add your handling code here:
         aircraft_type = txt_aircraftType.getText();
         System.out.println(aircraft_type);
-        Connection con = Database.getConnection();
-        String query = "SELECT Round(SUM(b.price - ((b.price)*(cs.discount)/100)),2) FROM booking b, seat s, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = '"+aircraft_type+"' AND ac.craft_id = s.craft_id and s.seat_id = b.seat_id and b.user_id = c.user_id and c.customer_type = cs.customer_state";
+        Connection con = Database.getConnection();       
+        
+        PreparedStatement query = null;
+        try {
+            query = con.prepareStatement("SELECT Round(SUM(b.price - ((b.price)*(cs.discount)/100)),2) FROM booking b, seat s, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = ? AND ac.craft_id = s.craft_id and s.seat_id = b.seat_id and b.user_id = c.user_id and c.customer_type = cs.customer_state ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query.setString(1,aircraft_type);
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         String col_val = null;
         System.out.println(query);
         ResultSet rs;
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = query.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
