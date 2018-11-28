@@ -56,6 +56,11 @@ public class Admin_menu extends javax.swing.JFrame {
         });
 
         jButton3.setText("flight passengers");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("Total Revenue");
 
@@ -110,6 +115,12 @@ public class Admin_menu extends javax.swing.JFrame {
         this.setVisible(false);
         vd.setVisible(true);
     }//GEN-LAST:event_btn_booking_countActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        Flight_check fCheck = new Flight_check();
+        this.setVisible(false);
+        fCheck.setVisible(true);
+    }//GEN-LAST:event_jButton3ActionPerformed
 
     /**
      * @param args the command line arguments

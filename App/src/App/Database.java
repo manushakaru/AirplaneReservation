@@ -22,8 +22,8 @@ public class Database {
         try{
             String driver = "com.mysql.jdbc.Driver";
             String url = "jdbc:mysql://localhost:3306/airplane";
-            String username = "customer";
-            String password = "customer123";
+            String username = "admin";
+            String password = "admin123";
             Class.forName(driver);
             
             Connection con = DriverManager.getConnection(url,username,password);
