@@ -174,7 +174,6 @@ public class Login extends javax.swing.JFrame {
         
             if(rs.last()){
                 userId = rs.getInt("user_id");
-                System.out.println(userId);
                 UserHome um = new UserHome();
                 this.setVisible(false);
                 um.setVisible(true);
