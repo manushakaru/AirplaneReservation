@@ -346,9 +346,5 @@ end//
 DELIMITER ;
 
 
-CREATE INDEX by_user_id_and_birthday ON customer (user_id, birthday);
+CREATE INDEX by_user_id ON customer (user_id);
 CREATE INDEX flight_id_index ON flight_schedule (flight_schedule_id);
-create index user_id_flight_sch_id on booking (user_id,flight_schedule_id);
-
-
-
