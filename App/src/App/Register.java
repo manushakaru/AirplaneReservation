@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -176,7 +177,7 @@ public class Register extends javax.swing.JFrame {
 
             String query = "insert into customer (first_name, email, password, birthday, mobile_no,last_name)"
               + " values (?, ?, ?, ?, ?,?)";
-            
+
             conn.setAutoCommit(false);
             
             PreparedStatement preparedStmt = conn.prepareStatement(query);

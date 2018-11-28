@@ -1,5 +1,6 @@
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -163,12 +164,18 @@ public class Login extends javax.swing.JFrame {
         String password = pwField_password.getText();
         try {
             Connection con = CustomerDatabase.getConnection();
-
+            
+            CallableStatement cstmt = con.prepareCall("{? = call hash_pass(?)}");
+            cstmt.registerOutParameter(1,java.sql.Types.VARCHAR);
+            cstmt.setString(2, password);
+            cstmt.execute();
+            
             String query = "SELECT * FROM customer where email=? and password=?;";
 
             PreparedStatement preparedStmt = con.prepareStatement(query);
             preparedStmt.setString(1, username);
-            preparedStmt.setString(2, password);
+            preparedStmt.setString(2, cstmt.getString(1));
+            System.out.println(cstmt.getString(1));
 
             ResultSet rs = preparedStmt.executeQuery();
         
