@@ -82,7 +82,7 @@ public class Flight_check extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Adults ID Numbers"
+                "Adults ID Numbers", "Name"
             }
         ));
         jScrollPane2.setViewportView(above);
@@ -92,7 +92,7 @@ public class Flight_check extends javax.swing.JFrame {
 
             },
             new String [] {
-                "Children ID Numbers"
+                "Children ID Numbers", "Name"
             }
         ));
         jScrollPane3.setViewportView(below);
@@ -158,7 +158,7 @@ public class Flight_check extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void checkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_checkActionPerformed
-
+        
     ArrayList <Customer_class>   list1= new ArrayList<>();
 
     con=MysqlConnect.ConnectDB();
@@ -173,7 +173,7 @@ public class Flight_check extends javax.swing.JFrame {
 
       while(re.next()){
 
-              user = new Customer_class(re.getDate("birthday").toLocalDate(),re.getInt("user_id"));
+              user = new Customer_class(re.getDate("birthday").toLocalDate(),re.getInt("user_id"),re.getString("first_name"));
               //System.out.println(re.getInt("user_id"));
               list1.add(user);
             // LocalDate d =re.getDate("birthday").toLocalDate();
@@ -182,12 +182,13 @@ public class Flight_check extends javax.swing.JFrame {
       ArrayList<Customer_class> list=list1;
           DefaultTableModel model=(DefaultTableModel)below.getModel();
           DefaultTableModel model2=(DefaultTableModel)above.getModel();
-          Object[] row=new Object[1];
-          Object[] row2=new Object[1];
+          Object[] row=new Object[2];
+          Object[] row2=new Object[2];
+          model.setRowCount(0);
+          model2.setRowCount(0);
 
 
-
-          DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 	LocalDate localDate = LocalDate.now();
 	//System.out.println(dtf.format(localDate)); //2016/11/16
 
@@ -198,9 +199,12 @@ public class Flight_check extends javax.swing.JFrame {
         for(int i = 0;i<list.size();i++){
          Period diff = Period.between(list.get(i).getage(), localDate);
          //System.out.println(diff.getYears());
-        if( diff.getYears()<=18 ) {
+        
+         
+         if( diff.getYears()<=18 ) {
 
         row[0]=list.get(i).getid();
+        row[1]=list.get(i).getname();
         model.addRow(row);
         adult_counter=adult_counter+1;
         //System.out.println(list.get(i).getid());
@@ -208,8 +212,9 @@ public class Flight_check extends javax.swing.JFrame {
 
         }
          else{
-         row[0]=list.get(i).getid();
-        model2.addRow(row);
+         row2[0]=list.get(i).getid();
+        row2[1]=list.get(i).getname();
+        model2.addRow(row2);
         child_counter=child_counter+1;
        // System.out.println(list.get(i).getid());
 
