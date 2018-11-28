@@ -6,7 +6,7 @@ CREATE PROCEDURE `check_aircraftt`(IN craft_type varchar(40) )
  	if (LENGTH(craft_type )>40) THEN
 			SIGNAL SQLSTATE VALUE '45010'
 			SET MESSAGE_TEXT = "craft type is not valid";
-			
+
 	end if;
 END$$
 
@@ -68,7 +68,7 @@ CREATE TRIGGER `check_admin_update`
   BEGIN
     DECLARE new_hash VARCHAR(255);
     CALL check_admin(new.first_name,new.last_name,new.email,new.password);
-    SET new_hash = sha1(new.password);  
+    SET new_hash = sha1(new.password);
 	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
@@ -82,7 +82,7 @@ CREATE TRIGGER `check_admin_insert`
   BEGIN
     DECLARE new_hash VARCHAR(255);
     CALL check_admin(new.first_name,new.last_name,new.email,new.password);
-    SET new_hash = sha1(new.password);  
+    SET new_hash = sha1(new.password);
 	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
@@ -97,7 +97,7 @@ CREATE PROCEDURE `check_airport`(IN airport_name varchar(40) )
  	if (LENGTH(airport_name )>100) THEN
 			SIGNAL SQLSTATE VALUE '45010'
 			SET MESSAGE_TEXT = "airport name is not valid";
-			
+
 	end if;
 END$$
 
@@ -195,31 +195,31 @@ CREATE PROCEDURE `check_customer`(IN first_name varchar(250), IN last_name VARCH
     if (LENGTH(last_name )<3) THEN
     	SIGNAL SQLSTATE VALUE '45008'
         SET MESSAGE_TEXT = "last name is not valid";
-        
+
     END IF;
     if (LENGTH(password )<7) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
 
 	END IF;
-    
+
     if (LENGTH(password )>20) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
-       
+
     END IF;
-    
+
     if DATEDIFF(birthday, CURDATE())>0 THEN
 			SIGNAL SQLSTATE VALUE '45001'
 			SET MESSAGE_TEXT = "birthdate is not valid";
-     
+
     END IF;
-    
+
     if not mobile_no not like '^[0-9]{10}$' then
 			SIGNAL SQLSTATE VALUE '45005'
 			SET MESSAGE_TEXT = "mobile no is not valid";
      END IF;
-  
+
   END$$
 
 DELIMITER ;
@@ -238,7 +238,7 @@ CREATE TRIGGER `check_cus_insert`
 
     CALL check_customer(new.first_name,new.last_name,new.email,new.password,new.birthday,new.mobile_no);
 
-    SET new_hash = sha1(new.password); 
+    SET new_hash = sha1(new.password);
 	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
@@ -255,7 +255,7 @@ CREATE TRIGGER `check_cus_update`
 
     CALL check_customer(new.first_name,new.last_name,new.email,new.password,new.birthday,new.mobile_no);
 
-    SET new_hash = sha1(new.password); 
+    SET new_hash = sha1(new.password);
 	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
@@ -283,7 +283,7 @@ CREATE TRIGGER `flight_schedule_validation` BEFORE INSERT ON `flight_schedule`FO
 begin
 	if DATEDIFF(new.date, CURDATE())<0
 	 THEN SIGNAL SQLSTATE VALUE '45016' SET MESSAGE_TEXT = "day is not valid";
-	 
+
 	end if;
 end//
 DELIMITER ;
@@ -294,7 +294,7 @@ CREATE TRIGGER `flight_schedule_validation_UPDATE` BEFORE UPDATE ON `flight_sche
 begin
 	if DATEDIFF(new.date, CURDATE())<0
 	 THEN SIGNAL SQLSTATE VALUE '45016' SET MESSAGE_TEXT = "day is not valid";
-	 
+
 	end if;
 end//
 DELIMITER ;
@@ -328,7 +328,7 @@ begin
 	IF (NEW.seat_no > 100) THEN
 			SIGNAL SQLSTATE VALUE '45020'
 			SET MESSAGE_TEXT = "seat  no is not valid";
-		   
+
 	 end if;
 end//
 DELIMITER ;
@@ -340,15 +340,11 @@ begin
 	IF (NEW.seat_no > 100) THEN
 			SIGNAL SQLSTATE VALUE '45020'
 			SET MESSAGE_TEXT = "seat  no is not valid";
-		   
+
 	 end if;
 end//
 DELIMITER ;
 
 
-CREATE INDEX by_user_id_and_birthday ON customer (user_id, birthday);
+CREATE INDEX by_user_id ON customer (user_id);
 CREATE INDEX flight_id_index ON flight_schedule (flight_schedule_id);
-create index user_id_flight_sch_id on booking (user_id,flight_schedule_id);
-
-
-
