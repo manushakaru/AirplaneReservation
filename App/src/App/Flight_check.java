@@ -162,7 +162,7 @@ public class Flight_check extends javax.swing.JFrame {
     ArrayList <Customer_class>   list1= new ArrayList<>();
 
     con=MysqlConnect.ConnectDB();
-    String query1="select *  from flight_schedule natural join booking natural join customer where flight_schedule_id=?" ;
+    String query1="select * from flight_user_show where flight_schedule_id=?;" ;
      try{
      st=con.prepareStatement(query1);
      String searchitem = id.getText();
@@ -228,6 +228,7 @@ public class Flight_check extends javax.swing.JFrame {
      }
     catch(Exception ex){
         System.out.println("con1 error");
+        System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_checkActionPerformed
 
