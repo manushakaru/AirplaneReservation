@@ -6,6 +6,7 @@
 package App;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -25,7 +26,7 @@ public class GuestUserPay extends javax.swing.JFrame {
     private ArrayList<String> book_queries;
     private int tempUserId = 0;
     
-    private Connection con = CustomerDatabase.getConnection();
+    private Connection con = GuestDatabase.getConnection();
     /**
      * Creates new form GuestUserPay
      */
@@ -68,6 +69,8 @@ public class GuestUserPay extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         lbl_user_id = new javax.swing.JLabel();
         btn_back = new javax.swing.JButton();
+        dte_pckr_birthday = new org.jdesktop.swingx.JXDatePicker();
+        jLabel10 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -128,6 +131,9 @@ public class GuestUserPay extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setFont(new java.awt.Font("Tahoma", 0, 15)); // NOI18N
+        jLabel10.setText("Birthday : ");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -143,10 +149,6 @@ public class GuestUserPay extends javax.swing.JFrame {
                         .addGap(30, 30, 30)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel2)
                                     .addComponent(jLabel3)
@@ -155,7 +157,15 @@ public class GuestUserPay extends javax.swing.JFrame {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                     .addComponent(txt_email)
                                     .addComponent(txt_last_name)
-                                    .addComponent(txt_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addComponent(txt_first_name, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel5)
+                                    .addComponent(jLabel10))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(dte_pckr_birthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE))))
                         .addGap(34, 34, 34)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -244,7 +254,11 @@ public class GuestUserPay extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txt_mobile_num, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5))
-                        .addGap(65, 65, 65)))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(dte_pckr_birthday, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))
+                        .addGap(23, 23, 23)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(lbl_user_id, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(34, 34, 34))
@@ -360,7 +374,7 @@ public class GuestUserPay extends javax.swing.JFrame {
             
             CustomerDatabase.setData(prepState);
             
-            String sql2 = "select user_id from customer where email=?;";
+            String sql2 = "select user_id from guest_customer_view where email=?;";
             
             PreparedStatement getUID = con.prepareStatement(sql2);
             getUID.setString(1, txt_email.getText());
@@ -406,9 +420,11 @@ public class GuestUserPay extends javax.swing.JFrame {
         String fname = txt_first_name.getText();
         String email = txt_email.getText();
         String mobileNum = txt_mobile_num.getText();
+        java.util.Date tempDate = dte_pckr_birthday.getDate();
+        java.sql.Date birthday = new java.sql.Date(tempDate.getTime());
 
-        String query = "insert into customer (first_name, email, mobile_no,last_name,customer_type)"
-          + " values (?, ?, ?, ?,'Guest')";
+        String query = "insert into guest_customer_view (first_name, email, mobile_no,last_name,customer_type, birthday)"
+          + " values (?, ?, ?, ?,'Guest',?)";
         
         try{
             PreparedStatement preparedStmt = con.prepareStatement(query);
@@ -417,6 +433,7 @@ public class GuestUserPay extends javax.swing.JFrame {
             preparedStmt.setString(2, email);
             preparedStmt.setString(3, mobileNum);
             preparedStmt.setString(4, lname);
+            preparedStmt.setString(5, birthday.toString());
             return preparedStmt;
         }catch(SQLException e){
             e.printStackTrace();
@@ -427,7 +444,9 @@ public class GuestUserPay extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_book;
+    private org.jdesktop.swingx.JXDatePicker dte_pckr_birthday;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

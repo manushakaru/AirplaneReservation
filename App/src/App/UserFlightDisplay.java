@@ -74,9 +74,6 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                       
 
             while(rs.next()){
-                
-                JButton btn_book = new JButton();
-                btn_book.setText("Book");
 
                 scheduleData[i][0] = rs.getString("flight_schedule_id");
                 scheduleData[i][1] = rs.getString("craft_id");
