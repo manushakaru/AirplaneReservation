@@ -146,9 +146,18 @@ CREATE TABLE booking  (
   UNIQUE (flight_schedule_id,seat_id)
 );
 
+---------------views
 
 create view guest_customer_view as select user_id, email, customer_type, first_name, last_name,mobile_no,birthday  from customer;
 
 create view flight_user_show as
 SELECT user_id,birthday,flight_schedule_id,first_name
 FROM flight_schedule natural join booking NATURAL join customer;
+
+
+----------------indexes
+
+CREATE INDEX booking_index ON booking (flight_schedule_id, user_id);
+CREATE INDEX customer_index ON customer (email);
+CREATE INDEX airport_index ON airport (airport_name);
+CREATE INDEX route_index ON route (origin);
