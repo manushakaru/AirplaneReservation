@@ -7,6 +7,7 @@ package App;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -66,7 +67,7 @@ public class ViewDetails extends javax.swing.JFrame {
         lbl_0.setText("No of Total Customers");
 
         lbl_1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        lbl_1.setText("No of Gokd Customers");
+        lbl_1.setText("No of Gold Customers");
 
         lbl_2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_2.setText("No of Beginner Customers");
@@ -169,13 +170,27 @@ public class ViewDetails extends javax.swing.JFrame {
         String beg_cust = null;
 
         Connection con = Database.getConnection();
-        String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
 
         //System.out.println(query);
+        PreparedStatement query = null;
+        try {
+            query = con.prepareStatement("SELECT  count(b.booking_id) FROM booking b where b.booked_date between ? and ? ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query.setString(1,picked_sql_start_date.toString());
+            query.setString(2,picked_sql_end_date.toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+
         ResultSet rs;
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = query.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -185,20 +200,31 @@ public class ViewDetails extends javax.swing.JFrame {
                     col_val = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
-                System.out.println("");
-            }
+                System.out.println("");            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        String query_1 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Gold' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        PreparedStatement query_1 = null;
+        try {
+            query_1 = con.prepareStatement("SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Gold' and b.booked_date between ? and ? ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query_1.setString(1,picked_sql_start_date.toString());
+            query_1.setString(2,picked_sql_end_date.toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
 
-        System.out.println(query_1);
-        rs = Database.getData(query_1);
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query_1);
+            rs = query_1.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -208,20 +234,33 @@ public class ViewDetails extends javax.swing.JFrame {
                     gold_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
-                System.out.println("");
-            }
+                System.out.println("");            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+      
 
-        String query_2 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Frequent' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        
+        PreparedStatement query_2 = null;
+        try {
+            query_2 = con.prepareStatement("SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Frequent' and b.booked_date between ? and ? ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query_2.setString(1,picked_sql_start_date.toString());
+            query_2.setString(2,picked_sql_end_date.toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
 
-        System.out.println(query);
-        rs = Database.getData(query_2);
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query_2);
+            rs = query_2.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -231,20 +270,32 @@ public class ViewDetails extends javax.swing.JFrame {
                     freq_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
-                System.out.println("");
-            }
+                System.out.println("");            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        
 
-        String query_3 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Guest' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+        PreparedStatement query_3 = null;
+        try {
+            query_3 = con.prepareStatement("SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Guest' and b.booked_date between ? and ? ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query_3.setString(1,picked_sql_start_date.toString());
+            query_3.setString(2,picked_sql_end_date.toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
 
-        System.out.println(query_3);
-        rs = Database.getData(query_3);
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query_3);
+            rs = query_3.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -254,20 +305,30 @@ public class ViewDetails extends javax.swing.JFrame {
                     guest_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
-                System.out.println("");
-            }
+                System.out.println("");            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
+        PreparedStatement query_4 = null;
+        try {
+            query_4 = con.prepareStatement("SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Beginner' and b.booked_date between ? and ? ;");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query_4.setString(1,picked_sql_start_date.toString());
+            query_4.setString(2,picked_sql_end_date.toString());
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
 
-        String query_4 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Beginner' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-
-        System.out.println(query_4);
-        rs = Database.getData(query_4);
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query_4);
+            rs = query_4.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -277,8 +338,7 @@ public class ViewDetails extends javax.swing.JFrame {
                     beg_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
                 }
-                System.out.println("");
-            }
+                System.out.println("");            }
 
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);

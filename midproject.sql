@@ -177,6 +177,7 @@ GRANT SELECT ON airplane.price TO 'customer'@'localhost';
 GRANT SELECT ON airplane.route TO 'customer'@'localhost';
 GRANT SELECT ON airplane.seat TO 'customer'@'localhost';
 
+<<<<<<< HEAD
 GRANT SELECT ON airplane.aircraft TO 'guest'@'localhost';
 GRANT SELECT ON airplane.airport TO 'guest'@'localhost';
 GRANT SELECT,INSERT ON airplane.booking TO 'guest'@'localhost';
@@ -201,3 +202,10 @@ RETURN sha1(password);
 
 grant execute on function hash_pass to 'customer'@'localhost';
 grant execute on function hash_pass to 'admin'@'localhost';
+=======
+
+
+CREATE VIEW flight_users AS
+SELECT birthday,user_id,first_name,flight_schedule_id
+FROM flight_schedule natural join booking natural join customer;
+>>>>>>> 9c9011d126bc5779acf962854688731a3176ef51
