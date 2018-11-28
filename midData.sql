@@ -315,7 +315,7 @@ INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departur
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Saturday', '08:00:00', '11:00:00');
 
 
-
+/*mayantha*/
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','1','10000');
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','1','20000');
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','1','30000');
