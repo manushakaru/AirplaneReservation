@@ -14,15 +14,20 @@ import java.time.LocalDate;
 public class Customer_class {
    LocalDate age;
     private int id;
-    public Customer_class(LocalDate age,int id  ){
+     String name;
+    public Customer_class(LocalDate age,int id,String name  ){
      this.age=age;
      this.id=id;
+     this.name=name;
     }
      public LocalDate getage(){
     return age;
     }
     public int getid(){
     return id;
+    }
+    public String getname(){
+    return name;
     }
     
 }
