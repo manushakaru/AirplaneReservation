@@ -339,12 +339,8 @@ CREATE TRIGGER `seat_validation_UPDATE` BEFORE update ON `seat`FOR EACH ROW
 begin
 	IF (NEW.seat_no > 100) THEN
 			SIGNAL SQLSTATE VALUE '45020'
-			SET MESSAGE_TEXT = "seat  no is not valid";
+			SET MESSAGE_TEXT = "seat no is not valid";
 		   
 	 end if;
 end//
 DELIMITER ;
-
-
-CREATE INDEX by_user_id ON customer (user_id);
-CREATE INDEX flight_id_index ON flight_schedule (flight_schedule_id);
