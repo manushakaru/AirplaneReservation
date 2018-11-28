@@ -172,7 +172,7 @@ public class ViewDetails extends javax.swing.JFrame {
         String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
 
         //System.out.println(query);
-        ResultSet rs = Database.getData(query);
+        ResultSet rs;
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
