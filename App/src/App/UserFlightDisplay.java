@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import javax.swing.JButton;
 import java.sql.ResultSet;
@@ -36,34 +37,27 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
 
     public void getSchedule(Date picked_date){
         
-        String sql = "select * from (select * from flight_schedule where "
-                +"route_id=(select route_id from route where origin=(select airport_code from airport where airport_name=?) "
-                +"and destination=(select airport_code from airport where airport_name=?)) and date= ?) as A natural "+
-                "left join delay as B natural left join predefined_schedule;";
         ResultSet rs2 = null;
         try{
-        
-            PreparedStatement prep1 = con.prepareStatement(sql);
-            prep1.setString(1, UserHome.airport_from);
-            prep1.setString(2, UserHome.airport_to);
-            prep1.setString(3, picked_date.toString());
-        
-            String sql2 = "select * from (select * from price where route_id=(select route_id from route where "
-                    + "origin=(select airport_code from airport where airport_name=?) and "
-                    + "destination=(select airport_code from airport where airport_name=?))) "
-                    + "as A natural left join class;";
             
-            PreparedStatement prep2 = con.prepareStatement(sql2);
-            prep2.setString(1, UserHome.airport_from);
-            prep2.setString(2, UserHome.airport_to);
-
-            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep1);
-
-            rs2 = (ResultSet)CustomerDatabase.getData(prep2);
+            String call_flight = "{call get_flights(?,?,?)}";
+            
+            CallableStatement stmt = con.prepareCall(call_flight);
+            stmt.setString(1, UserHome.airport_from);
+            stmt.setString(2, UserHome.airport_to);
+            stmt.setString(3, picked_date.toString());
+            ResultSet rs = stmt.executeQuery();
+        
+            String call_class = "{call get_classes(?,?)}";
+            
+            CallableStatement stmt2 = con.prepareCall(call_class);
+            stmt2.setString(1, UserHome.airport_from);
+            stmt2.setString(2, UserHome.airport_to);
+            rs2 = stmt2.executeQuery();
 
             int i = 0;
-            rs2.last();
-            i = rs2.getRow();
+            rs.last();
+            i = rs.getRow();
 
             Object[][] scheduleData = new Object[i][6];
             String[] schedules = new String[i];

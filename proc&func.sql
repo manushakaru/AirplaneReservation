@@ -22,3 +22,12 @@ CREATE PROCEDURE `get_airport`()
 delimiter ;
 
 grant execute on procedure get_airport to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_flights`(IN airport_from varchar(100), IN airport_to varchar(100), IN day date)
+  BEGIN  
+    select * from (select * from flight_schedule where route_id=(select route_id from route where origin=(select airport_code from airport where airport_name=airport_from) and destination=(select airport_code from airport where airport_name=airport_to)) and date= day) as A natural left join delay as B natural left join predefined_schedule;
+  END //
+delimiter ;
+
+grant execute on procedure get_flights to 'customer'@'localhost';
