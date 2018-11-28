@@ -58,6 +58,7 @@ public class CustomerDatabase {
         
         try {
             int i = sql.executeUpdate();
+            System.out.println(i);
             return i;
             
         } catch (SQLException ex) {

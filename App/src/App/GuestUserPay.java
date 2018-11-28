@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -373,13 +374,13 @@ public class GuestUserPay extends javax.swing.JFrame {
             PreparedStatement prepState = registerUser();
             
             CustomerDatabase.setData(prepState);
+                        
+            String call = "{call get_user_id(?)}";
             
-            String sql2 = "select user_id from guest_customer_view where email=?;";
+            CallableStatement stmt = con.prepareCall(call);
+            stmt.setString(1, txt_email.getText());
+            ResultSet rs = stmt.executeQuery();
             
-            PreparedStatement getUID = con.prepareStatement(sql2);
-            getUID.setString(1, txt_email.getText());
-            
-            ResultSet rs = (ResultSet)CustomerDatabase.getData(getUID);
             rs.next();
             tempUserId = rs.getInt("user_id");
             

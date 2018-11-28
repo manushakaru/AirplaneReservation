@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -47,15 +48,15 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                     + " (select * from price where route_id=(select route_id "
                     + "from flight_schedule where"
                     + " flight_schedule_id='"+schedule_id+"')) as B;";
-
-            String sql2 = "select * from customer_state where customer_state=(select customer_type from customer where user_id=?)";
+            
+            String call = "{call get_state(?)}";
+            
+            CallableStatement stmt = con.prepareCall(call);
+            stmt.setString(1, Integer.toString(Login.userId));
+            ResultSet rs2 = stmt.executeQuery();
 
             PreparedStatement prep1 = con.prepareStatement(sql);
-            PreparedStatement prep2 = con.prepareStatement(sql2);
-            prep2.setString(1, Integer.toString(Login.userId));
             ResultSet rs = (ResultSet)CustomerDatabase.getData(prep1);
-
-            ResultSet rs2 = (ResultSet)CustomerDatabase.getData(prep2);
             
             LocalDate date = LocalDate.now();
             
@@ -175,20 +176,24 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
     }
     
     public Object setState(){
-        String sql = "select * from customer_state where bookings_needed>(select"
-                + " count(booking_id) from booking where user_id=?);";
         
         try {
-            PreparedStatement prep = con.prepareStatement(sql);
-            prep.setString(1, Integer.toString(Login.userId));
-        
-            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
-        
+            
+            String call = "{call get_next_states(?)}";
+            
+            CallableStatement stmt = con.prepareCall(call);
+            stmt.setString(1, Integer.toString(Login.userId));
+            ResultSet rs = stmt.executeQuery();
+                    
             if(rs.next()){
                 String sql2 = "select count(booking_id) from booking where user_id=?;";
-                PreparedStatement prep2 = con.prepareStatement(sql2);
-                prep2.setString(1, Integer.toString(Login.userId));
-                ResultSet rs2 = (ResultSet)CustomerDatabase.getData(prep2);
+                
+                String call2 = "{call get_booking_count(?)}";
+            
+                CallableStatement stmt2 = con.prepareCall(call2);
+                stmt2.setString(1, Integer.toString(Login.userId));
+                ResultSet rs2 = stmt.executeQuery();
+
                 rs2.next();
                 if(rs.getInt("bookings_needed") == (rs2.getInt("count(booking_id)")+1)){
                     String sql3 = "UPDATE customer SET customer_type=? where user_id=?;";
