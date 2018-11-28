@@ -10,8 +10,9 @@ GRANT ALL ON airplane.* TO 'admin'@'localhost';
 
 GRANT SELECT ON mysql.proc TO 'customer'@'localhost'; --to get privilege access to functions
 GRANT SELECT ON mysql.proc TO 'admin'@'localhost';
+GRANT SELECT ON mysql.proc TO 'guest'@'localhost';
 
-GRANT SELECT ON airplane.aircraft TO 'customer'@'localhost';
+GRANT SELECT ON airplane.aircraft TO 'customer'@'localhost';------grant access to registered user
 GRANT SELECT ON airplane.airport TO 'customer'@'localhost';
 GRANT SELECT,INSERT ON airplane.booking TO 'customer'@'localhost';
 GRANT SELECT ON airplane.class TO 'customer'@'localhost';
@@ -25,7 +26,7 @@ GRANT SELECT ON airplane.price TO 'customer'@'localhost';
 GRANT SELECT ON airplane.route TO 'customer'@'localhost';
 GRANT SELECT ON airplane.seat TO 'customer'@'localhost';
 
-GRANT SELECT ON airplane.aircraft TO 'guest'@'localhost';
+GRANT SELECT ON airplane.aircraft TO 'guest'@'localhost';------------grant access to guest customer
 GRANT SELECT ON airplane.airport TO 'guest'@'localhost';
 GRANT SELECT,INSERT ON airplane.booking TO 'guest'@'localhost';
 GRANT SELECT ON airplane.class TO 'guest'@'localhost';

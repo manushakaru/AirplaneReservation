@@ -49,3 +49,39 @@ CREATE PROCEDURE `get_seats`(IN schedule_id varchar(100))
 delimiter ;
 
 grant execute on procedure get_seats to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_state`(IN u_id varchar(100))
+  BEGIN  
+    select * from customer_state where customer_state=(select customer_type from customer where user_id=u_id);
+  END //
+delimiter ;
+
+grant execute on procedure get_state to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_next_states`(IN u_id varchar(100))
+  BEGIN  
+    select * from customer_state where bookings_needed>(select count(booking_id) from booking where user_id=u_id);
+  END //
+delimiter ;
+
+grant execute on procedure get_next_states to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_booking_count`(IN u_id varchar(100))
+  BEGIN  
+    select count(booking_id) from booking where user_id=u_id;
+  END //
+delimiter ;
+
+grant execute on procedure get_booking_count to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_user_id`(IN mail varchar(100))
+  BEGIN  
+    select user_id from guest_customer_view where email=mail;
+  END //
+delimiter ;
+
+grant execute on procedure get_user_id to 'guest'@'localhost';
