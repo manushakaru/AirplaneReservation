@@ -14,9 +14,13 @@ INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password
 
 
 INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('1', 'Boeing 737');
-INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('2', 'Boeing 4');
+INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('2', 'Boeing 737');
 INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('3', 'Boeing 757');
 INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('4', 'Airbus A380');
+INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('5', 'Boeing 757');
+INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('6', 'Boeing 757');
+INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('7', 'Boeing 757');
+INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('8', 'Boeing 737');
 
 /*bmi*/
 INSERT INTO `location` (`location_id`, `location`, `locateTo`) VALUES ('1', 'Sri Lanka', NULL);
@@ -282,6 +286,9 @@ INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departur
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '6', 'Friday', '08:00:00', '16:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '6', 'Saturday', '08:00:00', '16:00:00');
 
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '7', 'Saturday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '8', 'Saturday', '08:00:00', '11:00:00');
+
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '9', 'Sunday', '05:00:00', '13:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '9', 'Monday', '05:00:00', '13:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '9', 'Tuesday', '05:00:00', '13:00:00');
@@ -298,6 +305,9 @@ INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departur
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '10', 'Friday', '08:00:00', '16:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '10', 'Saturday', '08:00:00', '16:00:00');
 
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '11', 'Thursday', '08:00:00', '16:00:00');
+
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '12', 'Sunday', '09:00:00', '10:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '12', 'Monday', '09:00:00', '10:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '12', 'Tuesday', '09:00:00', '10:00:00');
@@ -306,6 +316,9 @@ INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departur
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '12', 'Friday', '08:00:00', '09:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '12', 'Saturday', '08:00:00', '09:00:00');
 
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '13', 'Thursday', '08:00:00', '16:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '14', 'Wednesday', '09:00:00', '20:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '15', 'Wednesday', '09:00:00', '20:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Sunday', '11:00:00', '13:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Monday', '11:00:00', '13:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Tuesday', '11:00:00', '13:00:00');
@@ -314,6 +327,191 @@ INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departur
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Friday', '08:00:00', '11:00:00');
 INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '16', 'Saturday', '08:00:00', '11:00:00');
 
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '17', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '18', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '19', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Thursday', '08:00:00', '29:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Friday', '08:00:00', '29:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '20', 'Saturday', '08:00:00', '29:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '21', 'Sunday', '09:00:00', '20:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '23', 'Monday', '09:00:00', '20:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '23', 'Tuesday', '09:00:00', '20:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '23', 'Wednesday', '09:00:00', '20:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '22', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '23', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '23', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '24', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '25', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Saturday', '08:00:00', '11:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '26', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Thursday', '08:00:00', '38:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Friday', '08:00:00', '38:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '30', 'Saturday', '08:00:00', '38:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '32', 'Sunday', '09:00:00', '30:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '27', 'Monday', '09:00:00', '30:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '32', 'Tuesday', '09:00:00', '30:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '32', 'Wednesday', '09:00:00', '30:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '28', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '32', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '29', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '31', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '38', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '38', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '33', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '38', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '38', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '34', 'Saturday', '08:00:00', '11:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '35', 'Sunday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '36', 'Monday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '37', 'Tuesday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '38', 'Wednesday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '39', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '40', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '47', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Thursday', '08:00:00', '61:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Friday', '08:00:00', '61:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '50', 'Saturday', '08:00:00', '61:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Sunday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Monday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Tuesday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Wednesday', '09:00:00', '50:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '57', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '61', 'Saturday', '08:00:00', '11:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Thursday', '08:00:00', '82:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Friday', '08:00:00', '82:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '74', 'Saturday', '08:00:00', '82:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Sunday', '09:00:00', '74:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Monday', '09:00:00', '74:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Tuesday', '09:00:00', '74:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Wednesday', '09:00:00', '74:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '78', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '82', 'Saturday', '08:00:00', '11:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Thursday', '08:00:00', '98:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Friday', '08:00:00', '98:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '85', 'Saturday', '08:00:00', '98:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Sunday', '09:00:00', '85:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Monday', '09:00:00', '85:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Tuesday', '09:00:00', '85:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Wednesday', '09:00:00', '85:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '93', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '98', 'Saturday', '08:00:00', '11:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Thursday', '08:00:00', '112:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Friday', '08:00:00', '112:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '105', 'Saturday', '08:00:00', '112:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Sunday', '09:00:00', '105:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Monday', '09:00:00', '105:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Tuesday', '09:00:00', '105:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Wednesday', '09:00:00', '105:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '109', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '112', 'Saturday', '08:00:00', '11:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Sunday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Monday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Tuesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Wednesday', '05:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Thursday', '08:00:00', '130:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Friday', '08:00:00', '130:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '123', 'Saturday', '08:00:00', '130:00:00');
+
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Sunday', '09:00:00', '123:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Monday', '09:00:00', '123:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Tuesday', '09:00:00', '123:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Wednesday', '09:00:00', '123:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Thursday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Friday', '08:00:00', '09:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '126', 'Saturday', '08:00:00', '09:00:00');
+
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Sunday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Monday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Tuesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Wednesday', '11:00:00', '13:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Thursday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Friday', '08:00:00', '11:00:00');
+INSERT INTO `predefined_schedule` ( `route_id`, `day`, `arrival_time`, `departure_time`) VALUES ( '130', 'Saturday', '08:00:00', '11:00:00');
 
 /*mayantha*/
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','1','10000');
@@ -353,21 +551,41 @@ INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '8', '3');
 INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '9', '3');
 INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('2', '10', '1');
 
-INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('1', '10:13:00', '07:11:00');
-INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('2', '08:15:00', NULL);
-INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('3', '08:20:00', '11:30:00');
-INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('4', NULL, '12:12:00');
-INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('5', '01:05:00', NULL);
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('1', '00:13:00', '00:11:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('2', '00:15:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('3', '00:20:00', '00:30:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('4', '00:00:00', '00:12:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('5', '00:05:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('6', '00:12:00', '00:11:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('7', '00:14:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('8', '00:30:00', '00:30:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('9', '00:50:00', '00:55:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('10', '00:25:00', '00:10:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('11', '00:13:00', '00:11:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('12', '00:15:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('13', '00:20:00', '00:30:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('14', '00:00:00', '00:12:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('15', '00:05:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('16', '00:12:00', '00:11:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('17', '00:14:00', '00:00:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('18', '00:30:00', '00:30:00');
+INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('19', '00:50:00', '00:55:00');
+
+
 
 INSERT INTO `flight_schedule` (`flight_schedule_id`, `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ('1', NULL, '6', '2', '2018-11-24', '2');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '3', '5', '4', '2018-11-23', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '1', '5', '4', '2018-11-23', '2');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '2', '15', '3', '2018-11-24', '11');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '13', '2', '2018-11-25', '9');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '1', '1', '1', '2018-11-26', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '3', '1', '1', '2018-11-26', '1');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '3', '1', '2018-11-24', '2');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '4', '4', '2', '2018-11-24', '2');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '14', '3', '2018-11-29', '10');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '5', '9', '4', '2018-11-30', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( NULL, '10', '1', '2018-11-29', '8');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( '5',  '8', '1', '2018-11-29', '3');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( NULL, '4', '2', '2018-11-29', '4');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '9', '4', '2018-11-30', '5');
+
 
 
 INSERT INTO `booking` (`booking_id`, `user_id`, `flight_schedule_id`, `seat_id`, `booked_date`, `price`) VALUES ('1', '1', '1', '11', '2018-11-22', '20000');
