@@ -5,7 +5,9 @@
  */
 package App;
 
+import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
@@ -22,6 +24,7 @@ public class UserHome extends javax.swing.JFrame {
     public static String airport_from;
     public static String airport_to;
     public static int temp_guest_id = 0;
+    Connection con = CustomerDatabase.getConnection();
 
     /**
      * Creates new form UserHome
@@ -40,11 +43,10 @@ public class UserHome extends javax.swing.JFrame {
     
     public void setComboBoxData(){
         String sql = "select airport_name from airport";
-        ResultSet rs = Database.getData(sql);
-        
         try {
-            //Connec
-            
+            PreparedStatement prep = con.prepareStatement(sql);
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+        
             rs.last();
         
             airports = new String[rs.getRow()];

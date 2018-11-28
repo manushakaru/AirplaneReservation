@@ -23,7 +23,8 @@ import javax.swing.JOptionPane;
 public class RegisteredCustomerPay extends javax.swing.JFrame {
     
 
-    private ArrayList<String> book_queries;
+    private ArrayList<PreparedStatement> book_queries;
+    Connection con = CustomerDatabase.getConnection();
     
     /**
      * Creates new form RegisteredCustomerPay
@@ -40,20 +41,21 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
         for(int i = 0; i < selected_seats.size() ; i++){
             insert = insert + "seat_id='"+selected_seats.get(i)+"' or ";
         }
-        
-        String sql = "select * from (select * from seat where "+insert.substring(0, insert.length()-4)+")"
-                + " as A natural left join class natural left join"
-                + " (select * from price where route_id=(select route_id "
-                + "from flight_schedule where"
-                + " flight_schedule_id='"+schedule_id+"')) as B;";
-        
-        String sql2 = "select * from customer_state where customer_state=(select customer_type from customer where user_id='"+Login.userId+"')";
-        
-        ResultSet rs = Database.getData(sql);
-        
-        ResultSet rs2 = Database.getData(sql2);
-        
         try{
+            String sql = "select * from (select * from seat where "+insert.substring(0, insert.length()-4)+")"
+                    + " as A natural left join class natural left join"
+                    + " (select * from price where route_id=(select route_id "
+                    + "from flight_schedule where"
+                    + " flight_schedule_id='"+schedule_id+"')) as B;";
+
+            String sql2 = "select * from customer_state where customer_state=(select customer_type from customer where user_id=?)";
+
+            PreparedStatement prep1 = con.prepareStatement(sql);
+            PreparedStatement prep2 = con.prepareStatement(sql2);
+            prep2.setString(1, Integer.toString(Login.userId));
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep1);
+
+            ResultSet rs2 = (ResultSet)CustomerDatabase.getData(prep2);
             
             LocalDate date = LocalDate.now();
             
@@ -62,7 +64,7 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             String seat_id = "";
             float price = 0;
             
-            book_queries = new ArrayList<String>();
+            book_queries = new ArrayList<PreparedStatement>();
             
             int econ_seats = 0;
             int busi_seats = 0;
@@ -102,11 +104,17 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
                     price = price - (price* (rs2.getFloat("discount")/100));
                     plati_price += price;
                 }
+                
                 String insertBooking = "insert into booking(user_id,flight_schedule_id,"
-                    + "seat_id,price,booked_date) values ('"+Login.userId+"','"+schedule_id+"'"
-                    + ",'"+seat_id+"','"+price+"','"+date+"');";
-
-                book_queries.add(insertBooking);
+                    + "seat_id,price,booked_date) values (?,?,?,?,?);";
+                
+                PreparedStatement prep = con.prepareStatement(insertBooking);
+                prep.setString(1, Integer.toString(Login.userId));
+                prep.setString(2, schedule_id);
+                prep.setString(3, seat_id);
+                prep.setString(4, Float.toString(price));
+                prep.setString(5, date.toString());
+                book_queries.add(prep);
             }
             
             System.out.println(total_price);
@@ -141,16 +149,8 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             
             int i = 0;
             while(i < book_queries.size()){
-                PreparedStatement preparedStmt = conn.prepareStatement(book_queries.get(i));
-                preparedStmt.execute();
+                CustomerDatabase.setData(book_queries.get(i));
                 i++;
-            }
-            
-            String sql3 = (String)setState();
-            System.out.println("yay"+sql3);
-            if(!sql3.isEmpty()){
-                PreparedStatement preparedStmt = conn.prepareStatement(sql3);
-                preparedStmt.execute();
             }
             
             conn.commit();
@@ -176,27 +176,35 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
     
     public Object setState(){
         String sql = "select * from customer_state where bookings_needed>(select"
-                + " count(booking_id) from booking where user_id='"+Login.userId+"');";
-        
-        ResultSet rs = Database.getData(sql);
+                + " count(booking_id) from booking where user_id=?);";
         
         try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setString(1, Integer.toString(Login.userId));
+        
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+        
             if(rs.next()){
-                String sql2 = "select count(booking_id) from booking where user_id='"+Login.userId+"';";
-                ResultSet rs2 = Database.getData(sql2);
+                String sql2 = "select count(booking_id) from booking where user_id=?;";
+                PreparedStatement prep2 = con.prepareStatement(sql2);
+                prep2.setString(1, Integer.toString(Login.userId));
+                ResultSet rs2 = (ResultSet)CustomerDatabase.getData(prep2);
                 rs2.next();
                 if(rs.getInt("bookings_needed") == (rs2.getInt("count(booking_id)")+1)){
-                    String sql3 = "UPDATE customer SET customer_type='"+rs.getString("customer_state")+"' where user_id='"+Login.userId+"';";
-                    
-                    System.out.println("yya");
-                    return sql3;
+                    String sql3 = "UPDATE customer SET customer_type=? where user_id=?;";
+                    PreparedStatement prep3 = con.prepareStatement(sql3);
+                    prep3.setString(1, rs.getString("customer_state"));
+                    prep3.setString(2, Integer.toString(Login.userId));
+                    CustomerDatabase.setData(prep3);
+
+                    return true;
                 }
             }
         } catch (SQLException ex) {
             return ex;
             //Logger.getLogger(RegisteredCustomerPay.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "";
+        return true;
     }
     
     /**

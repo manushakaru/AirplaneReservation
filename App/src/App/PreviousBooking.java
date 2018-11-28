@@ -5,6 +5,8 @@
  */
 package App;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 
 /**
@@ -12,6 +14,8 @@ import java.sql.ResultSet;
  * @author Dilan Sachintha
  */
 public class PreviousBooking extends javax.swing.JFrame {
+    
+    Connection con = Database.getConnection();
 
     /**
      * Creates new form PreviousBooking
@@ -26,22 +30,24 @@ public class PreviousBooking extends javax.swing.JFrame {
     public void fillTable(){
         
         String sql = "";
-        
-        if(Login.userId == 0 ){
-            sql = "select * from booking where user_id='"+UserHome.temp_guest_id+"';";
-        }else{
-            sql = "select * from booking where user_id='"+Login.userId+"';";
-        }
-        
-        ResultSet rs = Database.getData(sql);
-        
         try{
+            PreparedStatement prep = null;
+            if(Login.userId == 0 ){
+                sql = "select * from booking where user_id=?;";
+                prep = con.prepareStatement(sql);
+                prep.setString(1, Integer.toString(UserHome.temp_guest_id));
+            }else{
+                sql = "select * from booking where user_id=?;";
+                prep = con.prepareStatement(sql);
+                prep.setString(1, Integer.toString(Login.userId));
+            }
+
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+        
             int i = 0;
             rs.last();
             i = rs.getRow();
             
-            //System.out.println(i);
-
             Object[][] scheduleData = new Object[i][6];
 
             i = 0;
@@ -72,8 +78,6 @@ public class PreviousBooking extends javax.swing.JFrame {
                     }
                 });
             rs.close();
-            Database.preparedStmt.close();
-            Database.conn.close();
         }catch(Exception e){
             System.out.println(e);
         }

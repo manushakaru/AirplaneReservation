@@ -5,6 +5,8 @@
  */
 package App;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -20,6 +22,7 @@ public class UserBooking extends javax.swing.JFrame {
     
     private ArrayList<String> selected_seats;
     private String schedule_id;
+    Connection con = CustomerDatabase.getConnection();
 
     /**
      * Creates new form UserBooking
@@ -34,13 +37,16 @@ public class UserBooking extends javax.swing.JFrame {
     public void getSeats(String schedule_id){
                 
         String sql = "select * from (select * from (select * from (select * from flight_"
-                        + "schedule where flight_schedule_id='"+schedule_id+"') as A natural left "
+                        + "schedule where flight_schedule_id=?) as A natural left "
                         + "join aircraft natural left join seat) as B natural left join class) "
                         + "as D left join booking using(flight_schedule_id,seat_id) "
                         + "where booking_id is null;";
         
         try{
-            ResultSet rs = Database.getData(sql);
+            PreparedStatement prep = con.prepareStatement(sql);
+            prep.setString(1, schedule_id);
+            
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
             int bounds = 0;
             
             while(rs.next()){                

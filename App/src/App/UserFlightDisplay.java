@@ -5,9 +5,11 @@
  */
 package App;
 
+import java.sql.Connection;
 import javax.swing.JButton;
 import java.sql.ResultSet;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 /**
@@ -16,6 +18,8 @@ import java.util.ArrayList;
  */
 public final class UserFlightDisplay extends javax.swing.JFrame {
 
+    Connection con = CustomerDatabase.getConnection();
+    
     /**
      * Creates new form UserFlightDisplay
      */
@@ -33,25 +37,33 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
     public void getSchedule(Date picked_date){
         
         String sql = "select * from (select * from flight_schedule where "
-                +"route_id=(select route_id from route where origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') "
-                +"and destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"')) and date= '"+picked_date.toString()+"') as A natural "+
+                +"route_id=(select route_id from route where origin=(select airport_code from airport where airport_name=?) "
+                +"and destination=(select airport_code from airport where airport_name=?)) and date= ?) as A natural "+
                 "left join delay as B natural left join predefined_schedule;";
-        
-        String sql2 = "select * from (select * from price where route_id=(select route_id from route where "
-                + "origin=(select airport_code from airport where airport_name='"+UserHome.airport_from+"') and "
-                + "destination=(select airport_code from airport where airport_name='"+UserHome.airport_to+"'))) "
-                + "as A natural left join class;";
-        
-        ResultSet rs = Database.getData(sql);
-        
-        ResultSet rs2 = Database.getData(sql2);
-        
+        ResultSet rs2 = null;
         try{
+        
+            PreparedStatement prep1 = con.prepareStatement(sql);
+            prep1.setString(1, UserHome.airport_from);
+            prep1.setString(2, UserHome.airport_to);
+            prep1.setString(3, picked_date.toString());
+        
+            String sql2 = "select * from (select * from price where route_id=(select route_id from route where "
+                    + "origin=(select airport_code from airport where airport_name=?) and "
+                    + "destination=(select airport_code from airport where airport_name=?))) "
+                    + "as A natural left join class;";
+            
+            PreparedStatement prep2 = con.prepareStatement(sql2);
+            prep2.setString(1, UserHome.airport_from);
+            prep2.setString(2, UserHome.airport_to);
+
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep1);
+
+            rs2 = (ResultSet)CustomerDatabase.getData(prep2);
+
             int i = 0;
             rs2.last();
             i = rs2.getRow();
-            
-            //System.out.println(i);
 
             Object[][] scheduleData = new Object[i][6];
             String[] schedules = new String[i];
@@ -59,9 +71,7 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
             i = 0;
             
             rs.beforeFirst();
-            
-            //cmbbx_from.setModel(new javax.swing.DefaultComboBoxModel<>(airports));
-        //airport_to = cmbbx_to.getItemAt(0);            
+                      
 
             while(rs.next()){
                 
@@ -98,32 +108,27 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                     }
                 });
             rs.close();
-            Database.preparedStmt.close();
-            Database.conn.close();
         }catch(Exception e){
             System.out.println(e);
         }
-        
-        
-        ResultSet rs3 = Database.getData(sql2);
-        
+                
         try{
             int i = 0;
-            rs3.last();
-            i = rs3.getRow();
+            rs2.last();
+            i = rs2.getRow();
             
             Object[][] classData = new Object[i][2];
             String[] classes = new String[i];
 
             i = 0;
             
-            rs3.beforeFirst();
+            rs2.beforeFirst();
 
-            while(rs3.next()){
-                classData[i][0] = rs3.getString("class");
-                classData[i][1] = rs3.getString("price");
+            while(rs2.next()){
+                classData[i][0] = rs2.getString("class");
+                classData[i][1] = rs2.getString("price");
                 
-                classes[i] = rs3.getString("class");
+                classes[i] = rs2.getString("class");
                 i++;
             }
 
@@ -140,7 +145,6 @@ public final class UserFlightDisplay extends javax.swing.JFrame {
                         return canEdit [columnIndex];
                     }
                 });
-            Database.conn.close();
         }catch(Exception e){
             System.out.println(e);
         }

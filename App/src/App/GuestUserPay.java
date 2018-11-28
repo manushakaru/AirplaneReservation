@@ -24,6 +24,8 @@ public class GuestUserPay extends javax.swing.JFrame {
     
     private ArrayList<String> book_queries;
     private int tempUserId = 0;
+    
+    private Connection con = CustomerDatabase.getConnection();
     /**
      * Creates new form GuestUserPay
      */
@@ -274,11 +276,14 @@ public class GuestUserPay extends javax.swing.JFrame {
                 + " (select * from price where route_id=(select route_id "
                 + "from flight_schedule where"
                 + " flight_schedule_id='"+schedule_id+"')) as B;";
-                
-        ResultSet rs = Database.getData(sql);
+        
+        System.out.println(sql);
                 
         try{
+            PreparedStatement prep = con.prepareStatement(sql);
             
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+
             LocalDate date = LocalDate.now();
             
             System.out.println(date);
@@ -315,10 +320,12 @@ public class GuestUserPay extends javax.swing.JFrame {
                     price = rs.getFloat("price");
                     plati_price += price;
                 }
+                
                 String insertBooking = "insert into booking(flight_schedule_id,"
-                    + "seat_id,price,booked_date,user_id) values ('"+schedule_id+"'"
-                    + ",'"+seat_id+"','"+price+"','"+date+"'";
-
+                    + "seat_id,price,booked_date,user_id) values ('"+schedule_id+"',"
+                        + "'"+seat_id+"','"+price+"','"+date+"'";
+                
+                
                 book_queries.add(insertBooking);
             }
             
@@ -340,36 +347,41 @@ public class GuestUserPay extends javax.swing.JFrame {
             lbl_user_id.setVisible(true);
             
         }catch(SQLException e){
-            
+            e.printStackTrace();
         }
     }
     
     public void bookSeat(){
-
-        Connection conn = Database.getConnection();;
         
         try{
-            conn.setAutoCommit(false);
+            con.setAutoCommit(false);
             
-            String sql = registerUser();
+            PreparedStatement prepState = registerUser();
             
-            conn.prepareStatement(sql).executeUpdate();
+            CustomerDatabase.setData(prepState);
             
-            String sql2 = "select user_id from customer where email='"+txt_email.getText()+"';";
-            ResultSet rs = conn.prepareStatement(sql2).executeQuery();
+            String sql2 = "select user_id from customer where email=?;";
+            
+            PreparedStatement getUID = con.prepareStatement(sql2);
+            getUID.setString(1, txt_email.getText());
+            
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(getUID);
             rs.next();
             tempUserId = rs.getInt("user_id");
             
             int i = 0;
             while(i < book_queries.size()){
-                String tempQuery = book_queries.get(i) + ",'"+tempUserId+"');";
-                PreparedStatement preparedStmt = conn.prepareStatement(tempQuery);
-                preparedStmt.execute();
+                String tempQuery = book_queries.get(i)+" ,?);";
+                PreparedStatement preparedStmt = con.prepareStatement(tempQuery);
+                preparedStmt.setString(1, Integer.toString(tempUserId));
+                
+                System.out.println(preparedStmt);
+                CustomerDatabase.setData(preparedStmt);
                 i++;
             }
-            conn.commit();
+            con.commit();
 
-            conn.close();
+            con.close();
             lbl_user_id.setText("Save this id for later use in your booking : "+Integer.toString(tempUserId));
             JOptionPane.showMessageDialog(null, "Booking Successfull!!!");
           }
@@ -378,8 +390,8 @@ public class GuestUserPay extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Seats you selected may not be available, Try again!!!");
             System.err.println(e.getMessage());
             try {
-                conn.rollback();
-                conn.setAutoCommit(true);
+                con.rollback();
+                con.setAutoCommit(true);
             } catch (SQLException ex) {
                 Logger.getLogger(Register.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -389,16 +401,27 @@ public class GuestUserPay extends javax.swing.JFrame {
           }
     }
     
-    public String registerUser(){
+    public PreparedStatement registerUser(){
         String lname = txt_last_name.getText();
         String fname = txt_first_name.getText();
         String email = txt_email.getText();
         String mobileNum = txt_mobile_num.getText();
 
         String query = "insert into customer (first_name, email, mobile_no,last_name,customer_type)"
-          + " values ('"+fname+"', '"+email+"', '"+mobileNum+"', '"+lname+"','Guest')";
-        return query;
-
+          + " values (?, ?, ?, ?,'Guest')";
+        
+        try{
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+                
+            preparedStmt.setString(1, fname);
+            preparedStmt.setString(2, email);
+            preparedStmt.setString(3, mobileNum);
+            preparedStmt.setString(4, lname);
+            return preparedStmt;
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

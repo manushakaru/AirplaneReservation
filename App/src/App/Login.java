@@ -2,6 +2,7 @@ package App;
 
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -160,19 +161,18 @@ public class Login extends javax.swing.JFrame {
     private void btn_sign_inActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_sign_inActionPerformed
         String username = txt_username.getText();
         String password = pwField_password.getText();
-        
-        Connection con = Database.getConnection();
-        
-        String query = "SELECT * FROM customer where email='"+username+"' and password='"+password+"';";
-        //String query = "SELECT * FROM customer where";
-        ResultSet rs;
-
         try {
-            Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            Connection con = CustomerDatabase.getConnection();
+
+            String query = "SELECT * FROM customer where email=? and password=?;";
+
+            PreparedStatement preparedStmt = con.prepareStatement(query);
+            preparedStmt.setString(1, username);
+            preparedStmt.setString(2, password);
+
+            ResultSet rs = preparedStmt.executeQuery();
         
             if(rs.last()){
-                
                 userId = rs.getInt("user_id");
                 System.out.println(userId);
                 UserHome um = new UserHome();
@@ -181,7 +181,7 @@ public class Login extends javax.swing.JFrame {
             }else{
                 lbl_notifier.setText("Wrong login detail");
             }
-            st.close();
+            rs.close();
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
