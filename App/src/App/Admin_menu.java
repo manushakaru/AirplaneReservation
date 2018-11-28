@@ -135,14 +135,14 @@ public class Admin_menu extends javax.swing.JFrame {
         f_revenue.setVisible(true);
     }//GEN-LAST:event_btn_revenueActionPerformed
 
-//    public static void main(String args[]) {
-//
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new Admin_menu().setVisible(true);
-//            }
-//        });
-//    }
+    public static void main(String args[]) {
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Admin_menu().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_booking_count;
