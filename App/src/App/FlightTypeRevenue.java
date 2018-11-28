@@ -50,6 +50,11 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         jLabel1.setText("Fligth type revenue");
 
         btn_back.setText("Back");
+        btn_back.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_backActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Enter Flight type : ");
 
@@ -151,6 +156,13 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         this.lbl_0.setText("Total Revenue by aircraft type : " + col_val);
         
     }//GEN-LAST:event_btn_viewActionPerformed
+
+    private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
+        // TODO add your handling code here:
+        Admin_menu admin = new Admin_menu();
+        this.setVisible(false);
+        admin.setVisible(true);
+    }//GEN-LAST:event_btn_backActionPerformed
 
     /**
      * @param args the command line arguments

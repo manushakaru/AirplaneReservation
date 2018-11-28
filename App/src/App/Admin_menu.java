@@ -34,7 +34,7 @@ public class Admin_menu extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btn_booking_count = new javax.swing.JButton();
         passenger_age = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        btn_revenue = new javax.swing.JButton();
         pastState = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -63,7 +63,12 @@ public class Admin_menu extends javax.swing.JFrame {
             }
         });
 
-        jButton4.setText("Total Revenue");
+        btn_revenue.setText("Total Revenue");
+        btn_revenue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_revenueActionPerformed(evt);
+            }
+        });
 
         pastState.setText("Past flisht states");
         pastState.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +89,7 @@ public class Admin_menu extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(133, 133, 133)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jButton4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btn_revenue, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(passenger_age, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_passenger_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_booking_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -105,7 +110,7 @@ public class Admin_menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pastState)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
+                .addComponent(btn_revenue)
                 .addContainerGap(79, Short.MAX_VALUE))
         );
 
@@ -140,6 +145,13 @@ public class Admin_menu extends javax.swing.JFrame {
         this.setVisible(false);
         fCheck.setVisible(true);
     }//GEN-LAST:event_passenger_ageActionPerformed
+
+    private void btn_revenueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_revenueActionPerformed
+        // TODO add your handling code here:
+        FlightTypeRevenue f_revenue = new FlightTypeRevenue();
+        this.setVisible(false);
+        f_revenue.setVisible(true);
+    }//GEN-LAST:event_btn_revenueActionPerformed
 
 
     /**
@@ -180,7 +192,7 @@ public class Admin_menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_booking_count;
     private javax.swing.JButton btn_passenger_count;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton btn_revenue;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JButton passenger_age;
     private javax.swing.JButton pastState;
