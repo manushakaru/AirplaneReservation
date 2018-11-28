@@ -1,4 +1,4 @@
-use airplane;
+﻿use airplane;
 
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '123456');
 INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '123456');
@@ -331,6 +331,88 @@ INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','4','34000');
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','5','45000');
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','5','55000');
 INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','5','65000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','6','25000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','6','35000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','6','45000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','7','65000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','7','79000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','7','90000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','8','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','8','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','8','95000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','9','63000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','9','78000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','9','91000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','10','40000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','10','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','10','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','11','20000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','11','30000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','11','45000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','12','30000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','12','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','12','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','13','15000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','13','20000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','13','25000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','14','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','14','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','14','95000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','15','40000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','15','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','15','65000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','16','160000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','16','170000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','16','195000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','17','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','17','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','17','80000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','18','160000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','18','170000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','18','18000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','19','40000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','19','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','19','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','20','120000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','20','130000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','20','140000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','21','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','21','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','21','80000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','22','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2',22','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','22','95000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','23','20000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','23','30000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','23','45000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','24','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','24','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','24','80000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','25','10000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','25','15000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','25','25000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','26','60000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','26','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','26','90000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','27','30000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','27','40000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','27','50000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','28','70000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','28','75000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','28','85000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','29','65000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','29','77000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','29','85000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('1','30','15000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('2','30','25000');
+INSERT INTO `price` (`class_id`, `route_id`, `price`) VALUES ('3','30','35000');
+
+
+
+
+
+
+
 
 INSERT INTO `seat` (`seat_id`, `craft_id`, `seat_no`, `class_id`) VALUES ('1', '1', '1', '1');
 INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('1', '2', '1');
