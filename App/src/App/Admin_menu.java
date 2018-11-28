@@ -35,7 +35,7 @@ public class Admin_menu extends javax.swing.JFrame {
         btn_booking_count = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton1 = new javax.swing.JButton();
+        pastState = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,7 +60,12 @@ public class Admin_menu extends javax.swing.JFrame {
 
         jButton4.setText("Total Revenue");
 
-        jButton1.setText("Past flisht states");
+        pastState.setText("Past flisht states");
+        pastState.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pastStateActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,7 +83,7 @@ public class Admin_menu extends javax.swing.JFrame {
                             .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_passenger_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(btn_booking_count, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(pastState, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 177, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(154, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -93,7 +98,7 @@ public class Admin_menu extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btn_booking_count)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton1)
+                .addComponent(pastState)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton4)
                 .addContainerGap(79, Short.MAX_VALUE))
@@ -116,6 +121,13 @@ public class Admin_menu extends javax.swing.JFrame {
         this.setVisible(false);
         vd.setVisible(true);
     }//GEN-LAST:event_btn_booking_countActionPerformed
+
+    private void pastStateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pastStateActionPerformed
+        // TODO add your handling code here:
+        PastFlight pf = new PastFlight();
+        this.setVisible(false);
+        pf.setVisible(true);
+    }//GEN-LAST:event_pastStateActionPerformed
 
     /**
      * @param args the command line arguments
@@ -155,9 +167,9 @@ public class Admin_menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_booking_count;
     private javax.swing.JButton btn_passenger_count;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton pastState;
     // End of variables declaration//GEN-END:variables
 }
