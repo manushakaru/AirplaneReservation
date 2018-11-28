@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -36,17 +37,14 @@ public class UserBooking extends javax.swing.JFrame {
     
     public void getSeats(String schedule_id){
                 
-        String sql = "select * from (select * from (select * from (select * from flight_"
-                        + "schedule where flight_schedule_id=?) as A natural left "
-                        + "join aircraft natural left join seat) as B natural left join class) "
-                        + "as D left join booking using(flight_schedule_id,seat_id) "
-                        + "where booking_id is null;";
-        
         try{
-            PreparedStatement prep = con.prepareStatement(sql);
-            prep.setString(1, schedule_id);
             
-            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+            String call = "{call get_seats(?)}";
+            
+            CallableStatement stmt = con.prepareCall(call);
+            stmt.setString(1, schedule_id);
+            ResultSet rs = stmt.executeQuery();
+
             int bounds = 0;
             
             while(rs.next()){                

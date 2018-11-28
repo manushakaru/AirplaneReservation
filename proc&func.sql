@@ -40,3 +40,12 @@ CREATE PROCEDURE `get_classes`(IN airport_from varchar(100), IN airport_to varch
 delimiter ;
 
 grant execute on procedure get_classes to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_seats`(IN schedule_id varchar(100))
+  BEGIN  
+    select seat_no,class,seat_id from (select * from (select * from (select * from flight_schedule where flight_schedule_id=schedule_id) as A natural left join aircraft natural left join seat) as B natural left join class) as D left join booking using(flight_schedule_id,seat_id) where booking_id is null;
+  END //
+delimiter ;
+
+grant execute on procedure get_seats to 'customer'@'localhost';
