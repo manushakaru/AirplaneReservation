@@ -16,7 +16,12 @@ import java.util.logging.Logger;
  * @author Dilan Sachintha
  */
 public class Register extends javax.swing.JFrame {
-
+    
+    
+    private java.util.Date tempDate = null;
+    private java.sql.Date birthday = null;
+    
+    
     public Register() {
         initComponents();
     }
@@ -154,12 +159,18 @@ public class Register extends javax.swing.JFrame {
         String email = txt_email.getText();
         String password = pwField_password.getText();
         
-        java.util.Date tempDate = dte_pckr_birthday.getDate();
-        java.sql.Date birthday = new java.sql.Date(tempDate.getTime());
-        
         String mobileNum = txt_mobile_num.getText();
         
-        Connection conn = Database.getConnection();;
+        try{
+            tempDate = dte_pckr_birthday.getDate();
+            birthday = new java.sql.Date(tempDate.getTime());
+
+            
+        }catch (NullPointerException e) {
+            System.out.println(e);
+        }
+        
+        Connection conn = Database.getConnection();
         
         try{
 
