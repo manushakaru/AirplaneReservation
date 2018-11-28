@@ -23,6 +23,7 @@ public class ViewDetails extends javax.swing.JFrame {
      * Creates new form ViewDetails
      */
     
+
     private java.util.Date picked_start_date = null;
     private Date picked_sql_start_date = null;
     
@@ -61,14 +62,19 @@ public class ViewDetails extends javax.swing.JFrame {
             }
         });
 
+        lbl_0.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_0.setText("No of Total Customers");
 
+        lbl_1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_1.setText("No of Gokd Customers");
 
+        lbl_2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_2.setText("No of Beginner Customers");
 
+        lbl_3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_3.setText("No of Guest Customers");
 
+        lbl_4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         lbl_4.setText("No of Frequent Customers");
 
         btn_view.setText("View");
@@ -109,7 +115,7 @@ public class ViewDetails extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(164, 164, 164)
                         .addComponent(jLabel1)))
-                .addContainerGap(121, Short.MAX_VALUE))
+                .addContainerGap(116, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,7 +140,7 @@ public class ViewDetails extends javax.swing.JFrame {
                 .addComponent(lbl_3)
                 .addGap(18, 18, 18)
                 .addComponent(lbl_4)
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(21, Short.MAX_VALUE))
         );
 
         pack();
@@ -166,7 +172,7 @@ public class ViewDetails extends javax.swing.JFrame {
         String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
 
         //System.out.println(query);
-        ResultSet rs = Database.getData(query);
+        ResultSet rs;
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
