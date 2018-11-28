@@ -5,6 +5,7 @@ import static App.UserHome.airport_from;
 import static App.UserHome.airport_to;
 import java.sql.Connection;
 import java.sql.Date;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -75,7 +76,7 @@ public class datataking extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         cmb_from = new javax.swing.JComboBox<>();
         cmb_to = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
+        btn_search = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         starting_date = new org.jdesktop.swingx.JXDatePicker();
@@ -107,10 +108,10 @@ public class datataking extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("SEARCH");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btn_search.setText("SEARCH");
+        btn_search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_searchActionPerformed(evt);
             }
         });
 
@@ -137,9 +138,8 @@ public class datataking extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jButton2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel4)
-                        .addGap(71, 71, 71))
+                        .addGap(71, 71, 71)
+                        .addComponent(jLabel4))
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addComponent(passenger_count, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
@@ -155,10 +155,10 @@ public class datataking extends javax.swing.JFrame {
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(cmb_to, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addGap(37, 37, 37))
+                .addContainerGap(37, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(btn_search, javax.swing.GroupLayout.PREFERRED_SIZE, 82, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(159, 159, 159))
         );
         layout.setVerticalGroup(
@@ -182,7 +182,7 @@ public class datataking extends javax.swing.JFrame {
                 .addGap(29, 29, 29)
                 .addComponent(passenger_count, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1)
+                .addComponent(btn_search)
                 .addContainerGap(44, Short.MAX_VALUE))
         );
 
@@ -199,30 +199,43 @@ public class datataking extends javax.swing.JFrame {
         am.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_searchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_searchActionPerformed
      
-        java.util.Date picked_start_date = starting_date.getDate();
-        Date picked_sql_start_date = new Date(picked_start_date.getTime());
+        picked_start_date = starting_date.getDate();
+        picked_sql_start_date = new Date(picked_start_date.getTime());
         
-        java.util.Date picked_end_date = ending_date.getDate();
-        Date picked_sql_end_date = new Date(picked_end_date.getTime());
+        picked_end_date = ending_date.getDate();
+        picked_sql_end_date = new Date(picked_end_date.getTime());
         
         
         Connection con = Database.getConnection();
         
-        String query ="select count(booking_id) from booking "
+        PreparedStatement query = null;
+        try {
+            query = con.prepareStatement("select count(booking_id) from booking "
                 + "where flight_schedule_id in (select flight_schedule_id from "
                 + "route join flight_schedule using(route_id) where date between "
-                + "'"+picked_sql_start_date+"' and '"+picked_sql_end_date+"' and "
-                + "origin = (select airport_code from airport where airport_name = "
-                + "'"+airport_from+"') and destination = (select airport_code from"
-                + " airport where airport_name = '"+airport_to+"'));";
-       
+                + "? and ? and "
+                + "origin = (select airport_code from airport where airport_name = ? ) and destination = (select airport_code from"
+                + " airport where airport_name = ?));");
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        try {
+            query.setString(1,picked_sql_start_date.toString());
+            query.setString(2,picked_sql_end_date.toString());
+            query.setString(3,airport_from);
+            query.setString(4,airport_to);
+        } catch (SQLException ex) {
+            Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+      
         ResultSet rs;
         
         try {
             Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = query.executeQuery();
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
@@ -239,7 +252,7 @@ public class datataking extends javax.swing.JFrame {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btn_searchActionPerformed
 
     private void cmb_fromActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_fromActionPerformed
         airport_from = cmb_from.getSelectedItem().toString();
@@ -283,10 +296,10 @@ public class datataking extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btn_search;
     private javax.swing.JComboBox<String> cmb_from;
     private javax.swing.JComboBox<String> cmb_to;
     private org.jdesktop.swingx.JXDatePicker ending_date;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
