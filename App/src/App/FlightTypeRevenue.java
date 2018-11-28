@@ -17,17 +17,50 @@ import java.util.logging.Logger;
  *
  * @author Damitha
  */
+
+
 public class FlightTypeRevenue extends javax.swing.JFrame {
 
     /**
      * Creates new form FlightTypeRevenue
      */
     
+    private String[] aircrafts;
+    
     private String aircraft_type = null;
+    Connection con = CustomerDatabase.getConnection();
     
     
     public FlightTypeRevenue() {
+        
+        setComboBoxData();
         initComponents();
+        
+        cmb_air.setModel(new javax.swing.DefaultComboBoxModel<>(aircrafts));
+        aircraft_type = cmb_air.getItemAt(0);
+ 
+    }
+    
+    
+        public void setComboBoxData(){
+        String sql = "select craft_type from aircraft";
+        try {
+            PreparedStatement prep = con.prepareStatement(sql);
+            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
+        
+            rs.last();
+        
+            aircrafts = new String[rs.getRow()];
+            rs.beforeFirst();
+            
+            int i=0;
+            while(rs.next()){
+                aircrafts[i] = rs.getString("craft_type");
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(UserHome.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -42,9 +75,9 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btn_back = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
-        txt_aircraftType = new javax.swing.JTextField();
         btn_view = new javax.swing.JButton();
         lbl_0 = new javax.swing.JLabel();
+        cmb_air = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -59,12 +92,6 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
 
         jLabel2.setText("Enter Flight type : ");
 
-        txt_aircraftType.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_aircraftTypeActionPerformed(evt);
-            }
-        });
-
         btn_view.setText("View");
         btn_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +100,13 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         });
 
         lbl_0.setText("Total revenue by selected Aircraft type :");
+
+        cmb_air.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmb_air.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmb_airActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -83,8 +117,8 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(68, 68, 68)
                         .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txt_aircraftType, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(cmb_air, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(153, 153, 153)
                         .addComponent(btn_view))
@@ -96,7 +130,7 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
                                 .addComponent(btn_back)
                                 .addGap(43, 43, 43)
                                 .addComponent(jLabel1)))))
-                .addContainerGap(55, Short.MAX_VALUE))
+                .addContainerGap(144, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -108,7 +142,7 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(txt_aircraftType, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cmb_air, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 51, Short.MAX_VALUE)
                 .addComponent(btn_view)
                 .addGap(40, 40, 40)
@@ -119,15 +153,9 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txt_aircraftTypeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_aircraftTypeActionPerformed
-        // TODO add your handling code here:
-        
-        
-    }//GEN-LAST:event_txt_aircraftTypeActionPerformed
-
     private void btn_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewActionPerformed
         // TODO add your handling code here:
-        aircraft_type = txt_aircraftType.getText();
+        
         System.out.println(aircraft_type);
         Connection con = Database.getConnection();       
         
@@ -177,6 +205,11 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         admin.setVisible(true);
     }//GEN-LAST:event_btn_backActionPerformed
 
+    private void cmb_airActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmb_airActionPerformed
+        // TODO add your handling code here:
+        aircraft_type = cmb_air.getSelectedItem().toString();
+    }//GEN-LAST:event_cmb_airActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -215,9 +248,9 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
     private javax.swing.JButton btn_view;
+    private javax.swing.JComboBox<String> cmb_air;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lbl_0;
-    private javax.swing.JTextField txt_aircraftType;
     // End of variables declaration//GEN-END:variables
 }
