@@ -170,25 +170,12 @@ public class Login extends javax.swing.JFrame {
             cstmt.setString(2, password);
             cstmt.execute();
             
-            String query = "SELECT * FROM customer where email=? and password=?;";
+            String call = "{call login(?,?)}";
             
-            String call = "{call myprocedure()}";
-            
-            try (CallableStatement stmt = con.prepareCall(call)) {
-                //stmt.setInt(1, Integer.parseInt(fid.getText()));
-                //stmt.setString(2, fname.getText());
-                //stmt.setInt(3, Integer.parseInt(did.getText()));
-                ResultSet rs = stmt.executeQuery();
-                rs.next();
-                System.out.println(rs.getString("user_id"));
-            }
-
-            PreparedStatement preparedStmt = con.prepareStatement(query);
-            preparedStmt.setString(1, username);
-            preparedStmt.setString(2, cstmt.getString(1));
-            System.out.println(cstmt.getString(1));
-
-            ResultSet rs = preparedStmt.executeQuery();
+            CallableStatement stmt = con.prepareCall(call);
+            stmt.setString(1, username);
+            stmt.setString(2, cstmt.getString(1));
+            ResultSet rs = stmt.executeQuery();
         
             if(rs.last()){
                 userId = rs.getInt("user_id");

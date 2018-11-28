@@ -1,16 +1,16 @@
 ﻿use airplane;
 
-INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '123456');
-INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '123456');
+INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d');
+INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '7c222fb2927d828af22f592134e8932480637c0d');
 
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Frequent', '5', '5');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Beginner', '0', '0');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Gold', '10', '10');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Guest', '0', '0');
 
-INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '123456', '1996-8-15', 'Gold', '0711234567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '123456', '1996-10-25', '0711256567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('3', 'erandana', 'kumara', 'erandana@123.com', '123456', '1998-5-9', 'Frequent', '0751234567');
+INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '7c222fb2927d828af22f592134e8932480637c0d', '1996-8-15', 'Gold', '0711234567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '7c222fb2927d828af22f592134e8932480637c0d', '1996-10-25', '0711256567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('3', 'erandana', 'kumara', 'erandana@123.com', '7c222fb2927d828af22f592134e8932480637c0d', '1998-5-9', 'Frequent', '0751234567');
 
 
 INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('1', 'Boeing 737');
@@ -937,11 +937,6 @@ INSERT INTO `seat` (`craft_id`, `seat_no`, `class_id`) VALUES ('8', '40', '3');
 
 
 
-
-
-
-
-
 INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('1', '00:13:00', '00:11:00');
 INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('2', '00:15:00', '00:00:00');
 INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('3', '00:20:00', '00:30:00');
@@ -964,18 +959,56 @@ INSERT INTO `delay` (`delay_id`, `arrival_delay`, `departure_delay`) VALUES ('19
 
 
 
-INSERT INTO `flight_schedule` (`flight_schedule_id`, `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ('1', NULL, '6', '2', '2018-11-24', '2');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '1', '5', '4', '2018-11-23', '2');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '2', '15', '3', '2018-11-24', '11');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '13', '2', '2018-11-25', '9');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '3', '1', '1', '2018-11-26', '1');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '3', '1', '2018-11-24', '2');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '4', '4', '2', '2018-11-24', '2');
+INSERT INTO `flight_schedule` (`flight_schedule_id`, `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ('1', '1', '6', '2', '2018-11-24', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '2', '5', '4', '2018-11-23', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '3', '15', '3', '2018-11-24', '11');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '4', '13', '2', '2018-11-25', '9');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '5', '1', '1', '2018-11-26', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '6', '3', '1', '2018-11-24', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( '7', '4', '2', '2018-11-24', '2');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '14', '3', '2018-11-29', '10');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( NULL, '10', '1', '2018-11-29', '8');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( '5',  '8', '1', '2018-11-29', '3');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( NULL,  '8', '1', '2018-11-29', '3');
 INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`,`route_id`, `date`, `craft_id` ) VALUES ( NULL, '4', '2', '2018-11-29', '4');
-INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `craft_id`, `date`, `route_id`) VALUES ( NULL, '9', '4', '2018-11-30', '5');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '9', '1', '2018-11-30', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '6', '2', '2018-11-30', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '21', '4', '2018-11-30', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '28', '5', '2018-11-30', '3');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '15', '3', '2018-12-01', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '22', '4', '2018-12-01', '6');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '29', '5', '2018-12-01', '7');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '37', '7', '2018-12-01', '8');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '1', '2', '2018-12-02', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '13', '3', '2018-12-02', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '16', '4', '2018-12-02', '3');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '71', '17', '2018-12-02', '4');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '2', '2', '2018-12-03', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '11', '3', '2018-12-03', '6');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '17', '4', '2018-12-03', '7');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '24', '5', '2018-12-03', '8');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '3', '2', '2018-12-04', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '7', '1', '2018-12-04', '6');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '12', '3', '2018-12-04', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '18', '4', '2018-12-04', '8');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '4', '2', '2018-12-05', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '8', '1', '2018-12-05', '6');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '10', '1', '2018-12-05', '3');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '19', '4', '2018-12-05', '4');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '5', '2', '2018-12-06', '5');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '14', '3', '2018-12-06', '1');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '20', '4', '2018-12-06', '2');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '27', '5', '2018-12-06', '8');
+
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '6', '2', '2018-12-07', '6');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '9', '1', '2018-12-07', '4');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '21', '4', '2018-12-07', '7');
+INSERT INTO `flight_schedule` ( `delay_id`, `schedule_id`, `route_id`, `date`, `craft_id`) VALUES ( NULL, '28', '5', '2018-12-07', '8');
 
 
 

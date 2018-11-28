@@ -43,7 +43,7 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
     
     
         public void setComboBoxData(){
-        String sql = "select craft_type from aircraft";
+        String sql = "select distinct(craft_type) from aircraft";
         try {
             PreparedStatement prep = con.prepareStatement(sql);
             ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);

@@ -3,7 +3,7 @@ DELIMITER $$
 
 CREATE PROCEDURE `check_aircraftt`(IN craft_type varchar(40) )
  BEGIN
- 	if (LENGTH(NEW.craft_type )>40) THEN
+ 	if (LENGTH(craft_type )>40) THEN
 			SIGNAL SQLSTATE VALUE '45010'
 			SET MESSAGE_TEXT = "craft type is not valid";
 			
@@ -33,40 +33,29 @@ CREATE TRIGGER `check_aircraft_insert`
 DELIMITER ;
 
 
-
-
-
-
-
 DELIMITER $$
-CREATE PROCEDURE `check_admin`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(20) )
+CREATE PROCEDURE `check_admin`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(255) )
   BEGIN
-   
-    IF NEW.email NOT LIKE "%_@%_.__%" THEN
+    IF email NOT LIKE "%_@%_.__%" THEN
     	SIGNAL SQLSTATE VALUE '45006'
         SET MESSAGE_TEXT = "Email is not valid";
     END IF;
-    if (LENGTH(NEW.first_name )<3) THEN
+    if (LENGTH(first_name )<3) THEN
     	SIGNAL SQLSTATE VALUE '45007'
         SET MESSAGE_TEXT = "first name is not valid";
     END IF;
-    if (LENGTH(NEW.last_name )<3) THEN
+    if (LENGTH(last_name )<3) THEN
     	SIGNAL SQLSTATE VALUE '45008'
         SET MESSAGE_TEXT = "last name is not valid";
-        
     END IF;
-    if (LENGTH(NEW.password )<7) THEN
+    if (LENGTH(password )<7) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
-
 	END IF;
-    
-    if (LENGTH(NEW.password )>20) THEN
+    if (LENGTH(password )>255) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
-       
     END IF;
-        
   END$$
 
 DELIMITER ;
@@ -77,7 +66,10 @@ CREATE TRIGGER `check_admin_update`
   ON `admins`
   FOR EACH ROW
   BEGIN
+    DECLARE new_hash VARCHAR(255);
     CALL check_admin(new.first_name,new.last_name,new.email,new.password);
+    SET new_hash = sha1(new.password);  
+	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
 
@@ -88,7 +80,10 @@ CREATE TRIGGER `check_admin_insert`
   ON `admins`
   FOR EACH ROW
   BEGIN
+    DECLARE new_hash VARCHAR(255);
     CALL check_admin(new.first_name,new.last_name,new.email,new.password);
+    SET new_hash = sha1(new.password);  
+	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
 
@@ -99,7 +94,7 @@ DELIMITER $$
 
 CREATE PROCEDURE `check_airport`(IN airport_name varchar(40) )
  BEGIN
- 	if (LENGTH(NEW.airport_name )>100) THEN
+ 	if (LENGTH(airport_name )>100) THEN
 			SIGNAL SQLSTATE VALUE '45010'
 			SET MESSAGE_TEXT = "airport name is not valid";
 			
@@ -109,7 +104,7 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER `check_admin_updates`
+CREATE TRIGGER `AIRPORT_updates`
   BEFORE UPDATE
   ON `airport`
   FOR EACH ROW
@@ -120,12 +115,14 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE TRIGGER `check_admins_insert`
+CREATE TRIGGER `AIRPORT_insert`
   BEFORE INSERT
   ON `airport`
   FOR EACH ROW
   BEGIN
+
     CALL check_airport(new.airport_name);
+
   END$$
 DELIMITER ;
 
@@ -135,10 +132,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER `booking_validation` BEFORE INSERT ON `booking`FOR EACH ROW
 begin
-	if DATEDIFF(new.booked_date, CURDATE())<1
-		THEN SIGNAL SQLSTATE VALUE '45012' SET MESSAGE_TEXT = "day is not valid";
-	 
-	elseif (NEW.price > 1000000) THEN
+	if (NEW.price > 1000000) THEN
 		SIGNAL SQLSTATE VALUE '45021'
 		SET MESSAGE_TEXT = "price is not valid";
 
@@ -146,6 +140,8 @@ begin
 		SIGNAL SQLSTATE VALUE '45021'
 		SET MESSAGE_TEXT = "price is not valid";
 	end if;
+
+
 end//
 DELIMITER ;
 
@@ -154,7 +150,7 @@ DELIMITER ;
 DELIMITER $$
 CREATE PROCEDURE `chech_class`(IN class varchar(20))
 BEGIN
-	if (LENGTH(NEW.class )>20) THEN
+	if (LENGTH(class )>20) THEN
 			SIGNAL SQLSTATE VALUE '45010'
 			SET MESSAGE_TEXT = "class is not valid";
      end if;
@@ -185,47 +181,45 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE `check_adminS`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(20),IN birthday date,IN mobile_no int )
+CREATE PROCEDURE `check_customer`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(255),IN birthday date,IN mobile_no int )
   BEGIN
-   
-    IF NEW.email NOT LIKE "%_@%_.__%" THEN
+
+    IF email NOT LIKE "%_@%_.__%" THEN
     	SIGNAL SQLSTATE VALUE '45006'
         SET MESSAGE_TEXT = "Email is not valid";
     END IF;
-    if (LENGTH(NEW.first_name )<3) THEN
+    if (LENGTH(first_name )<3) THEN
     	SIGNAL SQLSTATE VALUE '45007'
         SET MESSAGE_TEXT = "first name is not valid";
     END IF;
-    if (LENGTH(NEW.last_name )<3) THEN
+    if (LENGTH(last_name )<3) THEN
     	SIGNAL SQLSTATE VALUE '45008'
         SET MESSAGE_TEXT = "last name is not valid";
         
     END IF;
-    if (LENGTH(NEW.password )<7) THEN
+    if (LENGTH(password )<7) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
 
 	END IF;
     
-    if (LENGTH(NEW.password )>20) THEN
+    if (LENGTH(password )>255) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
        
     END IF;
     
-    if DATEDIFF(new.birthday, CURDATE())<0 THEN
+    if DATEDIFF(birthday, CURDATE())>0 THEN
 			SIGNAL SQLSTATE VALUE '45001'
 			SET MESSAGE_TEXT = "birthdate is not valid";
      
     END IF;
     
-    if not new.mobile_no not like '^[0-9]{10}$' then
+    if not mobile_no not like '^[0-9]{10}$' then
 			SIGNAL SQLSTATE VALUE '45005'
 			SET MESSAGE_TEXT = "mobile no is not valid";
      END IF;
-    
-    
-        
+  
   END$$
 
 DELIMITER ;
@@ -239,7 +233,30 @@ CREATE TRIGGER `check_cus_insert`
   ON `customer`
   FOR EACH ROW
   BEGIN
-    CALL check_adminS(new.first_name,new.last_name,new.email,new.password,NEW.birthday,new.mobile_no);
+
+    DECLARE new_hash VARCHAR(255);
+
+    CALL check_customer(new.first_name,new.last_name,new.email,new.password,new.birthday,new.mobile_no);
+
+    SET new_hash = sha1(new.password); 
+	  SET NEW.password = new_hash;
+  END$$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE TRIGGER `check_cus_update`
+  BEFORE UPDATE
+  ON `customer`
+  FOR EACH ROW
+  BEGIN
+
+    DECLARE new_hash VARCHAR(255);
+
+    CALL check_customer(new.first_name,new.last_name,new.email,new.password,new.birthday,new.mobile_no);
+
+    SET new_hash = sha1(new.password); 
+	  SET NEW.password = new_hash;
   END$$
 DELIMITER ;
 
@@ -331,7 +348,3 @@ DELIMITER ;
 
 CREATE INDEX by_user_id ON customer (user_id);
 CREATE INDEX flight_id_index ON flight_schedule (flight_schedule_id);
-
-
-
-
