@@ -19,6 +19,10 @@ import java.util.logging.Logger;
  */
 public class ViewDetails extends javax.swing.JFrame {
 
+    /**
+     * Creates new form ViewDetails
+     */
+    
     private java.util.Date picked_start_date = null;
     private Date picked_sql_start_date = null;
     
@@ -37,35 +41,18 @@ public class ViewDetails extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        lbl_detail = new javax.swing.JLabel();
-        lbl_1 = new javax.swing.JLabel();
-        lbl_2 = new javax.swing.JLabel();
-        lbl_3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         btn_back = new javax.swing.JButton();
         starting_date = new org.jdesktop.swingx.JXDatePicker();
         ending_date = new org.jdesktop.swingx.JXDatePicker();
+        lbl_0 = new javax.swing.JLabel();
+        lbl_1 = new javax.swing.JLabel();
+        lbl_2 = new javax.swing.JLabel();
+        lbl_3 = new javax.swing.JLabel();
+        lbl_4 = new javax.swing.JLabel();
+        btn_view = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        lbl_detail.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbl_detail.setForeground(new java.awt.Color(0, 51, 255));
-
-        lbl_1.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbl_1.setForeground(new java.awt.Color(0, 51, 255));
-
-        lbl_2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbl_2.setForeground(new java.awt.Color(0, 51, 255));
-
-        lbl_3.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        lbl_3.setForeground(new java.awt.Color(0, 51, 255));
-
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Number of booking by customer type");
 
         btn_back.setText("Back");
         btn_back.addActionListener(new java.awt.event.ActionListener() {
@@ -74,135 +61,120 @@ public class ViewDetails extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Date Range: ");
+        lbl_0.setText("No of Total Customers");
 
-        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("-");
+        lbl_1.setText("No of Gokd Customers");
 
-        jButton1.setText("View Booking");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        lbl_2.setText("No of Beginner Customers");
+
+        lbl_3.setText("No of Guest Customers");
+
+        lbl_4.setText("No of Frequent Customers");
+
+        btn_view.setText("View");
+        btn_view.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btn_viewActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(btn_back)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jLabel4))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(79, 79, 79)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(46, 46, 46))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(61, 61, 61))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(lbl_1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(68, 68, 68))
-                            .addComponent(lbl_detail, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(124, 124, 124))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(32, 32, 32)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(26, 26, 26))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(btn_back))
-                .addGap(19, 19, 19)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
-                    .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 81, Short.MAX_VALUE)
-                .addComponent(jButton1)
-                .addGap(18, 18, 18)
-                .addComponent(lbl_detail)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lbl_3)
-                .addGap(53, 53, 53))
-        );
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        jLabel1.setText("Customer booking count");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(btn_back, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(83, 83, 83)
+                        .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(65, 65, 65)
+                        .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(lbl_1)
+                            .addComponent(lbl_0)
+                            .addComponent(lbl_2)
+                            .addComponent(lbl_3)
+                            .addComponent(lbl_4)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(211, 211, 211)
+                        .addComponent(btn_view))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(164, 164, 164)
+                        .addComponent(jLabel1)))
+                .addContainerGap(121, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addGap(5, 5, 5)
+                .addComponent(btn_back)
+                .addGap(34, 34, 34)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(starting_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(ending_date, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34)
+                .addComponent(btn_view)
+                .addGap(15, 15, 15)
+                .addComponent(lbl_0)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lbl_1)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_2)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_3)
+                .addGap(18, 18, 18)
+                .addComponent(lbl_4)
+                .addContainerGap(55, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_backActionPerformed
-//        // TODO add your handling code here:
-//        datataking  dt = new datataking();
-//        this.setVisible(false);
-//        dt.setVisible(true);
+        // TODO add your handling code here:
         Admin_menu admin = new Admin_menu();
         this.setVisible(false);
         admin.setVisible(true);
     }//GEN-LAST:event_btn_backActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btn_viewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_viewActionPerformed
         // TODO add your handling code here:
         
         picked_start_date = starting_date.getDate();
         picked_sql_start_date = new Date(picked_start_date.getTime());
-        
+
         picked_end_date = ending_date.getDate();
         picked_sql_end_date = new Date(picked_end_date.getTime());
-        
+
         String col_val = null;
         String gold_cust = null;
         String freq_cust = null;
         String guest_cust = null;
-               
+        String beg_cust = null;
+
         Connection con = Database.getConnection();
         String query = "SELECT  count(b.booking_id) FROM booking b where b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
+
         //System.out.println(query);
-        ResultSet rs = Database.getData(query);       
+        ResultSet rs = Database.getData(query);
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query);
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
                     String columnValue = rs.getString(i);
                     col_val = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
@@ -213,20 +185,19 @@ public class ViewDetails extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
- 
+
         String query_1 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Gold' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
+
         System.out.println(query_1);
-        rs = Database.getData(query_1);       
+        rs = Database.getData(query_1);
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query_1);
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
                     String columnValue = rs.getString(i);
                     gold_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
@@ -237,20 +208,19 @@ public class ViewDetails extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
 
         String query_2 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Frequent' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
+
         System.out.println(query);
-        rs = Database.getData(query_2);       
+        rs = Database.getData(query_2);
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query_2);
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
                     String columnValue = rs.getString(i);
                     freq_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
@@ -261,20 +231,19 @@ public class ViewDetails extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        
+
         String query_3 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Guest' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
-        
+
         System.out.println(query_3);
-        rs = Database.getData(query_3);       
+        rs = Database.getData(query_3);
         try {
             Statement st = con.createStatement();
             rs = st.executeQuery(query_3);
             java.sql.ResultSetMetaData rsmd = rs.getMetaData();
             int columnsNumber = rsmd.getColumnCount();
             while (rs.next()) {
-            for (int i = 1; i <= columnsNumber; i++) {
-                if (i > 1) System.out.print(",  ");
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
                     String columnValue = rs.getString(i);
                     guest_cust = columnValue;
                     System.out.println(columnValue + " space " + rsmd.getColumnName(i));
@@ -285,20 +254,39 @@ public class ViewDetails extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-                
-        System.out.println(col_val);
-        
-        
-        this.lbl_detail.setText("No of customers : " + col_val);
-        this.lbl_1.setText("No of Gold customers :  " + gold_cust);
-        this.lbl_2.setText("No of Frequent customers : " + freq_cust);
-        this.lbl_3.setText("No of Guest customers : " + guest_cust);
-       
-    }                                              
 
-    private void btn_view_bookingActionPerformed(java.awt.event.ActionEvent evt) {                                                 
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+        String query_4 = "SELECT COUNT(c.user_id) from customer c, booking b WHERE b.user_id = c.user_id AND c.customer_type = 'Beginner' and b.booked_date between '"+picked_sql_start_date+"' and '"+picked_sql_end_date+"';";
+
+        System.out.println(query_4);
+        rs = Database.getData(query_4);
+        try {
+            Statement st = con.createStatement();
+            rs = st.executeQuery(query_4);
+            java.sql.ResultSetMetaData rsmd = rs.getMetaData();
+            int columnsNumber = rsmd.getColumnCount();
+            while (rs.next()) {
+                for (int i = 1; i <= columnsNumber; i++) {
+                    if (i > 1) System.out.print(",  ");
+                    String columnValue = rs.getString(i);
+                    beg_cust = columnValue;
+                    System.out.println(columnValue + " space " + rsmd.getColumnName(i));
+                }
+                System.out.println("");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        System.out.println(col_val);
+
+        this.lbl_0.setText("No of customers : " + col_val);
+        this.lbl_1.setText("No of Gold customers :  " + gold_cust);
+        this.lbl_2.setText("No of Beginner customers : " + beg_cust);
+        this.lbl_3.setText("No of Guest customers : " + guest_cust);
+        this.lbl_4.setText("No of Frequent customers : " + freq_cust);
+
+    }//GEN-LAST:event_btn_viewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -335,19 +323,16 @@ public class ViewDetails extends javax.swing.JFrame {
         });
     }
 
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_back;
+    private javax.swing.JButton btn_view;
     private org.jdesktop.swingx.JXDatePicker ending_date;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JLabel lbl_0;
     private javax.swing.JLabel lbl_1;
     private javax.swing.JLabel lbl_2;
     private javax.swing.JLabel lbl_3;
-    private javax.swing.JLabel lbl_detail;
+    private javax.swing.JLabel lbl_4;
     private org.jdesktop.swingx.JXDatePicker starting_date;
     // End of variables declaration//GEN-END:variables
 }
