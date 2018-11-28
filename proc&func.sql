@@ -11,4 +11,14 @@ CREATE PROCEDURE `login`(IN email varchar(250), IN password varchar(255))
     SELECT user_id FROM customer where customer.email=email and customer.password = password;
   END //
 delimiter ;
+
 grant execute on procedure login to 'customer'@'localhost';
+
+delimiter //
+CREATE PROCEDURE `get_airport`()
+  BEGIN  
+    Select airport_name from airport;
+  END //
+delimiter ;
+
+grant execute on procedure get_airport to 'customer'@'localhost';

@@ -34,7 +34,7 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE `check_admin`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(20) )
+CREATE PROCEDURE `check_admin`(IN first_name varchar(250), IN last_name VARCHAR(250), IN email VARCHAR(250), IN password varchar(255) )
   BEGIN
     IF email NOT LIKE "%_@%_.__%" THEN
     	SIGNAL SQLSTATE VALUE '45006'
@@ -203,7 +203,7 @@ CREATE PROCEDURE `check_customer`(IN first_name varchar(250), IN last_name VARCH
 
 	END IF;
     
-    if (LENGTH(password )>20) THEN
+    if (LENGTH(password )>255) THEN
     	SIGNAL SQLSTATE VALUE '45009'
         SET MESSAGE_TEXT = "Password is not valid";
        

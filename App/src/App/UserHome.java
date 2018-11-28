@@ -5,6 +5,7 @@
  */
 package App;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -42,11 +43,13 @@ public class UserHome extends javax.swing.JFrame {
     }
     
     public void setComboBoxData(){
-        String sql = "select airport_name from airport";
         try {
-            PreparedStatement prep = con.prepareStatement(sql);
-            ResultSet rs = (ResultSet)CustomerDatabase.getData(prep);
-        
+            
+            String call = "{call get_airport()}";
+            
+            CallableStatement stmt = con.prepareCall(call);
+            ResultSet rs = stmt.executeQuery();
+                    
             rs.last();
         
             airports = new String[rs.getRow()];

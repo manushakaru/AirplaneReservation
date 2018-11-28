@@ -1,16 +1,16 @@
 ﻿use airplane;
 
-INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '123456');
-INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '123456');
+INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('1', 'dilan', 'sachintha', 'dilan@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b');
+INSERT INTO `admins` (`admin_id`, `first_name`, `last_name`, `email`, `password`) VALUES ('2', 'manusha', 'karunathilaka', 'manusha@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b');
 
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Frequent', '5', '5');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Beginner', '0', '0');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Gold', '10', '10');
 INSERT INTO `customer_state` (`customer_state`, `discount`, `bookings_needed`) VALUES ('Guest', '0', '0');
 
-INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '123456', '1996-8-15', 'Gold', '0711234567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '123456', '1996-10-25', '0711256567');
-INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('3', 'erandana', 'kumara', 'erandana@123.com', '123456', '1998-5-9', 'Frequent', '0751234567');
+INSERT INTO `customer` (`user_id`, `first_name`,`last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('1', 'Damitha','chathuranga', 'test@123.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1996-8-15', 'Gold', '0711234567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `mobile_no`) VALUES ('2', 'dilan', 'sachintha', 'dilan@123.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1996-10-25', '0711256567');
+INSERT INTO `customer` (`user_id`, `first_name`, `last_name`, `email`, `password`, `birthday`, `customer_type`, `mobile_no`) VALUES ('3', 'erandana', 'kumara', 'erandana@123.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', '1998-5-9', 'Frequent', '0751234567');
 
 
 INSERT INTO `aircraft` (`craft_id`, `craft_type`) VALUES ('1', 'Boeing 737');
