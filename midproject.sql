@@ -165,3 +165,9 @@ GRANT SELECT ON airplane.predefined_schedule TO 'customer'@'localhost';
 GRANT SELECT ON airplane.price TO 'customer'@'localhost';
 GRANT SELECT ON airplane.route TO 'customer'@'localhost';
 GRANT SELECT ON airplane.seat TO 'customer'@'localhost';
+
+
+
+CREATE VIEW flight_users AS
+SELECT birthday,user_id,first_name,flight_schedule_id
+FROM flight_schedule natural join booking natural join customer;
