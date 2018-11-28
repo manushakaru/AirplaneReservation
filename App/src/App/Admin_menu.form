@@ -36,7 +36,7 @@
                           <Component id="jButton3" alignment="1" max="32767" attributes="0"/>
                           <Component id="btn_passenger_count" alignment="1" max="32767" attributes="0"/>
                           <Component id="btn_booking_count" alignment="1" max="32767" attributes="0"/>
-                          <Component id="jButton1" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
+                          <Component id="pastState" alignment="0" min="-2" pref="177" max="-2" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -56,7 +56,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="btn_booking_count" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+              <Component id="pastState" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="-2" attributes="0"/>
               <Component id="jButton4" min="-2" max="-2" attributes="0"/>
               <EmptySpace pref="79" max="32767" attributes="0"/>
@@ -102,10 +102,13 @@
         <Property name="text" type="java.lang.String" value="Total Revenue"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="pastState">
       <Properties>
         <Property name="text" type="java.lang.String" value="Past flisht states"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="pastStateActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>
