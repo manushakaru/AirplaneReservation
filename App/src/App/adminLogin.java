@@ -2,7 +2,9 @@ package App;
 
 import java.sql.Date;
 import static App.Login.userId;
+import java.sql.CallableStatement;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -111,13 +113,24 @@ public class adminLogin extends javax.swing.JFrame {
         
         Connection con = Database.getConnection();
         
-        String query = "SELECT * FROM admins where email='"+uname+"' and password='"+pword+"';";
-        
-        ResultSet rs;
-
         try {
+        
+            CallableStatement cstmt = con.prepareCall("{? = call hash_pass(?)}");
+            cstmt.registerOutParameter(1,java.sql.Types.VARCHAR);
+            cstmt.setString(2, pword);
+            cstmt.execute();
+
+            String query = "SELECT * FROM admins where email=? and password=?;";
+            
+            PreparedStatement prep = con.prepareStatement(query);
+            prep.setString(1, uname);
+            prep.setString(2, cstmt.getString(1));
+
+            ResultSet rs;
+
+        
             Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = prep.executeQuery();
         
             if(rs.last()){
                 

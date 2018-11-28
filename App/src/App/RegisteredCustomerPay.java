@@ -149,7 +149,7 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
             
             int i = 0;
             while(i < book_queries.size()){
-                CustomerDatabase.setData(book_queries.get(i));
+                int j = (Integer)CustomerDatabase.setData(book_queries.get(i));
                 i++;
             }
             
@@ -161,7 +161,7 @@ public class RegisteredCustomerPay extends javax.swing.JFrame {
           catch (Exception e){
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
-            JOptionPane.showMessageDialog(null, "Seats you selected may not be available, Try again!!!");
+            JOptionPane.showMessageDialog(null, e.getMessage());
             try {
                 conn.rollback();
                 conn.setAutoCommit(true);
