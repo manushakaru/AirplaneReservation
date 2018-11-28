@@ -129,7 +129,7 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         aircraft_type = txt_aircraftType.getText();
         System.out.println(aircraft_type);
         Connection con = Database.getConnection();
-        String query = "SELECT SUM(b.price - ((b.price)*(cs.discount)/100)) FROM booking b, seat s, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = '"+aircraft_type+"' AND ac.craft_id = s.craft_id and s.seat_id = b.seat_id and b.user_id = c.user_id and c.customer_type = cs.customer_state";
+        String query = "SELECT Round(SUM(b.price - ((b.price)*(cs.discount)/100)),2) FROM booking b, seat s, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = '"+aircraft_type+"' AND ac.craft_id = s.craft_id and s.seat_id = b.seat_id and b.user_id = c.user_id and c.customer_type = cs.customer_state";
         
         String col_val = null;
         System.out.println(query);
