@@ -6,6 +6,7 @@ import static App.PastFlight.airport_to;
 import static App.datataking.airport_from;
 import static App.datataking.airport_to;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -28,20 +29,26 @@ public class ViewPastflight extends javax.swing.JFrame {
         
         try {
             
-            String query ="select flight_schedule_id ,arrival_time , departure_time,  date, departure_delay, "
+            /*<airport_origin,airport_dest>*/
+            
+            PreparedStatement query = null;            
+
+            query = con.prepareStatement("select flight_schedule_id ,arrival_time , departure_time,  date, departure_delay, "
                     + "arrival_delay, count(booking_id) as booking_count"
                     + " from predefined_schedule join (booking join ((route join flight_schedule using(route_id)) "
                     + "natural left outer join delay) using (flight_schedule_id)) using(schedule_id)"
                     + " where origin = (select airport_code from airport where "
-                    + "airport_name ='"+airport_origin+"')  and destination = "
-                    + "(select airport_code from airport where airport_name = '"+airport_dest+"')"
-                    + " and date < curdate() group by flight_schedule_id ;";
-                
+                    + "airport_name =? )  and destination = "
+                    + "(select airport_code from airport where airport_name = ? )"
+                    + " and date < curdate() group by flight_schedule_id ;");
+ 
+            query.setString(1,airport_origin.toString());
+            query.setString(2,airport_dest.toString());
        
             ResultSet rs;
             
             Statement st = con.createStatement();
-            rs = st.executeQuery(query);
+            rs = query.executeQuery();
             
                 
             int i = 0;
