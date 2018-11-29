@@ -161,7 +161,7 @@ public class FlightTypeRevenue extends javax.swing.JFrame {
         
         PreparedStatement query = null;
         try {
-            query = con.prepareStatement("SELECT Round(SUM(b.price - ((b.price)*(cs.discount)/100)),2) FROM booking b, seat s, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = ? AND ac.craft_id = s.craft_id and s.seat_id = b.seat_id and b.user_id = c.user_id and c.customer_type = cs.customer_state ;");
+            query = con.prepareStatement("SELECT Round(SUM(b.price - ((b.price)*(cs.discount)/100)),2) FROM booking b, flight_schedule f, aircraft ac, customer c, customer_state cs WHERE ac.craft_type = ? AND ac.craft_id = f.craft_id and f.flight_schedule_id = b.flight_schedule_id and b.user_id = c.user_id and c.customer_type = cs.customer_state ;");
         } catch (SQLException ex) {
             Logger.getLogger(FlightTypeRevenue.class.getName()).log(Level.SEVERE, null, ex);
         }
